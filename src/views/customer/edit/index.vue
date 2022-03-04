@@ -1,6 +1,6 @@
 <template>
   <div class="app-container custom-edit">
-    <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+    <el-form ref="form" :model="form" :rules="rules" label-width="60px" label-position="right">
       <el-form-item label="姓名" prop="name">
         <el-input v-model="form.name" />
       </el-form-item>
@@ -196,6 +196,8 @@ export default {
 
 .custom-edit {
   width: 600px;
+  padding: 10px 0;
+  margin-left: 30px;
 }
 </style>
 
