@@ -1,78 +1,224 @@
 <template>
-  <div class="app-container">
+  <div class="customer-list-container">
+    <el-form :inline="true" :model="customerQuery" class="customer-form">
+      <el-form-item>
+        <el-input v-model="customerQuery.name" placeholder="姓名" />
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="customerQuery.contractMatch" placeholder="手机号/微信/QQ" />
+      </el-form-item>
+      <el-form-item>
+        <el-select v-model="customerQuery.medicalDepartment" placeholder="请选择科室">
+          <el-option label="科一" value="1" />
+          <el-option label="科二" value="2" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="customerQuery.createPerson" placeholder="创建人" />
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker v-model="customerQuery.createTime" type="date" placeholder="创建时间" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="doQuery">查询</el-button>
+      </el-form-item>
+    </el-form>
+    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.total }}条数据，{{ pageData.pages }}页，当前第{{ pageData.pageNum }}页。</span>
     <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
+      :data="pageData.data"
+      style="width: 100%"
+      :row-class-name="tableRowClassName"
     >
-      <el-table-column align="center" label="ID" width="95">
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="70"
+      />
+      <el-table-column
+        prop="genderDesc"
+        label="性别"
+        min-width="40"
+      />
+      <el-table-column
+        prop="company"
+        label="公司"
+      />
+      <el-table-column
+        prop="medicalDepartment"
+        label="科室"
+      />
+      <el-table-column
+        prop="phone"
+        label="手机号"
+        width="110"
+      />
+      <el-table-column
+        prop="wechat"
+        label="微信"
+      />
+      <el-table-column
+        prop="qq"
+        label="QQ号"
+      />
+      <el-table-column
+        prop="qqGroup"
+        label="QQ群"
+      />
+      <el-table-column
+        prop="requirement"
+        label="需求"
+      />
+      <el-table-column
+        prop="lastVisit"
+        label="最近回访"
+      />
+      <el-table-column
+        prop="memo"
+        label="备注"
+      />
+      <el-table-column
+        prop="createTime"
+        label="创建时间"
+      />
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="100"
+      >
         <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title + '列表页面' }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviewss" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          <el-button type="text" size="small" @click="edit(scope.row)">查看</el-button>
+          <el-button type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-row :gutter="20">
+      <el-col :span="12" :offset="10">
+      <el-button-group class="page-next">
+        <el-button type="primary" icon="el-icon-arrow-left" plain>上一页</el-button>
+        <el-button type="primary" plain>下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+      </el-button-group>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
-<script>
-import { getList } from '@/api/table'
+<style>
+.el-table .warning-row {
+  background: oldlace;
+}
 
+.el-table .success-row {
+  background: #f0f9eb;
+}
+
+.customer-form{
+  margin: 5px 10px;
+}
+
+.page-next {
+  margin: 5px auto;
+}
+</style>
+
+<script>
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
-      list: null,
-      listLoading: true
+      customerQuery: {
+        name: '',
+        contractMatch: '',
+        createPerson: '',
+        createTime: ''
+      },
+      pageData: {
+        pageSize: 20,
+        pageNum: 1,
+        total: 30,
+        pages: 3,
+        hasNextPage: true,
+        data: [{
+          id: '1',
+          name: '罗小虎',
+          gender: '1',
+          genderDesc: '男',
+          company: '帅气无限责任公司！',
+          medicalDepartment: '肿瘤科老年医学科',
+          phone: '13312341234',
+          wechat: 'sadfasffasd',
+          qq: '1234567890',
+          qqGroup: '1234567890',
+          requirement: '萨福萨福萨福暗示法暗示法啊是否暗示法啊',
+          lastVisit: '？',
+          memo: '备注信息',
+          createTime: '2016-05-02',
+          state: '1'
+        }, {
+          id: '2',
+          name: '罗小虎2',
+          gender: '1',
+          genderName: '男',
+          company: '帅气无限责任公司！',
+          medicalDepartment: '肿瘤科老年医学科',
+          phone: '13312341234',
+          wechat: 'sadfasfasfasd',
+          qq: '1234567890',
+          qqGroup: '1234567890',
+          requirement: '这是需求',
+          lastVisit: '？',
+          memo: '备注信息',
+          createTime: '2016-05-02',
+          state: '2'
+        }, {
+          id: '3',
+          name: '罗小虎3',
+          gender: '1',
+          genderName: '男',
+          company: '帅气无限责任公司！',
+          medicalDepartment: '肿瘤科老年医学科',
+          phone: '13312341234',
+          wechat: 'sadfasfasfasd',
+          qq: '1234567890',
+          qqGroup: '1234567890',
+          requirement: '这是需求',
+          lastVisit: '？',
+          memo: '备注信息',
+          createTime: '2016-05-02',
+          state: '3'
+        }, {
+          id: '4',
+          name: '罗小虎4',
+          gender: '1',
+          genderName: '男',
+          company: '帅气无限责任公司！',
+          medicalDepartment: '肿瘤科老年医学科',
+          phone: '13312341234',
+          wechat: 'sadfasfasfasd',
+          qq: '1234567890',
+          qqGroup: '1234567890',
+          requirement: '这是需求',
+          lastVisit: '？',
+          memo: '备注信息',
+          createTime: '2016-05-02',
+          state: '4'
+        }]
+      }
     }
   },
-  created() {
-    this.fetchData()
-  },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+    tableRowClassName({ row, rowIndex }) {
+      console.log(row, rowIndex)
+      if (row.state === '1') {
+        return 'warning-row'
+      } else if (row.state === '4') {
+        return 'success-row'
+      }
+      return ''
+    },
+    edit(data) {
+      console.log(data)
+    },
+    doQuery(queryData) {
+      console.log(queryData)
     }
   }
 }
