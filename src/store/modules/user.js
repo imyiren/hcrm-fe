@@ -7,7 +7,9 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: [],
+    title: '',
+    workNo: '0'
   }
 }
 
@@ -28,18 +30,26 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_TITLE: (state, title) => {
+    state.title = title
+  },
+  SET_WORK_NO: (state, workNo) => {
+    state.workNo = workNo
   }
 }
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { username, password, validationCode, validationKey } = userInfo
+    console.log(username, password, validationCode, validationKey)
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ username: username.trim(), password: password, validationCode: validationCode, validationKey: validationKey }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        console.log(response)
+        commit('SET_TOKEN', data.sessionId)
+        setToken(data.sessionId)
         resolve()
       }).catch(error => {
         reject(error)
@@ -54,19 +64,21 @@ const actions = {
         const { data } = response
 
         if (!data) {
-          reject('Verification failed, please Login again.')
+          reject('用户信息为空！请重试！')
         }
 
-        const { roles, name, avatar } = data
+        const { roleList, realName, avatarUrl, title, workNo } = data
 
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
+        if (!roleList || roleList.length <= 0) {
+          reject('当前登录用户没有权限角色！')
         }
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_ROLES', roleList)
+        commit('SET_NAME', realName)
+        commit('SET_AVATAR', avatarUrl)
+        commit('SET_TITLE', title || '员工')
+        commit('SET_WORK_NO', workNo || '000000')
         resolve(data)
       }).catch(error => {
         reject(error)

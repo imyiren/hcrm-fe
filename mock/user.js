@@ -3,23 +3,25 @@ const tokens = {
   admin: {
     token: 'admin-token'
   },
-  editor: {
-    token: 'editor-token'
+  user: {
+    token: 'user-token'
   }
 }
 
 const users = {
-  'admin-token': {
+  'admin-session': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    name: '罗小虎',
+    title: 'CEO'
   },
-  'editor-token': {
-    roles: ['editor'],
-    introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+  'user-session': {
+    roles: ['user'],
+    introduction: 'I am an User',
+    avatar: 'https://p.qqan.com/up/2021-2/16137992359659254.jpg',
+    name: '罗小锋',
+    title: '销售部-销售专员'
   }
 }
 
@@ -36,24 +38,27 @@ module.exports = [
       if (!token) {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: '账号密码不正确！'
         }
       }
 
       return {
         code: 20000,
-        data: token
+        message: 'success!',
+        data: {
+          sessionId: username + '-session'
+        }
       }
     }
   },
 
   // get user info
   {
-    url: '/api/user/info\.*',
+    url: '/api/user/session\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
+      const { sessionId } = config.query
+      const info = users[sessionId]
 
       // mock error
       if (!info) {

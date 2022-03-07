@@ -13,11 +13,33 @@ export default {
     key() {
       return this.$route.path
     }
+  },
+  mounted() {
+    // const can = document.getElementById('water')
+    // can.style.display = 'none'
+    // const body = document.body
+    // body.appendChild(can)
+    // can.height = 150
+    // can.width = 150
+    // const ctx = can.getContext('2d')
+    // ctx.font = '16px Arial'
+    // ctx.fillStyle = '#999'
+    // ctx.fillText('code', 10, 10)
+    // body.style.backgroundImage = 'url(' + can.toDataURL('image/png') + ')'
+  },
+  methods: {
   }
 }
 </script>
 
 <style scoped>
+.water-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
 .app-main {
   /*50 = navbar  */
   min-height: calc(100vh - 50px);

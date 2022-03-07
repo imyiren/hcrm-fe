@@ -8,22 +8,30 @@
       </div>
       <app-main />
     </div>
+    <water :input-text="workNo + ' - ' + name" />
   </div>
+
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from './components'
+import { Navbar, Sidebar, AppMain, Water } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    Water
   },
   mixins: [ResizeMixin],
   computed: {
+    ...mapGetters([
+      'name',
+      'workNo'
+    ]),
     sidebar() {
       return this.$store.state.app.sidebar
     },

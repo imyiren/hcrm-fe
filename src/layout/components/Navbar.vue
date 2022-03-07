@@ -3,7 +3,6 @@
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb class="breadcrumb-container" />
-
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -28,6 +27,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <el-link type="info" :underline="false" class="right-menu" style="min-width: 100px; line-height: 50px;" @click="nameClick">{{ name }}</el-link>
   </div>
 </template>
 
@@ -44,7 +44,9 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'name',
+      'workNo'
     ])
   },
   methods: {
@@ -54,6 +56,9 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    nameClick() {
+      this.$router.push('/user/info')
     }
   }
 }

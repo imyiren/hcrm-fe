@@ -57,7 +57,7 @@ export const asyncRoutes = [
       path: '',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard', permission: 'HomePage' }
     }]
   },
 
@@ -66,25 +66,25 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/customer',
     name: 'Customer',
-    meta: { title: '客户管理', icon: 'el-icon-s-custom' },
+    meta: { title: '客户管理', icon: 'el-icon-s-custom', permission: 'CustomerManager' },
     children: [
       {
         path: 'edit',
-        name: 'Edit',
+        name: 'Create',
         component: () => import('@/views/customer/edit'),
-        meta: { title: '客户录入', icon: 'tree' }
+        meta: { title: '客户录入', icon: 'tree', permission: 'CustomerManager_create' }
       },
       {
         path: '',
         name: 'List',
         component: () => import('@/views/customer/list'),
-        meta: { title: '客户列表', icon: 'table' }
+        meta: { title: '客户列表', icon: 'table', permission: 'CustomerManager_list' }
       },
       {
         path: 'edit/:id',
-        name: 'Edit',
+        name: 'EditByID',
         component: () => import('@/views/customer/edit'),
-        meta: { title: '编辑', icon: '' },
+        meta: { title: '客户编辑', icon: '', permission: 'CustomerManager_edit' },
         hidden: true
       }
     ]
@@ -96,20 +96,33 @@ export const asyncRoutes = [
     name: 'User',
     meta: {
       title: '用户管理',
-      icon: 'el-icon-user'
+      icon: 'el-icon-user',
+      permission: 'UserManager'
     },
     children: [
       {
-        path: '/info',
+        path: 'info',
         component: () => import('@/views/user/info'),
-        name: '我的信息',
-        meta: { title: '我的信息' }
+        name: 'MyUserInfo',
+        meta: { title: '我的信息', icon: 'user', permission: 'UserManager_my' }
+      },
+      {
+        path: ':id',
+        component: () => import('@/views/user/info'),
+        name: 'UserInfo',
+        hidden: true,
+        meta: { title: '用户信息', icon: 'user', permission: 'UserManager_user' }
       },
       {
         path: '',
         component: () => import('@/views/user/list'),
         name: 'UserList',
-        meta: { title: '用户列表' }
+        meta: {
+          title: '用户列表',
+          roles: ['admin'],
+          icon: 'table',
+          permission: 'UserManager_list'
+        }
       },
       {
         path: 'edit',
@@ -120,24 +133,24 @@ export const asyncRoutes = [
       }
     ]
   },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  //
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

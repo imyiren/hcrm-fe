@@ -23,68 +23,22 @@
         <el-button type="primary" @click="doQuery">查询</el-button>
       </el-form-item>
     </el-form>
-    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.total }}条数据，{{ pageData.pages }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table
-      :data="pageData.data"
-      style="width: 100%"
-      :row-class-name="tableRowClassName"
-    >
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="70"
-      />
-      <el-table-column
-        prop="genderDesc"
-        label="性别"
-        min-width="40"
-      />
-      <el-table-column
-        prop="company"
-        label="公司"
-      />
-      <el-table-column
-        prop="medicalDepartment"
-        label="科室"
-      />
-      <el-table-column
-        prop="phone"
-        label="手机号"
-        width="110"
-      />
-      <el-table-column
-        prop="wechat"
-        label="微信"
-      />
-      <el-table-column
-        prop="qq"
-        label="QQ号"
-      />
-      <el-table-column
-        prop="qqGroup"
-        label="QQ群"
-      />
-      <el-table-column
-        prop="requirement"
-        label="需求"
-      />
-      <el-table-column
-        prop="lastVisit"
-        label="最近回访"
-      />
-      <el-table-column
-        prop="memo"
-        label="备注"
-      />
-      <el-table-column
-        prop="createTime"
-        label="创建时间"
-      />
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="100"
-      >
+    <el-button type="primary"  size="mini" plain>添加客户</el-button>
+    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.total }}条数据，共计{{ pageData.pages }}页，当前第{{ pageData.pageNum }}页。</span>
+    <el-table :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
+      <el-table-column prop="name" label="姓名" width="70"/>
+      <el-table-column prop="genderDesc" label="性别" min-width="40"/>
+      <el-table-column prop="company" label="公司"/>
+      <el-table-column prop="medicalDepartment" label="科室"/>
+      <el-table-column prop="phone" label="手机号" width="110"/>
+      <el-table-column prop="wechat" label="微信"/>
+      <el-table-column prop="qq" label="QQ号"/>
+      <el-table-column prop="qqGroup" label="QQ群"/>
+      <el-table-column prop="requirement" label="需求"/>
+      <el-table-column prop="lastVisit" label="最近回访"/>
+      <el-table-column prop="memo" label="备注"/>
+      <el-table-column prop="createTime" label="创建时间"/>
+      <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="edit(scope.row)">查看</el-button>
           <el-button type="text" size="small">编辑</el-button>
@@ -206,7 +160,6 @@ export default {
   },
   methods: {
     tableRowClassName({ row, rowIndex }) {
-      console.log(row, rowIndex)
       if (row.state === '1') {
         return 'warning-row'
       } else if (row.state === '4') {

@@ -18,6 +18,7 @@
           <el-option label="朋友介绍" value="1" />
           <el-option label="QQ" value="2" />
           <el-option label="电话" value="3" />
+          <el-option label="其他" value="4" />
         </el-select>
       </el-form-item>
       <el-form-item label="手机" prop="phone">
@@ -37,14 +38,18 @@
       </el-form-item>
       <el-form-item label="科室" prop="medicalDepartment">
         <el-select v-model="form.medicalDepartment" placeholder="请选择科室">
-          <el-option label="耳鼻咽喉头颈科" value="1" />
-          <el-option label="胸外科" value="2" />
+          <el-option
+            v-for="item in medicalDepartmentList"
+            :key="item.code"
+            :label="item.value"
+            :value="item.code"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="需求" prop="requirement">
         <el-input v-model="form.requirement" type="textarea" rows="5" />
       </el-form-item>
-      <el-form-item  label="文件" prop="customerFileList">
+      <el-form-item label="文件" prop="customerFileList">
         <el-upload
           class="upload-demo"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -54,13 +59,14 @@
           multiple
           :limit="3"
           :on-exceed="handleCustomerFileExceed"
-          :file-list="form.customerFileList">
+          :file-list="form.customerFileList"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">上传方案、作者信息、课题等资料</div>
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
         </el-upload>
       </el-form-item>
-      <el-form-item  label="交付" prop="resultFileList">
+      <el-form-item label="交付" prop="resultFileList">
         <el-upload
           class="upload-demo"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -70,7 +76,8 @@
           multiple
           :limit="3"
           :on-exceed="handleResultFileExceed"
-          :file-list="form.resultFileList">
+          :file-list="form.resultFileList"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">上传方案、文章、标书、原始数据等文件。</div>
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
@@ -84,9 +91,12 @@
 </template>
 
 <script>
+import { listPropByKey } from '@/api/prop'
+
 export default {
   data() {
     return {
+      medicalDepartmentList: [],
       form: {
         id: '',
         name: '',
@@ -147,6 +157,11 @@ export default {
       }
     }
   },
+  mounted() {
+  },
+  created() {
+    this.loadMedicalDepartment()
+  },
   methods: {
     submitForm(form) {
       this.$refs[form].validate((valid) => {
@@ -161,29 +176,35 @@ export default {
         }
       })
     },
+    loadMedicalDepartment() {
+      listPropByKey('MEDICAL_DEPARTMENT').then(response => {
+        const { data } = response
+        this.medicalDepartmentList = data
+      })
+    },
     handleCustomerFileRemove(file, fileList) {
-      console.log(file, fileList);
+      console.log(file, fileList)
     },
     handleCustomerFilePreview(file) {
-      console.log(file);
+      console.log(file)
     },
     handleCustomerFileExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeCustomerFileRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`)
     },
     handleResultFileRemove(file, fileList) {
-      console.log(file, fileList);
+      console.log(file, fileList)
     },
     handleResultFilePreview(file) {
-      console.log(file);
+      console.log(file)
     },
     handleResultFileExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeResultFileRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`)
     }
   }
 }

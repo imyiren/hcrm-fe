@@ -17,6 +17,6 @@ export function isExternal(path) {
 export function validUsername(str) {
   const mailExpr = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/
   const phoneExpr = /^[0-9]{11}$/
-  const usernameExpr = /^[a-zA-Z]+[a-zA-Z0-9_-]{4,16}$/
+  const usernameExpr = /^[a-zA-Z]+[a-zA-Z0-9_-]{3,16}$/
   return (mailExpr.test(str) || phoneExpr.test(str) || usernameExpr.test(str))
 }

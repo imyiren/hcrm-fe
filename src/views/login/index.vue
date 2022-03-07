@@ -42,7 +42,7 @@
       </el-form-item>
       <el-form-item>
         <el-input
-          ref="valiadtion"
+          ref="validation"
           v-model="loginForm.validationCode"
           type="text"
           placeholder="请输入验证码"
@@ -85,11 +85,14 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        validationKey: '',
+        validationCode: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        validationCode: [{ required: true, trigger: 'blur' }]
       },
       loading: false,
       passwordType: 'password',
@@ -119,7 +122,7 @@ export default {
     changeValidationCodeImg() {
       this.validationCodeImgUrl = 'changed'
       this.$nextTick(() => {
-        this.$refs.valiadtion.focus()
+        this.$refs.validation.focus()
       })
     },
     handleLogin() {
