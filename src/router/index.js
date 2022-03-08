@@ -133,6 +133,24 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/uop',
+    component: Layout,
+    redirect: '/uop/info',
+    name: 'User',
+    meta: {
+      title: '组织权限',
+      icon: 'el-icon-user',
+      permission: 'UserManager'
+    },
+    children: [
+      {
+        path: 'info',
+        component: () => import('@/views/user/info'),
+        name: 'UopInfo',
+        meta: { title: 'UOP信息', icon: 'user', permission: 'Uop_info' }
+      }]
+  },
   //
   // {
   //   path: 'external-link',
@@ -150,7 +168,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
