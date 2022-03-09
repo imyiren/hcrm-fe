@@ -14,11 +14,11 @@
         <el-input v-model="form.company" />
       </el-form-item>
       <el-form-item label="来源" prop="sourceType">
-        <el-select v-model="form.sourceType" placeholder="请选择来源">
+        <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源">
           <el-option label="朋友介绍" value="1" />
           <el-option label="QQ" value="2" />
           <el-option label="电话" value="3" />
-          <el-option label="其他" value="4" />
+          <el-option label="其他" value="99" />
         </el-select>
       </el-form-item>
       <el-form-item label="手机" prop="phone">
@@ -37,7 +37,14 @@
         <el-input v-model="form.email" />
       </el-form-item>
       <el-form-item label="科室" prop="medicalDeptPropCode">
-        <el-select v-model="form.medicalDeptPropCode" placeholder="请选择科室">
+        <el-select
+          v-model="form.medicalDeptPropCode"
+          :filterable="true"
+          :clearable="true"
+          :default-first-option="true"
+          placeholder="请选择科室"
+          @focus="selectDeptProp"
+        >
           <el-option
             v-for="item in medicalDepartmentList"
             :key="item.code"
@@ -113,8 +120,8 @@ export default {
         email: '',
         requirement: '112312312312',
         medicalDeptPropCode: '',
-        customerFileList: 'null',
-        resultFileList: null
+        customerFileList: [],
+        resultFileList: []
       },
       rules: {
         realName: [
@@ -163,9 +170,14 @@ export default {
   mounted() {
   },
   created() {
-    this.loadMedicalDepartment()
+
   },
   methods: {
+    selectDeptProp() {
+      if (this.medicalDepartmentList.length < 1) {
+        this.loadMedicalDepartment()
+      }
+    },
     submitForm(form) {
       this.$refs[form].validate((valid) => {
         if (!valid) {
