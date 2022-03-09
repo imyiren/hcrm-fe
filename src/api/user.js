@@ -21,3 +21,16 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function uploadFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request({
+    url: '/uop/storage/upload',
+    method: 'post',
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}

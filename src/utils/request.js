@@ -15,7 +15,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    config.headers['Content-Type'] = 'Application/json; UTF-8'
+    // config.headers['Content-Type'] = 'Application/json; UTF-8'
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key

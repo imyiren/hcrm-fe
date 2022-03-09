@@ -58,13 +58,12 @@
       </el-form-item>
       <el-form-item label="文件" prop="customerFileList">
         <el-upload
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handleCustomerFilePreview"
+          action="/api/uop/storage/upload"
+          :http-request="upload"
           :on-remove="handleCustomerFileRemove"
           :before-remove="beforeCustomerFileRemove"
           multiple
-          :limit="3"
+          :limit="10"
           :on-exceed="handleCustomerFileExceed"
           :file-list="form.customerFileList"
         >
@@ -100,6 +99,7 @@
 <script>
 import { listPropByKey } from '@/api/prop'
 import { save } from '@/api/customer'
+import { uploadFile } from '@/api/user'
 
 export default {
   data() {
@@ -199,14 +199,22 @@ export default {
         this.medicalDepartmentList = data
       })
     },
-    handleCustomerFileRemove(file, fileList) {
-      console.log(file, fileList)
+    upload(data) {
+      const { file } = data
+      uploadFile(file).then(res => {
+        this.form.customerFileList.push({
+          uid: file.uid,
+          code: res.data.code,
+          name: res.data.filename,
+          url: res.data.url
+        })
+      })
     },
-    handleCustomerFilePreview(file) {
-      console.log(file)
+    handleCustomerFileRemove(file, fileList) {
+      this.form.customerFileList = fileList
     },
     handleCustomerFileExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+      this.$message.warning(`当前限制选择 10 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeCustomerFileRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
