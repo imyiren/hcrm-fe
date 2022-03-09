@@ -1,8 +1,8 @@
 <template>
   <div class="app-container custom-edit">
     <el-form ref="form" :model="form" :rules="rules" label-width="60px" label-position="right">
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name" />
+      <el-form-item label="姓名" prop="realName">
+        <el-input v-model="form.realName" />
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-radio-group v-model="form.gender">
@@ -36,8 +36,8 @@
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email" />
       </el-form-item>
-      <el-form-item label="科室" prop="medicalDepartment">
-        <el-select v-model="form.medicalDepartment" placeholder="请选择科室">
+      <el-form-item label="科室" prop="medicalDeptPropCode">
+        <el-select v-model="form.medicalDeptPropCode" placeholder="请选择科室">
           <el-option
             v-for="item in medicalDepartmentList"
             :key="item.code"
@@ -92,6 +92,7 @@
 
 <script>
 import { listPropByKey } from '@/api/prop'
+import { save } from '@/api/customer'
 
 export default {
   data() {
@@ -99,22 +100,24 @@ export default {
       medicalDepartmentList: [],
       form: {
         id: '',
-        name: '',
+        realName: '名字',
         gender: '1',
+        genderDesc: '男',
         company: '',
-        sourceType: '',
-        phone: '',
+        sourceType: '1',
+        sourceTypeDesc: '朋友介绍',
+        phone: '13312341234',
         wechat: '',
         qq: '',
         qqGroup: '',
         email: '',
-        requirement: '',
-        medicalDepartment: '',
-        customerFileList: [],
-        resultFileList: []
+        requirement: '112312312312',
+        medicalDeptPropCode: '',
+        customerFileList: 'null',
+        resultFileList: null
       },
       rules: {
-        name: [
+        realName: [
           { required: true, message: '请输入客户名字！', trigger: 'blur' },
           { min: 2, max: 5, message: '长度在 2 到 5 个字符！', trigger: 'blur' }
         ],
@@ -148,7 +151,7 @@ export default {
           { required: true, message: '请输入需求', trigger: 'blur' },
           { max: 128, message: '最大长度120个字！', trigger: 'blur' }
         ],
-        medicalDepartment: [
+        medicalDeptPropCode: [
           { required: true, message: '请选择科室！', trigger: 'change' }
         ],
         customerFileList: [
@@ -165,15 +168,17 @@ export default {
   methods: {
     submitForm(form) {
       this.$refs[form].validate((valid) => {
-        if (valid) {
-          this.$message({
-            type: 'success',
-            message: '保存成功，正在跳转～'
-          })
-        } else {
-          console.log('error submit!!')
+        if (!valid) {
           return false
         }
+        save(this.form).then(response => {
+          const { data } = response
+          console.log(data)
+          this.$message({
+            type: 'success',
+            message: '保存成功!'
+          })
+        })
       })
     },
     loadMedicalDepartment() {
@@ -216,7 +221,7 @@ export default {
 }
 
 .custom-edit {
-  width: 600px;
+  max-width: 600px;
   padding: 10px 0;
   margin-left: 30px;
 }

@@ -23,13 +23,13 @@
         <el-button type="primary" @click="doQuery">查询</el-button>
       </el-form-item>
     </el-form>
-    <el-button type="primary"  size="mini" plain>添加客户</el-button>
-    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.total }}条数据，共计{{ pageData.pages }}页，当前第{{ pageData.pageNum }}页。</span>
+    <el-button type="primary" size="mini" plain>添加客户</el-button>
+    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
     <el-table :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
-      <el-table-column prop="name" label="姓名" width="70"/>
+      <el-table-column prop="realName" label="姓名" width="70"/>
       <el-table-column prop="genderDesc" label="性别" min-width="40"/>
       <el-table-column prop="company" label="公司"/>
-      <el-table-column prop="medicalDepartment" label="科室"/>
+      <el-table-column prop="medicalDeptPropDesc" label="科室"/>
       <el-table-column prop="phone" label="手机号" width="110"/>
       <el-table-column prop="wechat" label="微信"/>
       <el-table-column prop="qq" label="QQ号"/>
@@ -37,6 +37,7 @@
       <el-table-column prop="requirement" label="需求"/>
       <el-table-column prop="lastVisit" label="最近回访"/>
       <el-table-column prop="memo" label="备注"/>
+      <el-table-column prop="createUserName" width="70" label="创建人"/>
       <el-table-column prop="createTime" label="创建时间"/>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
@@ -75,6 +76,8 @@
 </style>
 
 <script>
+import { list } from '@/api/customer'
+
 export default {
   data() {
     return {
@@ -87,76 +90,15 @@ export default {
       pageData: {
         pageSize: 20,
         pageNum: 1,
-        total: 30,
-        pages: 3,
+        totalSize: 0,
+        totalPage: 0,
         hasNextPage: true,
-        data: [{
-          id: '1',
-          name: '罗小虎',
-          gender: '1',
-          genderDesc: '男',
-          company: '帅气无限责任公司！',
-          medicalDepartment: '肿瘤科老年医学科',
-          phone: '13312341234',
-          wechat: 'sadfasffasd',
-          qq: '1234567890',
-          qqGroup: '1234567890',
-          requirement: '萨福萨福萨福暗示法暗示法啊是否暗示法啊',
-          lastVisit: '？',
-          memo: '备注信息',
-          createTime: '2016-05-02',
-          state: '1'
-        }, {
-          id: '2',
-          name: '罗小虎2',
-          gender: '1',
-          genderName: '男',
-          company: '帅气无限责任公司！',
-          medicalDepartment: '肿瘤科老年医学科',
-          phone: '13312341234',
-          wechat: 'sadfasfasfasd',
-          qq: '1234567890',
-          qqGroup: '1234567890',
-          requirement: '这是需求',
-          lastVisit: '？',
-          memo: '备注信息',
-          createTime: '2016-05-02',
-          state: '2'
-        }, {
-          id: '3',
-          name: '罗小虎3',
-          gender: '1',
-          genderName: '男',
-          company: '帅气无限责任公司！',
-          medicalDepartment: '肿瘤科老年医学科',
-          phone: '13312341234',
-          wechat: 'sadfasfasfasd',
-          qq: '1234567890',
-          qqGroup: '1234567890',
-          requirement: '这是需求',
-          lastVisit: '？',
-          memo: '备注信息',
-          createTime: '2016-05-02',
-          state: '3'
-        }, {
-          id: '4',
-          name: '罗小虎4',
-          gender: '1',
-          genderName: '男',
-          company: '帅气无限责任公司！',
-          medicalDepartment: '肿瘤科老年医学科',
-          phone: '13312341234',
-          wechat: 'sadfasfasfasd',
-          qq: '1234567890',
-          qqGroup: '1234567890',
-          requirement: '这是需求',
-          lastVisit: '？',
-          memo: '备注信息',
-          createTime: '2016-05-02',
-          state: '4'
-        }]
+        data: []
       }
     }
+  },
+  mounted() {
+    this.doQuery(this.customerQuery)
   },
   methods: {
     tableRowClassName({ row, rowIndex }) {
@@ -171,7 +113,9 @@ export default {
       console.log(data)
     },
     doQuery(queryData) {
-      console.log(queryData)
+      list(queryData).then(res => {
+        this.pageData = res
+      })
     }
   }
 }
