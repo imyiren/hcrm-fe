@@ -86,6 +86,13 @@ export const asyncRoutes = [
         component: () => import('@/views/customer/edit'),
         meta: { title: '客户编辑', icon: '', permission: 'CustomerManager_edit' },
         hidden: true
+      },
+      {
+        path: ':id',
+        name: 'EditByID',
+        component: () => import('@/views/customer/info'),
+        meta: { title: '客户详情', icon: '', permission: 'CustomerManager_edit' },
+        hidden: true
       }
     ]
   },

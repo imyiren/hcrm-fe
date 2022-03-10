@@ -169,8 +169,7 @@ export default {
     }
   },
   mounted() {
-    const { id } = this.$route.params
-    this.loadById(id)
+    this.loadById(this.$route.params.id)
   },
   methods: {
     loadById(id) {
@@ -198,8 +197,6 @@ export default {
           return false
         }
         save(this.form).then(response => {
-          const { data } = response
-          console.log(data)
           this.$message({
             type: 'success',
             message: '保存成功!'
@@ -265,7 +262,7 @@ export default {
 .custom-edit {
   max-width: 600px;
   padding: 10px 0;
-  margin-left: 10px;
+  margin: 10px auto;
 }
 </style>
 
