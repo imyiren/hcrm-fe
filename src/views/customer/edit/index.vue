@@ -109,7 +109,7 @@ export default {
       form: {
         id: '',
         realName: '',
-        gender: '1',
+        gender: 1,
         genderDesc: '男',
         company: '',
         sourceType: '',

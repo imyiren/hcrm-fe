@@ -2,13 +2,13 @@
   <div class="customer-list-container">
     <el-form :inline="true" :model="customerQuery" class="customer-form">
       <el-form-item>
-        <el-input v-model="customerQuery.name" placeholder="姓名" />
+        <el-input v-model="customerQuery.realName" placeholder="姓名" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="customerQuery.contractMatch" placeholder="手机号/微信/QQ" />
+        <el-input v-model="customerQuery.keyContent" placeholder="手机号/微信/QQ" />
       </el-form-item>
       <el-form-item>
-        <el-select v-model="customerQuery.medicalDepartment" placeholder="请选择科室">
+        <el-select v-model="customerQuery.medicalDeptPropCode" placeholder="请选择科室">
           <el-option label="科一" value="1" />
           <el-option label="科二" value="2" />
         </el-select>
@@ -84,9 +84,10 @@ export default {
       tableLoading: true,
       customerQuery: {
         pageSize: 10,
-        pageNum:1,
-        name: '',
-        contractMatch: '',
+        pageNum: 1,
+        realName: '',
+        keyContent: '',
+        medicalDeptPropCode: '',
         createPerson: '',
         createTime: ''
       },
