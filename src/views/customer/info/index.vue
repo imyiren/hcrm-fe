@@ -1,6 +1,7 @@
 <template>
   <div class="customer-info-container">
-    <el-divider content-position="left">基本信息: <span style="font-size: 25px">{{ customerInfo.realName }}</span>
+    <el-divider content-position="left">基本信息: <span style="font-size: 25px">{{ customerInfo.realName }}</span><el-divider direction="vertical" />
+      <el-button type="text" @click="edit">编辑</el-button>
     </el-divider>
     <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
       <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
@@ -18,8 +19,9 @@
       <el-descriptions-item label="科室">{{ customerInfo.medicalDeptPropDesc }}</el-descriptions-item>
       <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
+    <el-divider content-position="left">文件资料</el-divider>
     <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
-      <el-descriptions-item label="客户文件" :span="2">
+      <el-descriptions-item label="客户文件" label-class-name="file-label" :span="2">
         <span v-for="item in customerInfo.customerFileList" :key="item.code">
           <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
             class="el-icon-download"
@@ -29,7 +31,7 @@
       </el-descriptions-item>
     </el-descriptions>
     <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
-      <el-descriptions-item label="交付文件" :span="2">
+      <el-descriptions-item label="交付文件" label-class-name="file-label" :span="2">
         <span v-for="item in customerInfo.resultFileList" :key="item.code">
           <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
             class="el-icon-download"
@@ -118,6 +120,9 @@ export default {
       }).finally(() => {
         this.loading = false
       })
+    },
+    edit() {
+      this.$router.push('/customer/edit/' + this.customerInfo.id)
     }
   }
 }
@@ -127,5 +132,8 @@ export default {
 .customer-info-container {
   max-width: 1600px;
   margin: 10px auto;
+}
+.file-label {
+  width: 110px;
 }
 </style>

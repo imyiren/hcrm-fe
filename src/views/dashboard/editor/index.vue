@@ -6,8 +6,8 @@
         <span v-for="item in roles" :key="item" class="pan-info-roles">{{ item }}</span>
       </pan-thumb>
       <div class="info-container">
-        <span class="display_name"> {{ title }} {{ name }}</span>
-        <span style="font-size:20px;padding-top:20px;display:inline-block;">你好，当前时间是: {{ getTimeStr() }}</span>
+        <span class="display_name"> {{ name }}</span>
+        <span style="font-size:20px;padding-top:20px;display:inline-block;">你好，当前时间是: {{ currentTimeStr }}</span>
       </div>
     </div>
     <div>
@@ -26,6 +26,7 @@ export default {
   components: { PanThumb },
   data() {
     return {
+      currentTimeStr: '',
       emptyGif: 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
     }
   },
@@ -41,6 +42,12 @@ export default {
     getTimeStr() {
       return parseTime(new Date(), null)
     }
+  },
+  mounted() {
+    const _this = this
+    this.timer = setInterval(() => {
+      _this.currentTimeStr = _this.getTimeStr() // 修改数据date
+    }, 1000)
   }
 }
 </script>

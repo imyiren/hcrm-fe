@@ -17,7 +17,9 @@
         <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源">
           <el-option label="朋友介绍" :value="1" />
           <el-option label="QQ" :value="2" />
+          <el-option label="QQ群" :value="4" />
           <el-option label="电话" :value="3" />
+          <el-option label="微信" :value="5" />
           <el-option label="其他" :value="99" />
         </el-select>
       </el-form-item>
