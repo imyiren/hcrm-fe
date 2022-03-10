@@ -28,7 +28,7 @@
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
       <el-table-column prop="realName" label="姓名" width="70" />
       <el-table-column prop="genderDesc" label="性别" min-width="40" />
-      <el-table-column prop="company" label="公司" />
+      <el-table-column prop="company" label="单位" />
       <el-table-column prop="medicalDeptPropDesc" label="科室" />
       <el-table-column prop="phone" label="手机号" width="110" />
       <el-table-column prop="wechat" label="微信" />
