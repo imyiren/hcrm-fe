@@ -49,8 +49,8 @@
     <el-row :gutter="20">
       <el-col :span="12" :offset="10">
         <el-button-group class="page-next">
-          <el-button type="primary" icon="el-icon-arrow-left" plain>上一页</el-button>
-          <el-button type="primary" plain>下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
+          <el-button type="primary" icon="el-icon-arrow-left" plain :disabled="!pageData.hasPrePage" @click="prevPage">上一页</el-button>
+          <el-button type="primary" plain :disabled="!pageData.hasNextPage" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
         </el-button-group>
       </el-col>
     </el-row>
@@ -83,17 +83,20 @@ export default {
     return {
       tableLoading: true,
       customerQuery: {
+        pageSize: 10,
+        pageNum:1,
         name: '',
         contractMatch: '',
         createPerson: '',
         createTime: ''
       },
       pageData: {
-        pageSize: 20,
+        pageSize: 10,
         pageNum: 1,
         totalSize: 0,
         totalPage: 0,
-        hasNextPage: true,
+        hasNextPage: false,
+        hasPrePage: false,
         data: []
       }
     }
@@ -123,6 +126,14 @@ export default {
       }).finally(() => {
         this.tableLoading = false
       })
+    },
+    prevPage() {
+      this.customerQuery.pageNum--
+      this.doQuery(this.customerQuery)
+    },
+    nextPage() {
+      this.customerQuery.pageNum++
+      this.doQuery(this.customerQuery)
     }
   }
 }

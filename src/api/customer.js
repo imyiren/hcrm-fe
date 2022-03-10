@@ -20,6 +20,6 @@ export function list(data) {
   return request({
     url: '/hcrm/customer',
     method: 'get',
-    data
+    params: data
   })
 }
