@@ -35,8 +35,6 @@
       <el-table-column prop="qq" label="QQ号" />
       <el-table-column prop="qqGroup" label="QQ群" />
       <el-table-column prop="requirement" label="需求" />
-      <el-table-column prop="lastVisit" label="最近回访" />
-      <el-table-column prop="memo" label="备注" />
       <el-table-column prop="createUserName" width="70" label="创建人" />
       <el-table-column prop="createTime" label="创建时间" />
       <el-table-column fixed="right" label="操作" width="100">
