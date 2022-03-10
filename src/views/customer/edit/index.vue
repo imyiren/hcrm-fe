@@ -99,7 +99,7 @@
 <script>
 import { listPropByKey } from '@/api/prop'
 import { save } from '@/api/customer'
-import { uploadFile } from '@/api/user'
+import { uploadFile } from '@/api/uop'
 
 export default {
   data() {

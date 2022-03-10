@@ -34,3 +34,11 @@ export function uploadFile(file) {
     }
   })
 }
+
+export function getValidationPic() {
+  return request({
+    url: '/uop/open/validation/pic',
+    method: 'post'
+  })
+}
+

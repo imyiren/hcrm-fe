@@ -52,7 +52,10 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="validation-code-img" @click="changeValidationCodeImg">
-          <svg-icon :icon-class="'eye-open'" />
+          <el-image
+            style="width: 150px; height: 47px"
+            :src="validationCodeImgUrl">
+          </el-image>
         </span>
       </el-form-item>
 
@@ -64,6 +67,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { getValidationPic } from '@/api/uop'
 
 export default {
   name: 'Login',
@@ -83,6 +87,7 @@ export default {
       }
     }
     return {
+      validationCodeImgUrl: '',
       loginForm: {
         username: '',
         password: '',
@@ -96,7 +101,6 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      validationCodeImgUrl: 'aaa',
       redirect: undefined
     }
   },
@@ -107,6 +111,13 @@ export default {
       },
       immediate: true
     }
+  },
+  mounted() {
+    getValidationPic().then(res => {
+      const { data } = res
+      this.loginForm.validationKey = data.picKey
+      this.validationCodeImgUrl = data.imgEncodeByBase64
+    })
   },
   methods: {
     showPwd() {
@@ -120,7 +131,11 @@ export default {
       })
     },
     changeValidationCodeImg() {
-      this.validationCodeImgUrl = 'changed'
+      getValidationPic().then(res => {
+        const { data } = res
+        this.loginForm.validationKey = data.picKey
+        this.validationCodeImgUrl = data.imgEncodeByBase64
+      })
       this.$nextTick(() => {
         this.$refs.validation.focus()
       })
@@ -243,8 +258,8 @@ $light_gray:#eee;
   }
   .validation-code-img {
     position: absolute;
-    right: 50px;
-    top: 7px;
+    right: 0;
+    top: 0;
     font-size: 16px;
     color: $dark_gray;
     cursor: pointer;
