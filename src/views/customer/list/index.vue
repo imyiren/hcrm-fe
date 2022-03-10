@@ -85,11 +85,11 @@ export default {
       customerQuery: {
         pageSize: 10,
         pageNum: 1,
-        realName: '',
-        keyContent: '',
-        medicalDeptPropCode: '',
-        createPerson: '',
-        createTime: ''
+        realName: undefined,
+        keyContent: undefined,
+        medicalDeptPropCode: undefined,
+        createPerson: undefined,
+        createTime: undefined
       },
       pageData: {
         pageSize: 10,
