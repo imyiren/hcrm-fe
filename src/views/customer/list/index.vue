@@ -111,7 +111,6 @@ export default {
       return ''
     },
     edit(data) {
-      console.log(data)
       this.$router.push('/customer/edit/' + data.id)
     },
     doQuery(queryData) {
