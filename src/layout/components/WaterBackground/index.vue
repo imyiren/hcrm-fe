@@ -51,6 +51,9 @@ export default {
   },
   methods: {
     init() {
+      if (this.inputText == null || this.inputText === '' || this.inputText === '-' || this.inputText === undefined) {
+        this.inputText = 'HCRM'
+      }
       const canvas = document.createElement('canvas')
       canvas.id = 'canvas'
       canvas.width = '200' // 单个水印的宽高

@@ -59,7 +59,7 @@
       <el-form-item label="文件" prop="customerFileList">
         <el-upload
           action="/api/uop/storage/upload"
-          :http-request="upload"
+          :http-request="uploadCustomerFile"
           :on-remove="handleCustomerFileRemove"
           :before-remove="beforeCustomerFileRemove"
           multiple
@@ -74,13 +74,12 @@
       </el-form-item>
       <el-form-item label="交付" prop="resultFileList">
         <el-upload
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handleResultFilePreview"
+          action="/api/uop/storage/upload"
+          :http-request="uploadResultFile"
           :on-remove="handleResultFileRemove"
           :before-remove="beforeResultFileRemove"
           multiple
-          :limit="3"
+          :limit="10"
           :on-exceed="handleResultFileExceed"
           :file-list="form.resultFileList"
         >
@@ -199,7 +198,7 @@ export default {
         this.medicalDepartmentList = data
       })
     },
-    upload(data) {
+    uploadCustomerFile(data) {
       const { file } = data
       uploadFile(file).then(res => {
         this.form.customerFileList.push({
@@ -220,16 +219,24 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`)
     },
     handleResultFileRemove(file, fileList) {
-      console.log(file, fileList)
-    },
-    handleResultFilePreview(file) {
-      console.log(file)
+      this.form.resultFileList = fileList
     },
     handleResultFileExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+      this.$message.warning(`当前限制选择 10 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeResultFileRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
+    },
+    uploadResultFile(data) {
+      const { file } = data
+      uploadFile(file).then(res => {
+        this.form.resultFileList.push({
+          uid: file.uid,
+          code: res.data.code,
+          name: res.data.filename,
+          url: res.data.url
+        })
+      })
     }
   }
 }

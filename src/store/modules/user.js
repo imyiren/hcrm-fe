@@ -9,7 +9,7 @@ const getDefaultState = () => {
     avatar: '',
     roles: [],
     title: '',
-    workNo: '0'
+    workNo: ''
   }
 }
 
