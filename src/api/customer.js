@@ -8,6 +8,14 @@ export function save(data) {
   })
 }
 
+export function get(data) {
+  return request({
+    url: '/hcrm/customer/' + data,
+    method: 'get',
+    data
+  })
+}
+
 export function list(data) {
   return request({
     url: '/hcrm/customer',

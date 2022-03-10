@@ -25,33 +25,33 @@
     </el-form>
     <el-button type="primary" size="mini" plain>添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
-      <el-table-column prop="realName" label="姓名" width="70"/>
-      <el-table-column prop="genderDesc" label="性别" min-width="40"/>
-      <el-table-column prop="company" label="公司"/>
-      <el-table-column prop="medicalDeptPropDesc" label="科室"/>
-      <el-table-column prop="phone" label="手机号" width="110"/>
-      <el-table-column prop="wechat" label="微信"/>
-      <el-table-column prop="qq" label="QQ号"/>
-      <el-table-column prop="qqGroup" label="QQ群"/>
-      <el-table-column prop="requirement" label="需求"/>
-      <el-table-column prop="lastVisit" label="最近回访"/>
-      <el-table-column prop="memo" label="备注"/>
-      <el-table-column prop="createUserName" width="70" label="创建人"/>
-      <el-table-column prop="createTime" label="创建时间"/>
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
+      <el-table-column prop="realName" label="姓名" width="70" />
+      <el-table-column prop="genderDesc" label="性别" min-width="40" />
+      <el-table-column prop="company" label="公司" />
+      <el-table-column prop="medicalDeptPropDesc" label="科室" />
+      <el-table-column prop="phone" label="手机号" width="110" />
+      <el-table-column prop="wechat" label="微信" />
+      <el-table-column prop="qq" label="QQ号" />
+      <el-table-column prop="qqGroup" label="QQ群" />
+      <el-table-column prop="requirement" label="需求" />
+      <el-table-column prop="lastVisit" label="最近回访" />
+      <el-table-column prop="memo" label="备注" />
+      <el-table-column prop="createUserName" width="70" label="创建人" />
+      <el-table-column prop="createTime" label="创建时间" />
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="edit(scope.row)">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small">查看</el-button>
+          <el-button type="text" size="small" @click="edit(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-row :gutter="20">
       <el-col :span="12" :offset="10">
-      <el-button-group class="page-next">
-        <el-button type="primary" icon="el-icon-arrow-left" plain>上一页</el-button>
-        <el-button type="primary" plain>下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-      </el-button-group>
+        <el-button-group class="page-next">
+          <el-button type="primary" icon="el-icon-arrow-left" plain>上一页</el-button>
+          <el-button type="primary" plain>下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
+        </el-button-group>
       </el-col>
     </el-row>
   </div>
@@ -81,6 +81,7 @@ import { list } from '@/api/customer'
 export default {
   data() {
     return {
+      tableLoading: true,
       customerQuery: {
         name: '',
         contractMatch: '',
@@ -111,10 +112,14 @@ export default {
     },
     edit(data) {
       console.log(data)
+      this.$router.push('/customer/edit/' + data.id)
     },
     doQuery(queryData) {
+      this.tableLoading = true
       list(queryData).then(res => {
         this.pageData = res
+      }).finally(() => {
+        this.tableLoading = false
       })
     }
   }

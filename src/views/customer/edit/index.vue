@@ -6,8 +6,8 @@
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-radio-group v-model="form.gender">
-          <el-radio label="1">男</el-radio>
-          <el-radio label="2">女</el-radio>
+          <el-radio :label="1" :value="1">男</el-radio>
+          <el-radio :label="2" :value="2">女</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="单位" prop="company">
@@ -15,10 +15,10 @@
       </el-form-item>
       <el-form-item label="来源" prop="sourceType">
         <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源">
-          <el-option label="朋友介绍" value="1" />
-          <el-option label="QQ" value="2" />
-          <el-option label="电话" value="3" />
-          <el-option label="其他" value="99" />
+          <el-option label="朋友介绍" :value="1" />
+          <el-option label="QQ" :value="2" />
+          <el-option label="电话" :value="3" />
+          <el-option label="其他" :value="99" />
         </el-select>
       </el-form-item>
       <el-form-item label="手机" prop="phone">
@@ -39,6 +39,7 @@
       <el-form-item label="科室" prop="medicalDeptPropCode">
         <el-select
           v-model="form.medicalDeptPropCode"
+          v-loading="deptLoading"
           :filterable="true"
           :clearable="true"
           :default-first-option="true"
@@ -97,27 +98,28 @@
 
 <script>
 import { listPropByKey } from '@/api/prop'
-import { save } from '@/api/customer'
+import { save, get } from '@/api/customer'
 import { uploadFile } from '@/api/uop'
 
 export default {
   data() {
     return {
       medicalDepartmentList: [],
+      deptLoading: false,
       form: {
         id: '',
-        realName: '名字',
+        realName: '',
         gender: '1',
         genderDesc: '男',
         company: '',
-        sourceType: '1',
-        sourceTypeDesc: '朋友介绍',
-        phone: '13312341234',
+        sourceType: '',
+        sourceTypeDesc: '',
+        phone: '',
         wechat: '',
         qq: '',
         qqGroup: '',
         email: '',
-        requirement: '112312312312',
+        requirement: '',
         medicalDeptPropCode: '',
         customerFileList: [],
         resultFileList: []
@@ -167,11 +169,24 @@ export default {
     }
   },
   mounted() {
-  },
-  created() {
-
+    const { id } = this.$route.params
+    this.loadById(id)
   },
   methods: {
+    loadById(id) {
+      if (id === null || id === '' || id === undefined) {
+        return
+      }
+      listPropByKey('MEDICAL_DEPARTMENT').then(response => {
+        const { data } = response
+        this.medicalDepartmentList = data
+        get(id).then(res => {
+          this.form = res.data
+        })
+      }).finally(() => {
+        this.deptLoading = false
+      })
+    },
     selectDeptProp() {
       if (this.medicalDepartmentList.length < 1) {
         this.loadMedicalDepartment()
@@ -189,13 +204,17 @@ export default {
             type: 'success',
             message: '保存成功!'
           })
+          this.$router.push('/customer')
         })
       })
     },
     loadMedicalDepartment() {
+      this.deptLoading = true
       listPropByKey('MEDICAL_DEPARTMENT').then(response => {
         const { data } = response
         this.medicalDepartmentList = data
+      }).finally(() => {
+        this.deptLoading = false
       })
     },
     uploadCustomerFile(data) {
