@@ -141,24 +141,23 @@ export default {
         sourceType: [
           { required: true, message: '请选择来源！', trigger: 'blur' }
         ],
-        phone: [
-          { required: true, message: '请输入手机号！', trigger: 'blur' },
-          { min: 11, max: 11, message: '手机号长度必须为11位！', trigger: 'blur' }
-        ],
-        wechat: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        qq: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        qqGroup: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        email: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
+        // phone: [
+        //   { min: 11, max: 11, message: '手机号长度必须为11位！', trigger: 'blur' }
+        // ],
+        // wechat: [
+        //   { max: 30, message: '最大长度30！', trigger: 'blur' }
+        // ],
+        // qq: [
+        //   { max: 30, message: '最大长度30！', trigger: 'blur' }
+        // ],
+        // qqGroup: [
+        //   { max: 30, message: '最大长度30！', trigger: 'blur' }
+        // ],
+        // email: [
+        //   { max: 30, message: '最大长度30！', trigger: 'blur' }
+        // ],
         requirement: [
-          { required: true, message: '请输入需求', trigger: 'blur' },
+          // { required: true, message: '请输入需求', trigger: 'blur' },
           { max: 128, message: '最大长度120个字！', trigger: 'blur' }
         ],
         medicalDeptPropCode: [
@@ -201,13 +200,17 @@ export default {
         if (!valid) {
           return false
         }
-        save(this.form).then(response => {
-          this.$message({
-            type: 'success',
-            message: '保存成功!'
+        if (!!this.form.phone || !!this.form.wechat || !!this.qq) {
+          save(this.form).then(response => {
+            this.$message({
+              type: 'success',
+              message: '保存成功!'
+            })
+            this.$router.push('/customer')
           })
-          this.$router.push('/customer')
-        })
+        } else {
+          this.$message.warning('至少填写手机/微信/QQ一个联系方式！')
+        }
       })
     },
     loadMedicalDepartment() {
