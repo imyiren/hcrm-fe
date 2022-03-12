@@ -37,7 +37,7 @@
     </el-form>
     <el-button type="primary" size="mini" plain @click="toEdit">添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName" @cell-click="toDetail">
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName" @row-dblclick="toDetail">
       <el-table-column prop="realName" label="姓名" min-width="70" />
       <el-table-column prop="genderDesc" label="性别" min-width="40" />
       <el-table-column prop="company" label="单位" />
