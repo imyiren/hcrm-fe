@@ -2,6 +2,7 @@
   <div class="customer-info-container">
     <el-divider content-position="left">基本信息: <span style="font-size: 25px">{{ customerInfo.realName }}</span><el-divider direction="vertical" />
       <el-button type="text" @click="edit">编辑</el-button>
+      <el-button type="success" @click="createOrder" size="mini" round plain>订单生成</el-button>
     </el-divider>
     <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
       <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
@@ -123,6 +124,8 @@ export default {
     },
     edit() {
       this.$router.push('/customer/edit/' + this.customerInfo.id)
+    },
+    createOrder() {
     }
   }
 }

@@ -23,10 +23,10 @@
         <el-button type="primary" @click="doQuery">查询</el-button>
       </el-form-item>
     </el-form>
-    <el-button type="primary" size="mini" plain>添加客户</el-button>
+    <el-button type="primary" size="mini" plain @click="toEdit">添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
-      <el-table-column prop="realName" label="姓名" width="70" />
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName" @cell-click="toDetail">
+      <el-table-column prop="realName" label="姓名" min-width="70"/>
       <el-table-column prop="genderDesc" label="性别" min-width="40" />
       <el-table-column prop="company" label="单位" />
       <el-table-column prop="medicalDeptPropDesc" label="科室" />
@@ -39,7 +39,6 @@
       <el-table-column prop="createTime" label="创建时间" />
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="info(scope.row)">查看</el-button>
           <el-button type="text" size="small" @click="edit(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
@@ -115,8 +114,12 @@ export default {
     edit(data) {
       this.$router.push('/customer/edit/' + data.id)
     },
-    info(data) {
+    toDetail(data) {
+      console.log(data)
       this.$router.push('/customer/' + data.id)
+    },
+    toEdit() {
+      this.$router.push('/customer/edit')
     },
     doQuery(queryData) {
       this.tableLoading = true
