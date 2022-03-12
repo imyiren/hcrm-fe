@@ -8,28 +8,16 @@
         <el-input v-model="customerQuery.keyContent" placeholder="手机号/微信/QQ" />
       </el-form-item>
       <el-form-item>
-        <el-select
-          v-model="customerQuery.medicalDeptPropCode"
-          :filterable="true"
-          :clearable="true"
-          :default-first-option="true"
-          placeholder="请选择科室"
-          @focus="loadBySelect"
-        >
-          <el-option
-            v-for="item in medicalDepartmentList"
-            :key="item.code"
-            :label="item.value"
-            :value="item.code"
-          />
+        <el-select v-model="customerQuery.medicalDeptPropCode" placeholder="请选择科室">
+          <el-option label="科一" value="1" />
+          <el-option label="科二" value="2" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="customerQuery.createUserName" placeholder="创建人" />
+        <el-input v-model="customerQuery.createPerson" placeholder="创建人" />
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" />
-        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建截止时间" />
+        <el-date-picker v-model="customerQuery.createTime" type="date" placeholder="创建时间" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="doQuery">查询</el-button>
@@ -38,7 +26,7 @@
     <el-button type="primary" size="mini" plain @click="toEdit">添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName" @cell-click="toDetail">
-      <el-table-column prop="realName" label="姓名" min-width="70" />
+      <el-table-column prop="realName" label="姓名" min-width="70"/>
       <el-table-column prop="genderDesc" label="性别" min-width="40" />
       <el-table-column prop="company" label="单位" />
       <el-table-column prop="medicalDeptPropDesc" label="科室" />
@@ -86,15 +74,10 @@
 
 <script>
 import { list } from '@/api/customer'
-import { listPropByKey } from '@/api/prop'
-import { dateFtt } from '@/utils'
 
 export default {
   data() {
     return {
-      inCreateTimeStart: undefined,
-      inCreateTimeEnd: undefined,
-      deptLoading: false,
       tableLoading: true,
       customerQuery: {
         pageSize: 10,
@@ -102,7 +85,8 @@ export default {
         realName: undefined,
         keyContent: undefined,
         medicalDeptPropCode: undefined,
-        createUserName: undefined
+        createPerson: undefined,
+        createTime: undefined
       },
       pageData: {
         pageSize: 10,
@@ -112,8 +96,7 @@ export default {
         hasNextPage: false,
         hasPrePage: false,
         data: []
-      },
-      medicalDepartmentList: []
+      }
     }
   },
   mounted() {
@@ -138,21 +121,9 @@ export default {
     toEdit() {
       this.$router.push('/customer/edit')
     },
-    doQuery() {
-      for (const key in this.customerQuery) {
-        if (this.customerQuery[key] === '') {
-          this.customerQuery[key] = undefined
-        }
-      }
-      if (this.inCreateTimeStart !== null && this.inCreateTimeStart !== undefined) {
-        this.customerQuery.createTimeStart = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeStart)
-      }
-      if (this.inCreateTimeEnd !== null && this.inCreateTimeEnd !== undefined) {
-        this.customerQuery.createTimeEnd = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeEnd)
-      }
-      console.log(this.customerQuery)
+    doQuery(queryData) {
       this.tableLoading = true
-      list(this.customerQuery).then(res => {
+      list(queryData).then(res => {
         this.pageData = res
       }).finally(() => {
         this.tableLoading = false
@@ -165,17 +136,6 @@ export default {
     nextPage() {
       this.customerQuery.pageNum++
       this.doQuery(this.customerQuery)
-    },
-    loadBySelect() {
-      if (this.medicalDepartmentList.length < 1) {
-        this.deptLoading = true
-        listPropByKey('MEDICAL_DEPARTMENT').then(response => {
-          const { data } = response
-          this.medicalDepartmentList = data
-        }).finally(() => {
-          this.deptLoading = false
-        })
-      }
     }
   }
 }

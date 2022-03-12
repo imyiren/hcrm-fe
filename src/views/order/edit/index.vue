@@ -1,30 +1,40 @@
 <template>
   <div class="app-container custom-edit">
+    <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
+      <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
+      <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
+      <el-descriptions-item label="单位">{{ customerInfo.company }}</el-descriptions-item>
+      <el-descriptions-item label="来源">
+        <el-tag size="small">{{ customerInfo.sourceTypeDesc }}</el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
+    </el-descriptions>
     <el-form ref="form" v-loading="deptLoading" :model="form" :rules="rules" label-width="60px" label-position="left">
       <el-form-item label="姓名" prop="realName">
         <el-input v-model="form.realName" />
       </el-form-item>
-      <el-form-item label="性别" prop="gender">
-        <el-radio-group v-model="form.gender">
-          <el-radio :label="1" :value="1">男</el-radio>
-          <el-radio :label="2" :value="2">女</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="单位" prop="company">
-        <el-input v-model="form.company" />
-      </el-form-item>
-      <el-form-item label="来源" prop="sourceType">
-        <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源">
-          <el-option label="朋友介绍" :value="1" />
-          <el-option label="QQ" :value="2" />
-          <el-option label="QQ群" :value="4" />
-          <el-option label="电话" :value="3" />
-          <el-option label="微信" :value="5" />
+      <el-form-item label="项目类型" prop="bizTypeCode">
+        <el-select v-model="form.bizTypeCode" :filterable="true" :clearable="true" placeholder="请选择项目类型">
+          <el-option label="SCI" :value="1" />
+          <el-option label="国内核心" :value="2" />
+          <el-option label="国内普刊" :value="4" />
+          <el-option label="课题标书" :value="3" />
+          <el-option label="专利" :value="5" />
           <el-option label="其他" :value="99" />
         </el-select>
       </el-form-item>
-      <el-form-item label="手机" prop="phone">
-        <el-input v-model="form.phone" />
+      <el-form-item label="项目类型" prop="bizType">
+        <el-select v-model="form.paymentMethodCode" :filterable="true" :clearable="true" placeholder="请选择项目类型">
+          <el-option label="SCI" :value="1" />
+          <el-option label="国内核心" :value="2" />
+          <el-option label="国内普刊" :value="4" />
+          <el-option label="课题标书" :value="3" />
+          <el-option label="专利" :value="5" />
+          <el-option label="其他" :value="99" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="已付金额" prop="payedPrice">
+        <el-input v-model="form.payedPrice" />
       </el-form-item>
       <el-form-item label="微信" prop="wechat">
         <el-input v-model="form.wechat" />
@@ -38,28 +48,10 @@
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email" />
       </el-form-item>
-      <el-form-item label="科室" prop="medicalDeptPropCode">
-        <el-select
-          v-model="form.medicalDeptPropCode"
-          v-loading="deptLoading"
-          :filterable="true"
-          :clearable="true"
-          :default-first-option="true"
-          placeholder="请选择科室"
-          @focus="selectDeptProp"
-        >
-          <el-option
-            v-for="item in medicalDepartmentList"
-            :key="item.code"
-            :label="item.value"
-            :value="item.code"
-          />
-        </el-select>
+      <el-form-item label="需求" prop="memo">
+        <el-input v-model="form.memo" type="textarea" rows="5" />
       </el-form-item>
-      <el-form-item label="需求" prop="requirement">
-        <el-input v-model="form.requirement" type="textarea" rows="5" />
-      </el-form-item>
-      <el-form-item label="文件" prop="customerFileList">
+      <el-form-item label="客户文件" prop="customerFileList">
         <el-upload
           action="/api/uop/storage/upload"
           :http-request="uploadCustomerFile"
@@ -75,7 +67,7 @@
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="交付" prop="resultFileList">
+      <el-form-item label="交付文件" prop="resultFileList">
         <el-upload
           action="/api/uop/storage/upload"
           :http-request="uploadResultFile"
@@ -107,65 +99,42 @@ export default {
   data() {
     return {
       medicalDepartmentList: [],
-      deptLoading: false,
-      form: {
-        id: '',
-        realName: '',
-        gender: 1,
-        genderDesc: '男',
-        company: '',
-        sourceType: '',
-        sourceTypeDesc: '',
-        phone: '',
-        wechat: '',
-        qq: '',
-        qqGroup: '',
-        email: '',
-        requirement: '',
-        medicalDeptPropCode: '',
-        customerFileList: [],
-        resultFileList: []
+      loading: false,
+      customerInfo: {
+        id: undefined,
+        realName: undefined,
+        gender: undefined,
+        genderDesc: undefined,
+        company: undefined,
+        sourceType: undefined,
+        sourceTypeDesc: undefined,
+        createUserName: undefined,
+        customerFileList: [{
+          name: undefined,
+          url: undefined,
+          code: undefined
+        }],
+        resultFileList: [{
+          name: undefined,
+          url: undefined,
+          code: undefined
+        }]
       },
-      rules: {
-        realName: [
-          { required: true, message: '请输入客户名字！', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符！', trigger: 'blur' }
-        ],
-        gender: [
-          { required: true, message: '请选择性别！', trigger: 'blur' }
-        ],
-        company: [
-          { required: true, message: '请输入单位名称！', trigger: 'blur' },
-          { min: 4, max: 30, message: '长度在 4 到 30 个字符！', trigger: 'blur' }
-        ],
-        sourceType: [
-          { required: true, message: '请选择来源！', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, message: '请输入手机号！', trigger: 'blur' },
-          { min: 11, max: 11, message: '手机号长度必须为11位！', trigger: 'blur' }
-        ],
-        wechat: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        qq: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        qqGroup: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        email: [
-          { max: 30, message: '最大长度30！', trigger: 'blur' }
-        ],
-        requirement: [
-          { required: true, message: '请输入需求', trigger: 'blur' },
-          { max: 128, message: '最大长度120个字！', trigger: 'blur' }
-        ],
-        medicalDeptPropCode: [
-          { required: true, message: '请选择科室！', trigger: 'change' }
-        ],
-        customerFileList: [
-        ],
+      form: {
+        customerId: '',
+        id: '',
+        contractStartDate: '',
+        contractEndDate: '',
+        topic: '',
+        bizTypeCode: '',
+        bizTypeDesc: '',
+        paymentMethodCode: '',
+        paymentMethodDesc: '',
+        payedPrice: '',
+        contractPrice: '',
+        wechat: '',
+        memo: '',
+        customerFileList: [],
         resultFileList: []
       }
     }
@@ -178,23 +147,12 @@ export default {
       if (id === null || id === '' || id === undefined) {
         return
       }
-      this.deptLoading = true
-      listPropByKey('MEDICAL_DEPARTMENT').then(response => {
-        const { data } = response
-        this.medicalDepartmentList = data
-        get(id).then(res => {
-          this.form = res.data
-        })
+      this.loading = true
+      get(id).then(res => {
+        this.customerInfo = res.data
       }).finally(() => {
-        setTimeout(() => {
-          this.deptLoading = false
-        }, 200)
+        this.loading = false
       })
-    },
-    selectDeptProp() {
-      if (this.medicalDepartmentList.length < 1) {
-        this.loadMedicalDepartment()
-      }
     },
     submitForm(form) {
       this.$refs[form].validate((valid) => {
@@ -208,15 +166,6 @@ export default {
           })
           this.$router.push('/customer')
         })
-      })
-    },
-    loadMedicalDepartment() {
-      this.deptLoading = true
-      listPropByKey('MEDICAL_DEPARTMENT').then(response => {
-        const { data } = response
-        this.medicalDepartmentList = data
-      }).finally(() => {
-        this.deptLoading = false
       })
     },
     uploadCustomerFile(data) {

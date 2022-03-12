@@ -89,9 +89,39 @@ export const asyncRoutes = [
       },
       {
         path: ':id',
-        name: 'EditByID',
+        name: 'InfoByID',
         component: () => import('@/views/customer/info'),
         meta: { title: '客户详情', icon: '', permission: 'CustomerManager_edit' },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order',
+    name: 'Customer',
+    meta: { title: '订单管理', icon: 'el-icon-s-custom', permission: 'OrderManager' },
+    hidden: true,
+    children: [
+      {
+        path: '',
+        name: 'List',
+        component: () => import('@/views/order/list'),
+        meta: { title: '订单列表', icon: 'table', permission: 'OrderManager_list' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'EditByID',
+        component: () => import('@/views/order/edit'),
+        meta: { title: '客户订单', icon: '', permission: 'OrderManager_edit' },
+        hidden: true
+      },
+      {
+        path: ':id',
+        name: 'InfoByID',
+        component: () => import('@/views/order/info'),
+        meta: { title: '客户详情', icon: '', permission: 'OrderManager_edit' },
         hidden: true
       }
     ]
@@ -101,6 +131,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/user/info',
     name: 'User',
+    hidden: true,
     meta: {
       title: '用户管理',
       icon: 'el-icon-user',
@@ -145,6 +176,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/uop/info',
     name: 'User',
+    hidden: true,
     meta: {
       title: '组织权限',
       icon: 'el-icon-user',
