@@ -49,11 +49,6 @@
       <el-table-column prop="requirement" label="需求" />
       <el-table-column prop="createUserName" width="70" label="创建人" />
       <el-table-column prop="createTime" label="创建时间" />
-      <el-table-column fixed="right" label="操作" width="100">
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click="edit(scope.row)">编辑</el-button>
-        </template>
-      </el-table-column>
     </el-table>
     <el-row :gutter="20">
       <el-col :span="12" :offset="10">
@@ -127,9 +122,6 @@ export default {
         return 'success-row'
       }
       return ''
-    },
-    edit(data) {
-      this.$router.push('/customer/edit/' + data.id)
     },
     toDetail(data) {
       console.log(data)
