@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function save(data) {
+export function saveCustomer(data) {
   return request({
     url: '/hcrm/customer',
     method: 'post',
@@ -8,7 +8,7 @@ export function save(data) {
   })
 }
 
-export function get(data) {
+export function getCustomer(data) {
   return request({
     url: '/hcrm/customer/' + data,
     method: 'get',
@@ -16,7 +16,7 @@ export function get(data) {
   })
 }
 
-export function list(data) {
+export function listCustomer(data) {
   return request({
     url: '/hcrm/customer',
     method: 'get',

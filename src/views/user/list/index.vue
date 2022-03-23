@@ -109,10 +109,8 @@ export default {
       return ''
     },
     edit(data) {
-      console.log(data)
     },
     doQuery(queryData) {
-      console.log(queryData)
     }
   }
 }

@@ -43,11 +43,9 @@ const actions = {
   // user login
   login({ commit }, userInfo) {
     const { username, password, validationCode, validationKey } = userInfo
-    console.log(username, password, validationCode, validationKey)
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, validationCode: validationCode, validationKey: validationKey }).then(response => {
         const { data } = response
-        console.log(response)
         commit('SET_TOKEN', data.sessionId)
         setToken(data.sessionId)
         resolve()

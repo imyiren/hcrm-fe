@@ -37,7 +37,7 @@
     </el-form>
     <el-button type="primary" size="mini" plain @click="toEdit">添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName" @row-dblclick="toDetail">
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" @row-dblclick="toDetail">
       <el-table-column prop="realName" label="姓名" min-width="70" />
       <el-table-column prop="genderDesc" label="性别" min-width="40" />
       <el-table-column prop="company" label="单位" />
@@ -50,14 +50,12 @@
       <el-table-column prop="createUserName" width="70" label="创建人" />
       <el-table-column prop="createTime" label="创建时间" />
     </el-table>
-    <el-row :gutter="20">
-      <el-col :span="12" :offset="10">
+    <div class="page-next-container">
         <el-button-group class="page-next">
           <el-button type="primary" icon="el-icon-arrow-left" plain :disabled="!pageData.hasPrePage" @click="prevPage">上一页</el-button>
           <el-button type="primary" plain :disabled="!pageData.hasNextPage" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
         </el-button-group>
-      </el-col>
-    </el-row>
+    </div>
   </div>
 </template>
 
@@ -75,12 +73,16 @@
 }
 
 .page-next {
-  margin: 5px auto;
+  margin: 0 auto;
+}
+
+.page-next-container {
+  text-align: center;
 }
 </style>
 
 <script>
-import { list } from '@/api/customer'
+import { listCustomer } from '@/api/customer'
 import { listPropByKey } from '@/api/prop'
 import { dateFtt } from '@/utils'
 
@@ -115,16 +117,7 @@ export default {
     this.doQuery(this.customerQuery)
   },
   methods: {
-    tableRowClassName({ row, rowIndex }) {
-      if (row.state === '1') {
-        return 'warning-row'
-      } else if (row.state === '4') {
-        return 'success-row'
-      }
-      return ''
-    },
     toDetail(data) {
-      console.log(data)
       this.$router.push('/customer/' + data.id)
     },
     toEdit() {
@@ -142,9 +135,8 @@ export default {
       if (this.inCreateTimeEnd !== null && this.inCreateTimeEnd !== undefined) {
         this.customerQuery.createTimeEnd = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeEnd)
       }
-      console.log(this.customerQuery)
       this.tableLoading = true
-      list(this.customerQuery).then(res => {
+      listCustomer(this.customerQuery).then(res => {
         this.pageData = res
       }).finally(() => {
         this.tableLoading = false

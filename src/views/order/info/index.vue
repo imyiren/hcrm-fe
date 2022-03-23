@@ -1,9 +1,53 @@
 <template>
-  <div class="customer-info-container">
-    <el-divider content-position="left">基本信息: <span style="font-size: 25px"><i class="el-icon-user" />{{ customerInfo.realName }}</span><el-divider direction="vertical" />
+  <div class="order-info-container">
+    <el-divider content-position="left">订单信息: {{ orderInfo.code }}</span><el-divider direction="vertical" />
       <el-button type="text" @click="edit">编辑</el-button>
-      <el-button type="success" :round="true" :plain="true" size="mini" @click="createOrder">订单生成</el-button>
+      <!-- <el-button type="success" :round="true" :plain="true" size="mini" @click="createOrder">订单生成</el-button> -->
     </el-divider>
+    <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
+      <el-descriptions-item label="合同开始日期：">{{ orderInfo.contractStartDate }}</el-descriptions-item>
+      <el-descriptions-item label="合同截止日期：">{{ orderInfo.contractEndDate }}</el-descriptions-item>
+      <el-descriptions-item label="合同金额">{{ orderInfo.contractPrice }}</el-descriptions-item>
+      <el-descriptions-item label="已付金额">{{ orderInfo.payedPrice }}</el-descriptions-item>
+      <el-descriptions-item label="付款方式">{{ orderInfo.paymentMethodDesc }}</el-descriptions-item>
+      <el-descriptions-item label="付款状态">{{ orderInfo.paymentStateDesc }}</el-descriptions-item>
+      <el-descriptions-item label="订单状态">
+        <el-tag size="small">{{ orderInfo.stateDesc }}</el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="项目类型">{{ orderInfo.bizTypeDesc }}</el-descriptions-item>
+      <el-descriptions-item label="创建人">{{ orderInfo.createUserName }}</el-descriptions-item>
+      <el-descriptions-item label="创建时间">{{ orderInfo.createTime }}</el-descriptions-item>
+      <el-descriptions-item label="订单备注" :span="2">{{ orderInfo.memo }}</el-descriptions-item>
+    </el-descriptions>
+    <el-divider content-position="left">文件资料</el-divider>
+    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
+      <el-descriptions-item label="客户文件" label-class-name="file-label" :span="2">
+        <span v-for="item in orderInfo.customerFileList" :key="item.code">
+          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
+            class="el-icon-download"
+          /></el-link>
+          <el-divider direction="vertical" />
+        </span>
+      </el-descriptions-item>
+      <el-descriptions-item label="内部文件" label-class-name="file-label" :span="2">
+        <span v-for="item in orderInfo.internalFileList" :key="item.code">
+          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
+            class="el-icon-download"
+          /></el-link>
+          <el-divider direction="vertical" />
+        </span>
+      </el-descriptions-item>
+      <el-descriptions-item label="交付文件" label-class-name="file-label" :span="2">
+        <span v-for="item in orderInfo.resultFileList" :key="item.code">
+          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
+            class="el-icon-download"
+          /></el-link>
+          <el-divider direction="vertical" />
+        </span>
+      </el-descriptions-item>
+    </el-descriptions>
+
+    <el-divider content-position="left">客户信息</el-divider>
     <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
       <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
       <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
@@ -12,46 +56,13 @@
         <el-tag size="small">{{ customerInfo.sourceTypeDesc }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
-      <el-descriptions-item label="手机">{{ customerInfo.phone }}</el-descriptions-item>
-      <el-descriptions-item label="微信">{{ customerInfo.wechat }}</el-descriptions-item>
-      <el-descriptions-item label="QQ号">{{ customerInfo.qq }}</el-descriptions-item>
-      <el-descriptions-item label="QQ群">{{ customerInfo.qqGroup }}</el-descriptions-item>
-      <el-descriptions-item label="邮箱">{{ customerInfo.email }}</el-descriptions-item>
-      <el-descriptions-item label="科室">{{ customerInfo.medicalDeptPropDesc }}</el-descriptions-item>
       <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
-    <el-divider content-position="left">文件资料</el-divider>
-    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
-      <el-descriptions-item label="客户文件" label-class-name="file-label" :span="2">
-        <span v-for="item in customerInfo.customerFileList" :key="item.code">
-          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
-            class="el-icon-download"
-          /></el-link>
-          <el-divider direction="vertical" />
-        </span>
-      </el-descriptions-item>
-    </el-descriptions>
-    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
-      <el-descriptions-item label="交付文件" label-class-name="file-label" :span="2">
-        <span v-for="item in customerInfo.resultFileList" :key="item.code">
-          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
-            class="el-icon-download"
-          /></el-link>
-          <el-divider direction="vertical" />
-        </span>
-      </el-descriptions-item>
-    </el-descriptions>
-    <!--    <el-divider content-position="left">回访记录</el-divider>-->
-    <!--    <el-table v-loading="loading" :data="customerInfo.visitList" style="width: 100%">-->
-    <!--      <el-table-column prop="userName" label="回访人" width="70" />-->
-    <!--      <el-table-column prop="createTime" label="时间" width="210" />-->
-    <!--      <el-table-column prop="content" label="回访内容" />-->
-    <!--    </el-table>-->
   </div>
 </template>
 
 <script>
-import { get } from '@/api/customer'
+import { getOrder } from '@/api/order'
 
 export default {
   data() {
@@ -93,6 +104,34 @@ export default {
           url: undefined,
           code: undefined
         }]
+      },
+      orderInfo: {
+        id: undefined,
+        bizType: undefined,
+        bizTypeDesc: undefined,
+        code: undefined,
+        contractEndDate: undefined,
+        contractPrice: undefined,
+        contractStartDate: undefined,
+        createTime: undefined,
+        createUserId: undefined,
+        createUserName: undefined,
+        customerFileList: undefined,
+        customerId: undefined,
+        customerRealName: undefined,
+        deleted: undefined,
+        internalFileList: undefined,
+        memo: undefined,
+        payedPrice: undefined,
+        paymentMethod: undefined,
+        paymentMethodDesc: undefined,
+        paymentState: undefined,
+        paymentStateDesc: undefined,
+        resultFileList: undefined,
+        state: undefined,
+        stateDesc: undefined,
+        topic: undefined,
+        updateTime: undefined
       }
     }
   },
@@ -114,30 +153,32 @@ export default {
       if (id === null || id === '' || id === undefined) {
         return
       }
-      get(id).then(res => {
-        this.customerInfo = res.data
+      getOrder(id).then(res => {
+        this.orderInfo = res.data
+        this.customerInfo = res.data.customerInfo
       }).catch(() => {
         this.customerInfo = null
+        this.orderInfo = null
       }).finally(() => {
         this.loading = false
       })
     },
     edit() {
-      this.$router.push('/customer/edit/' + this.customerInfo.id)
-    },
-    createOrder() {
-      this.$message.info('此功能程序员小哥哥还在开发中，请上线后使用～～～～')
+      this.$message.warning('编辑按钮： ' + this.customerInfo.id)
     }
   }
 }
 </script>
 
 <style>
-.customer-info-container {
+.order-info-container {
   max-width: 1600px;
   margin: 10px auto;
 }
 .file-label {
   width: 110px;
+}
+.order-step {
+  margin: 20px auto;
 }
 </style>

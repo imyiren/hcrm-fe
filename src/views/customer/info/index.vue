@@ -20,27 +20,27 @@
       <el-descriptions-item label="科室">{{ customerInfo.medicalDeptPropDesc }}</el-descriptions-item>
       <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
-    <el-divider content-position="left">文件资料</el-divider>
-    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
-      <el-descriptions-item label="客户文件" label-class-name="file-label" :span="2">
-        <span v-for="item in customerInfo.customerFileList" :key="item.code">
-          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
-            class="el-icon-download"
-          /></el-link>
-          <el-divider direction="vertical" />
-        </span>
-      </el-descriptions-item>
-    </el-descriptions>
-    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
-      <el-descriptions-item label="交付文件" label-class-name="file-label" :span="2">
-        <span v-for="item in customerInfo.resultFileList" :key="item.code">
-          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
-            class="el-icon-download"
-          /></el-link>
-          <el-divider direction="vertical" />
-        </span>
-      </el-descriptions-item>
-    </el-descriptions>
+    <!--    <el-divider content-position="left">文件资料</el-divider>-->
+    <!--    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">-->
+    <!--      <el-descriptions-item label="客户文件" label-class-name="file-label" :span="2">-->
+    <!--        <span v-for="item in customerInfo.customerFileList" :key="item.code">-->
+    <!--          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i-->
+    <!--            class="el-icon-download"-->
+    <!--          /></el-link>-->
+    <!--          <el-divider direction="vertical" />-->
+    <!--        </span>-->
+    <!--      </el-descriptions-item>-->
+    <!--    </el-descriptions>-->
+    <!--    <el-descriptions v-loading="loading" :column="column" border direction="horizontal">-->
+    <!--      <el-descriptions-item label="交付文件" label-class-name="file-label" :span="2">-->
+    <!--        <span v-for="item in customerInfo.resultFileList" :key="item.code">-->
+    <!--          <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i-->
+    <!--            class="el-icon-download"-->
+    <!--          /></el-link>-->
+    <!--          <el-divider direction="vertical" />-->
+    <!--        </span>-->
+    <!--      </el-descriptions-item>-->
+    <!--    </el-descriptions>-->
     <!--    <el-divider content-position="left">回访记录</el-divider>-->
     <!--    <el-table v-loading="loading" :data="customerInfo.visitList" style="width: 100%">-->
     <!--      <el-table-column prop="userName" label="回访人" width="70" />-->
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { get } from '@/api/customer'
+import { getCustomer } from '@/api/customer'
 
 export default {
   data() {
@@ -114,7 +114,7 @@ export default {
       if (id === null || id === '' || id === undefined) {
         return
       }
-      get(id).then(res => {
+      getCustomer(id).then(res => {
         this.customerInfo = res.data
       }).catch(() => {
         this.customerInfo = null
@@ -126,7 +126,7 @@ export default {
       this.$router.push('/customer/edit/' + this.customerInfo.id)
     },
     createOrder() {
-      this.$message.info('此功能程序员小哥哥还在开发中，请上线后使用～～～～')
+      this.$router.push('/order/edit/' + this.customerInfo.id)
     }
   }
 }

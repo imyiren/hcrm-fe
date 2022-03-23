@@ -162,10 +162,8 @@ export default {
       })
     },
     handleCustomerFileRemove(file, fileList) {
-      console.log(file, fileList);
     },
     handleCustomerFilePreview(file) {
-      console.log(file);
     },
     handleCustomerFileExceed(files, fileList) {
       this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -174,10 +172,8 @@ export default {
       return this.$confirm(`确定移除 ${ file.name }？`);
     },
     handleResultFileRemove(file, fileList) {
-      console.log(file, fileList);
     },
     handleResultFilePreview(file) {
-      console.log(file);
     },
     handleResultFileExceed(files, fileList) {
       this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);

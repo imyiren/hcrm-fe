@@ -76,20 +76,20 @@ export const asyncRoutes = [
       },
       {
         path: '',
-        name: 'List',
+        name: 'CustomerList',
         component: () => import('@/views/customer/list'),
         meta: { title: '客户列表', icon: 'table', permission: 'CustomerManager_list' }
       },
       {
         path: 'edit/:id',
-        name: 'EditByID',
+        name: 'CustomerEditByID',
         component: () => import('@/views/customer/edit'),
         meta: { title: '客户编辑', icon: '', permission: 'CustomerManager_edit' },
         hidden: true
       },
       {
         path: ':id',
-        name: 'InfoByID',
+        name: 'CustomerInfoByID',
         component: () => import('@/views/customer/info'),
         meta: { title: '客户详情', icon: '', permission: 'CustomerManager_edit' },
         hidden: true
@@ -100,28 +100,27 @@ export const asyncRoutes = [
     path: '/order',
     component: Layout,
     redirect: '/order',
-    name: 'Customer',
+    name: 'Order',
     meta: { title: '订单管理', icon: 'el-icon-s-custom', permission: 'OrderManager' },
-    hidden: true,
     children: [
       {
+        path: 'edit/:id',
+        name: 'OrderEditByID',
+        component: () => import('@/views/order/edit'),
+        hidden: true,
+        meta: { title: '客户订单', icon: 'el-icon-edit-outline', permission: 'OrderManager_edit' }
+      },
+      {
         path: '',
-        name: 'List',
+        name: 'OrderList',
         component: () => import('@/views/order/list'),
         meta: { title: '订单列表', icon: 'table', permission: 'OrderManager_list' }
       },
       {
-        path: 'edit/:id',
-        name: 'EditByID',
-        component: () => import('@/views/order/edit'),
-        meta: { title: '客户订单', icon: '', permission: 'OrderManager_edit' },
-        hidden: true
-      },
-      {
         path: ':id',
-        name: 'InfoByID',
+        name: 'OrderInfoByID',
         component: () => import('@/views/order/info'),
-        meta: { title: '客户详情', icon: '', permission: 'OrderManager_edit' },
+        meta: { title: '订单详情', icon: '', permission: 'OrderManager_info' },
         hidden: true
       }
     ]
@@ -139,7 +138,7 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'info',
+        path: 'UserInfo',
         component: () => import('@/views/user/info'),
         name: 'MyUserInfo',
         meta: { title: '我的信息', icon: 'user', permission: 'UserManager_my' }
@@ -147,7 +146,7 @@ export const asyncRoutes = [
       {
         path: ':id',
         component: () => import('@/views/user/info'),
-        name: 'UserInfo',
+        name: 'UserInfoById',
         hidden: true,
         meta: { title: '用户信息', icon: 'user', permission: 'UserManager_user' }
       },
@@ -175,7 +174,7 @@ export const asyncRoutes = [
     path: '/uop',
     component: Layout,
     redirect: '/uop/info',
-    name: 'User',
+    name: 'Uop',
     hidden: true,
     meta: {
       title: '组织权限',
