@@ -1,6 +1,17 @@
 <template>
   <div class="order-info-container">
-    <el-divider content-position="left">订单信息: {{ orderInfo.code }}</span><el-divider direction="vertical" />
+    <el-divider content-position="left">客户信息</el-divider>
+    <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
+      <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
+      <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
+      <el-descriptions-item label="单位">{{ customerInfo.company }}</el-descriptions-item>
+      <el-descriptions-item label="来源">
+        <el-tag size="small">{{ customerInfo.sourceTypeDesc }}</el-tag>
+      </el-descriptions-item>
+      <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
+      <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
+    </el-descriptions>
+    <el-divider content-position="left">订单信息: <a v-clipboard:copy="orderInfo.code" v-clipboard:success="onCopy" v-clipboard:error="onError">{{ orderInfo.code }}</a><el-divider direction="vertical" />
       <el-button type="text" @click="edit">编辑</el-button>
       <!-- <el-button type="success" :round="true" :plain="true" size="mini" @click="createOrder">订单生成</el-button> -->
     </el-divider>
@@ -45,18 +56,6 @@
           <el-divider direction="vertical" />
         </span>
       </el-descriptions-item>
-    </el-descriptions>
-
-    <el-divider content-position="left">客户信息</el-divider>
-    <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
-      <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
-      <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
-      <el-descriptions-item label="单位">{{ customerInfo.company }}</el-descriptions-item>
-      <el-descriptions-item label="来源">
-        <el-tag size="small">{{ customerInfo.sourceTypeDesc }}</el-tag>
-      </el-descriptions-item>
-      <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
-      <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
   </div>
 </template>
@@ -164,7 +163,19 @@ export default {
       })
     },
     edit() {
-      this.$message.warning('编辑按钮： ' + this.customerInfo.id)
+      this.$message.warning('编辑按钮： ' + this.orderInfo.id + ', 功能暂未开发！')
+    },
+    onCopy(e) {
+      this.$message({
+        message: '复制成功！',
+        type: 'success'
+      })
+    },
+    onError(e) {
+      this.$message({
+        message: '复制失败！',
+        type: 'error'
+      })
     }
   }
 }

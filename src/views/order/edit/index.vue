@@ -83,7 +83,7 @@
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="客户文件" prop="internalFileList">
+      <el-form-item label="内部文件" prop="internalFileList">
         <el-upload
           action="/api/uop/storage/upload"
           :http-request="uploadInternalFile"
@@ -191,17 +191,7 @@ export default {
         company: undefined,
         sourceType: undefined,
         sourceTypeDesc: undefined,
-        createUserName: undefined,
-        customerFileList: [{
-          name: undefined,
-          url: undefined,
-          code: undefined
-        }],
-        resultFileList: [{
-          name: undefined,
-          url: undefined,
-          code: undefined
-        }]
+        createUserName: undefined
       },
       contractStartDateInner: undefined,
       contractEndDateInner: undefined,
@@ -234,8 +224,6 @@ export default {
       getCustomer(id).then(res => {
         this.customerInfo = res.data
         this.form.customerId = this.customerInfo.id
-        this.form.customerFileList = this.customerInfo.customerFileList
-        this.form.resultFileList = this.customerInfo.resultFileList
       }).finally(() => {
         this.loading = false
       })
@@ -314,7 +302,7 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`)
     },
     handleInternalFileRemove(file, fileList) {
-      this.form.customerFileList = fileList
+      this.form.internalFileList = fileList
     },
     handleInternalFileExceed(files, fileList) {
       this.$message.warning(`当前限制选择 10 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)

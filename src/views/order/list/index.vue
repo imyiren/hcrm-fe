@@ -147,28 +147,6 @@ export default {
       }).finally(() => {
         this.tableLoading = false
       })
-      // this.pageData.data = [
-      //   {
-      //     id: 13,
-      //     customerId: 13,
-      //     realName: '张三',
-      //     code: '12345678901234567890',
-      //     topic: '萨芬撒付款就阿斯利康放假了',
-      //     orderStateCode: 1,
-      //     orderStateDesc: '进行中',
-      //     bizTypeCode: '2',
-      //     bizTypeDesc: 'SCI',
-      //     contractStartDate: '2020-01-01',
-      //     contractEndDate: '2020-12-12',
-      //     contractPrice: '123123123',
-      //     payedPrice: '123132',
-      //     paymentStateCode: '11',
-      //     paymentStateDesc: '付款状态',
-      //     memo: '客户要SCI一区',
-      //     createUserName: '王二',
-      //     createTime: '2021-12-12 12:12:12'
-      //   }
-      // ]
     },
     prevPage() {
       this.queryData.pageNum--
