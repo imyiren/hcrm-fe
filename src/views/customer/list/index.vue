@@ -28,8 +28,8 @@
         <el-input v-model="customerQuery.createUserName" placeholder="创建人" />
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" />
-        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建截止时间" />
+        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
+        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建截止时间" style="width: 150px" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="doQuery">查询</el-button>
@@ -51,10 +51,10 @@
       <el-table-column prop="createTime" label="创建时间" />
     </el-table>
     <div class="page-next-container">
-        <el-button-group class="page-next">
-          <el-button type="primary" icon="el-icon-arrow-left" plain :disabled="!pageData.hasPrePage" @click="prevPage">上一页</el-button>
-          <el-button type="primary" plain :disabled="!pageData.hasNextPage" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
-        </el-button-group>
+      <el-button-group class="page-next">
+        <el-button type="primary" icon="el-icon-arrow-left" plain :disabled="!pageData.hasPrePage" @click="prevPage">上一页</el-button>
+        <el-button type="primary" plain :disabled="!pageData.hasNextPage" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
+      </el-button-group>
     </div>
   </div>
 </template>
