@@ -2,22 +2,20 @@
   <div class="order-info-container">
     <el-divider content-position="left">客户信息</el-divider>
     <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
-      <el-descriptions-item>
-        <template slot="label"><i class="el-icon-user" />姓名</template>
-        {{ customerInfo.realName }}
-      </el-descriptions-item>
+      <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
       <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
       <el-descriptions-item label="单位">{{ customerInfo.company }}</el-descriptions-item>
+      <el-descriptions-item label="科室">{{ customerInfo.medicalDeptPropDesc }}</el-descriptions-item>
       <el-descriptions-item label="来源">
         <el-tag size="small">{{ customerInfo.sourceTypeDesc }}</el-tag>
       </el-descriptions-item>
-      <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
       <el-descriptions-item label="手机">{{ customerInfo.phone }}</el-descriptions-item>
       <el-descriptions-item label="微信">{{ customerInfo.wechat }}</el-descriptions-item>
       <el-descriptions-item label="QQ号">{{ customerInfo.qq }}</el-descriptions-item>
       <el-descriptions-item label="QQ群">{{ customerInfo.qqGroup }}</el-descriptions-item>
       <el-descriptions-item label="邮箱">{{ customerInfo.email }}</el-descriptions-item>
-      <el-descriptions-item label="科室">{{ customerInfo.medicalDeptPropDesc }}</el-descriptions-item>
+      <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
+      <el-descriptions-item label="创建时间">{{ customerInfo.createTime }}</el-descriptions-item>
       <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
     <el-divider content-position="left">订单信息: <a

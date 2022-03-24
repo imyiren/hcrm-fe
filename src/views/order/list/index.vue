@@ -2,10 +2,10 @@
   <div class="customer-list-container">
     <el-form :inline="true" :model="queryData" class="customer-form">
       <el-form-item>
-        <el-input v-model="queryData.code" placeholder="订单编号" />
+        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" />
+        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" />
       </el-form-item>
       <el-form-item>
         <el-select
@@ -33,16 +33,15 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.createPerson" placeholder="创建人" />
-      </el-form-item>
-
-      <el-form-item>
-        <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" />
-        <el-date-picker v-model="inContractEndDate" type="date" placeholder="合同截止时间" />
+        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" />
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" />
-        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" />
+        <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 150px" />
+        <el-date-picker v-model="inContractEndDate" type="date" placeholder="合同截止时间" style="width: 150px" />
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
+        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 150px" />
       </el-form-item>
       <el-form-item>
         <el-button type="text" @click="doClearQueryData">清空</el-button>
