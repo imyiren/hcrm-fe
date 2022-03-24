@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'HCRM',
+  title: 'CRM',
 
   /**
    * @type {boolean} true | false

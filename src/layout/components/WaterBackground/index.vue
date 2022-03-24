@@ -8,7 +8,7 @@ export default {
     // 显示的水印文本
     inputText: {
       type: String,
-      default: 'HCRM'
+      default: 'CRM'
     },
     // 是否允许通过js或者开发者工具等途径修改水印DOM节点（水印的id，attribute属性，节点的删除）
     // true为允许，默认不允许
@@ -52,7 +52,7 @@ export default {
   methods: {
     init() {
       if (this.inputText == null || this.inputText === '' || this.inputText === '-' || this.inputText === undefined) {
-        this.inputText = 'HCRM'
+        this.inputText = 'CRM'
       }
       const canvas = document.createElement('canvas')
       canvas.id = 'canvas'
