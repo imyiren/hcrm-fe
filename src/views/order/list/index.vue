@@ -12,7 +12,7 @@
           v-model="queryData.state"
           :filterable="true"
           :clearable="true"
-          placeholder="请选择订单状态"
+          placeholder="订单状态"
         >
           <el-option label="进行中" :value="200" />
           <el-option label="已完成" :value="300" />
@@ -25,7 +25,7 @@
           v-model="queryData.paymentState"
           :filterable="true"
           :clearable="true"
-          placeholder="请选择付款状态"
+          placeholder="付款状态"
         >
           <el-option label="已付定金" :value="100" />
           <el-option label="已付全款" :value="200" />
