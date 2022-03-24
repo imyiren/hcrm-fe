@@ -131,9 +131,13 @@ export default {
       }
       if (this.inCreateTimeStart !== null && this.inCreateTimeStart !== undefined) {
         this.customerQuery.createTimeStart = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeStart)
+      } else {
+        this.customerQuery.createTimeStart = undefined
       }
       if (this.inCreateTimeEnd !== null && this.inCreateTimeEnd !== undefined) {
         this.customerQuery.createTimeEnd = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeEnd)
+      } else {
+        this.customerQuery.createTimeEnd = undefined
       }
       this.tableLoading = true
       listCustomer(this.customerQuery).then(res => {

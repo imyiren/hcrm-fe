@@ -1,7 +1,8 @@
 <template>
   <div class="app-container order-edit">
     <el-divider content-position="left">客户信息 <el-button type="text" @click="editCustomer">编辑</el-button></el-divider>
-    <el-descriptions v-loading="loading" :column="2" border direction="horizontal" class="customer-info">
+
+    <el-descriptions v-loading="loading" :column="2" border>
       <el-descriptions-item><template slot="label"><i class="el-icon-user" />姓名</template>{{ customerInfo.realName }}</el-descriptions-item>
       <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
       <el-descriptions-item label="单位">{{ customerInfo.company }}</el-descriptions-item>
@@ -9,7 +10,13 @@
         <el-tag size="small">{{ customerInfo.sourceTypeDesc }}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
-      <el-descriptions-item label="需求">{{ customerInfo.requirement }}</el-descriptions-item>
+      <el-descriptions-item label="手机">{{ customerInfo.phone }}</el-descriptions-item>
+      <el-descriptions-item label="微信">{{ customerInfo.wechat }}</el-descriptions-item>
+      <el-descriptions-item label="QQ号">{{ customerInfo.qq }}</el-descriptions-item>
+      <el-descriptions-item label="QQ群">{{ customerInfo.qqGroup }}</el-descriptions-item>
+      <el-descriptions-item label="邮箱">{{ customerInfo.email }}</el-descriptions-item>
+      <el-descriptions-item label="科室">{{ customerInfo.medicalDeptPropDesc }}</el-descriptions-item>
+      <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
     <el-divider content-position="left">订单信息</el-divider>
     <el-form ref="form" :model="form" label-width="85px" label-position="left" :rules="rules">
@@ -18,14 +25,12 @@
           v-model="contractStartDateInner"
           type="date"
           placeholder="开始日期"
-          :picker-options="pickerOptions"
           :validate-event="false"
         />
         <el-date-picker
           v-model="contractEndDateInner"
           type="date"
           placeholder="结束日期"
-          :picker-options="pickerOptions"
           :validate-event="false"
         />
       </el-form-item>
@@ -158,28 +163,6 @@ export default {
         paymentMethodCode: [
           { required: true, message: '请选择付款方式！', trigger: 'blur' }
         ]
-      },
-      pickerOptions: {
-        shortcuts: [{
-          text: '今天',
-          onClick(picker) {
-            picker.$emit('pick', new Date())
-          }
-        }, {
-          text: '昨天',
-          onClick(picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '一周前',
-          onClick(picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
       },
       medicalDepartmentList: [],
       loading: false,

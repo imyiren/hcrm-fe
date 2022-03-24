@@ -8,6 +8,14 @@ export function saveOrder(data) {
   })
 }
 
+export function updateOrder(data) {
+  return request({
+    url: '/hcrm/order',
+    method: 'post',
+    data
+  })
+}
+
 export function getOrder(data) {
   return request({
     url: '/hcrm/order/' + data,
@@ -22,3 +30,4 @@ export function listOrder(data) {
     params: data
   })
 }
+
