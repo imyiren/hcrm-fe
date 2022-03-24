@@ -146,7 +146,7 @@ export default {
         ],
         topic: [
           { required: true, message: '请输入项目课题！', trigger: 'blur' },
-          { min: 4, max: 30, message: '长度在 4 到 30 个字符！', trigger: 'blur' }
+          { min: 4, max: 60, message: '长度在 4 到 60 个字符！', trigger: 'blur' }
         ],
         bizTypeCode: [
           { required: true, message: '请输入项目类型！', trigger: 'blur' }

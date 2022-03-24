@@ -13,6 +13,24 @@
       <el-form-item label="单位" prop="company">
         <el-input v-model="form.company" />
       </el-form-item>
+      <el-form-item label="科室" prop="medicalDeptPropCode">
+        <el-select
+          v-model="form.medicalDeptPropCode"
+          v-loading="deptLoading"
+          :filterable="true"
+          :clearable="true"
+          :default-first-option="true"
+          placeholder="请选择科室"
+          @focus="selectDeptProp"
+        >
+          <el-option
+            v-for="item in medicalDepartmentList"
+            :key="item.code"
+            :label="item.value"
+            :value="item.code"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="来源" prop="sourceType">
         <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源">
           <el-option label="朋友介绍" :value="1" />
@@ -37,24 +55,6 @@
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email" />
-      </el-form-item>
-      <el-form-item label="科室" prop="medicalDeptPropCode">
-        <el-select
-          v-model="form.medicalDeptPropCode"
-          v-loading="deptLoading"
-          :filterable="true"
-          :clearable="true"
-          :default-first-option="true"
-          placeholder="请选择科室"
-          @focus="selectDeptProp"
-        >
-          <el-option
-            v-for="item in medicalDepartmentList"
-            :key="item.code"
-            :label="item.value"
-            :value="item.code"
-          />
-        </el-select>
       </el-form-item>
       <el-form-item label="需求" prop="requirement">
         <el-input v-model="form.requirement" type="textarea" rows="5" />

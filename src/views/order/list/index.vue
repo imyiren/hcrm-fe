@@ -42,7 +42,7 @@
       </el-form-item>
       <el-form-item>
         <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" />
-        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建截止时间" />
+        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" />
       </el-form-item>
       <el-form-item>
         <el-button type="text" @click="doClearQueryData">清空</el-button>
