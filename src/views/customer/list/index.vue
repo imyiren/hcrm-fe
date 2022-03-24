@@ -35,7 +35,7 @@
         <el-button type="primary" @click="doQuery">查询</el-button>
       </el-form-item>
     </el-form>
-    <el-button type="primary" size="mini" plain @click="toEdit">添加客户</el-button>
+    <el-button type="primary" size="mini" style="margin-left: 10px" plain @click="toEdit">添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
       <el-table-column prop="realName" label="姓名" min-width="70" align="center" />

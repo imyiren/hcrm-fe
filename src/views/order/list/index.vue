@@ -2,10 +2,10 @@
   <div class="customer-list-container">
     <el-form :inline="true" :model="queryData" class="customer-form">
       <el-form-item>
-        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" />
+        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" style="width: 150px" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" />
+        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" style="width: 150px" />
       </el-form-item>
       <el-form-item>
         <el-select
@@ -13,6 +13,7 @@
           :filterable="true"
           :clearable="true"
           placeholder="订单状态"
+          style="width: 150px"
         >
           <el-option label="进行中" :value="200" />
           <el-option label="已完成" :value="300" />
@@ -26,6 +27,7 @@
           :filterable="true"
           :clearable="true"
           placeholder="付款状态"
+          style="width: 150px"
         >
           <el-option label="已付定金" :value="100" />
           <el-option label="已付全款" :value="200" />
@@ -33,7 +35,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" />
+        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 150px" />
       </el-form-item>
       <el-form-item>
         <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 150px" />
@@ -52,10 +54,10 @@
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
       <el-table-column prop="code" label="订单编号" min-width="130" align="center" />
       <el-table-column prop="customerRealName" label="客户姓名" min-width="70" align="center" />
-      <el-table-column prop="topic" label="项目题目" min-width="150" />
-      <el-table-column prop="bizTypeDesc" label="项目类型" min-width="90" align="center"/>
-      <el-table-column prop="contractPrice" label="合同金额" min-width="90" align="center"/>
-      <el-table-column prop="payedPrice" label="已付金额" min-width="90" align="center"/>
+      <el-table-column prop="topic" label="项目题目" min-width="150" align="center"/>
+      <el-table-column prop="bizTypeDesc" label="项目类型" min-width="90" align="center" />
+      <el-table-column prop="contractPrice" label="合同金额" min-width="90" align="center" />
+      <el-table-column prop="payedPrice" label="已付金额" min-width="90" align="center" />
       <el-table-column prop="paymentStateDesc" label="付款状态" min-width="90" align="center" />
       <el-table-column prop="stateDesc" label="订单状态" min-width="80" align="center">
         <template slot-scope="scope">
@@ -67,7 +69,7 @@
       </el-table-column>
       <el-table-column prop="contractStartDate" label="开始时间" min-width="95" align="center" />
       <el-table-column prop="contractEndDate" label="截止时间" min-width="95" align="center" />
-      <el-table-column prop="createTime" label="创建时间"  min-width="155" align="center" />
+      <el-table-column prop="createTime" label="创建时间" min-width="155" align="center" />
       <el-table-column prop="createUserName" label="创建人" min-width="70" align="center" />
       <el-table-column prop="memo" label="备注" />
     </el-table>
