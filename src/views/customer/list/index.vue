@@ -37,18 +37,18 @@
     </el-form>
     <el-button type="primary" size="mini" plain @click="toEdit">添加客户</el-button>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" @row-dblclick="toDetail">
-      <el-table-column prop="realName" label="姓名" min-width="70" />
-      <el-table-column prop="genderDesc" label="性别" min-width="40" />
-      <el-table-column prop="company" label="单位" />
-      <el-table-column prop="medicalDeptPropDesc" label="科室" />
-      <el-table-column prop="phone" label="手机号" width="110" />
-      <el-table-column prop="wechat" label="微信" />
-      <el-table-column prop="qq" label="QQ号" />
-      <el-table-column prop="qqGroup" label="QQ群" />
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
+      <el-table-column prop="realName" label="姓名" min-width="70" align="center" />
+      <el-table-column prop="genderDesc" label="性别" min-width="40" align="center" />
+      <el-table-column prop="company" label="单位"  min-width="90" align="center" />
+      <el-table-column prop="medicalDeptPropDesc" label="科室" min-width="90" align="center" />
+      <el-table-column prop="phone" label="手机号" width="110" align="center" />
+      <el-table-column prop="wechat" label="微信"  min-width="100" align="center" />
+      <el-table-column prop="qq" label="QQ号" min-width="100" align="center" />
+      <el-table-column prop="qqGroup" label="QQ群"  min-width="90" align="center" />
       <el-table-column prop="requirement" label="需求" />
-      <el-table-column prop="createUserName" width="70" label="创建人" />
-      <el-table-column prop="createTime" label="创建时间" />
+      <el-table-column prop="createUserName" width="70" label="创建人" align="center" />
+      <el-table-column prop="createTime" label="创建时间" min-width="150" align="center" />
     </el-table>
     <div class="page-next-container">
       <el-button-group class="page-next">

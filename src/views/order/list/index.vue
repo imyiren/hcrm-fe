@@ -49,15 +49,15 @@
       </el-form-item>
     </el-form>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" @row-dblclick="toDetail">
-      <el-table-column prop="code" label="订单编号" min-width="130" />
-      <el-table-column prop="customerRealName" label="客户姓名" min-width="70" />
-      <el-table-column prop="topic" label="项目题目" />
-      <el-table-column prop="bizTypeDesc" label="项目类型" />
-      <el-table-column prop="contractPrice" label="合同金额" />
-      <el-table-column prop="payedPrice" label="已付金额" />
-      <el-table-column prop="paymentStateDesc" label="付款状态" />
-      <el-table-column prop="stateDesc" label="订单状态">
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
+      <el-table-column prop="code" label="订单编号" min-width="130" align="center" />
+      <el-table-column prop="customerRealName" label="客户姓名" min-width="70" align="center" />
+      <el-table-column prop="topic" label="项目题目" min-width="150" />
+      <el-table-column prop="bizTypeDesc" label="项目类型" min-width="90" align="center"/>
+      <el-table-column prop="contractPrice" label="合同金额" min-width="90" align="center"/>
+      <el-table-column prop="payedPrice" label="已付金额" min-width="90" align="center"/>
+      <el-table-column prop="paymentStateDesc" label="付款状态" min-width="90" align="center" />
+      <el-table-column prop="stateDesc" label="订单状态" min-width="80" align="center">
         <template slot-scope="scope">
           <el-tag
             size="small"
@@ -65,10 +65,10 @@
           >{{ scope.row.stateDesc }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="contractStartDate" label="开始时间" />
-      <el-table-column prop="contractEndDate" label="截止时间" />
-      <el-table-column prop="createTime" label="创建时间" />
-      <el-table-column prop="createUserName" label="创建人" />
+      <el-table-column prop="contractStartDate" label="开始时间" min-width="95" align="center" />
+      <el-table-column prop="contractEndDate" label="截止时间" min-width="95" align="center" />
+      <el-table-column prop="createTime" label="创建时间"  min-width="155" align="center" />
+      <el-table-column prop="createUserName" label="创建人" min-width="70" align="center" />
       <el-table-column prop="memo" label="备注" />
     </el-table>
     <div class="page-next-container">
