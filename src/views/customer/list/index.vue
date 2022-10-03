@@ -40,12 +40,12 @@
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
       <el-table-column prop="realName" label="姓名" min-width="70" align="center" />
       <el-table-column prop="genderDesc" label="性别" min-width="40" align="center" />
-      <el-table-column prop="company" label="单位"  min-width="90" align="center" />
+      <el-table-column prop="company" label="单位" min-width="90" align="center" />
       <el-table-column prop="medicalDeptPropDesc" label="科室" min-width="90" align="center" />
       <el-table-column prop="phone" label="手机号" width="110" align="center" />
-      <el-table-column prop="wechat" label="微信"  min-width="100" align="center" />
+      <el-table-column prop="wechat" label="微信" min-width="100" align="center" />
       <el-table-column prop="qq" label="QQ号" min-width="100" align="center" />
-      <el-table-column prop="qqGroup" label="QQ群"  min-width="90" align="center" />
+      <el-table-column prop="qqGroup" label="QQ群" min-width="90" align="center" />
       <el-table-column prop="requirement" label="需求" />
       <el-table-column prop="createUserName" width="70" label="创建人" align="center" />
       <el-table-column prop="createTime" label="创建时间" min-width="150" align="center" />

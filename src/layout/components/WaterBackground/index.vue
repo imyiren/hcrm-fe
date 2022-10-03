@@ -23,12 +23,12 @@ export default {
       default: false
     }
   },
-  computed: {
-  },
   data() {
     return {
       maskDiv: {} // 当前显示的水印div节点DOM对象
     }
+  },
+  computed: {
   },
   watch: {
     // 监听传入水印文本变化

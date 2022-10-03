@@ -101,18 +101,18 @@
         <el-table-column prop="realName" label="姓名" min-width="120px" />
         <el-table-column prop="realNameEn" label="姓名(英文)" min-width="120px" />
         <el-table-column prop="educationalBackground" label="学历" />
-        <el-table-column prop="professionalTitle" label="职称" min-width="120px" />
-        <el-table-column prop="company" label="单位" min-width="160px" />
-        <el-table-column prop="companyEn" label="单位(英文)" min-width="200px" />
-        <el-table-column prop="medicalDept" label="科室" min-width="120px"/>
-        <el-table-column prop="medicalDeptEn" label="科室(英文)" min-width="140px" />
+        <el-table-column prop="professionalTitle" label="职称" />
+        <el-table-column prop="company" label="单位" min-width="120px" />
+        <el-table-column prop="companyEn" label="单位(英文)" min-width="100px" />
+        <el-table-column prop="medicalDept" label="科室" />
+        <el-table-column prop="medicalDeptEn" label="科室(英文)" min-width="100px" />
         <el-table-column prop="postCode" label="邮编" />
-        <el-table-column prop="foundationName" label="基金" min-width="140px"/>
-        <el-table-column prop="foundationCode" label="基金编码" min-width="140px" />
-        <el-table-column prop="emailAccount" label="邮箱" min-width="120px"/>
-        <el-table-column prop="emailPassword" label="邮箱密码" min-width="120px" />
-        <el-table-column prop="orcid" label="ORCID号" min-width="120px"/>
-        <el-table-column prop="tel" label="座机号码" min-width="120px"/>
+        <el-table-column prop="foundationName" label="基金" />
+        <el-table-column prop="foundationCode" label="基金编码" />
+        <el-table-column prop="emailAccount" label="邮箱" />
+        <el-table-column prop="emailPassword" label="邮箱密码" />
+        <el-table-column prop="orcid" label="ORCID号" />
+        <el-table-column prop="tel" label="座机号码" />
         <el-table-column prop="createUserName" label="创建人" min-width="120px" />
         <el-table-column prop="createTime" label="创建时间" min-width="200px" />
         <el-table-column

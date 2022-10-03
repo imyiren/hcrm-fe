@@ -9,20 +9,6 @@
       </el-form-item>
       <el-form-item>
         <el-select
-          v-model="queryData.state"
-          :filterable="true"
-          :clearable="true"
-          placeholder="订单状态"
-          style="width: 150px"
-        >
-          <el-option label="进行中" :value="200" />
-          <el-option label="已完成" :value="300" />
-          <el-option label="已逾期" :value="-100" />
-          <el-option label="已退单" :value="-200" />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-select
           v-model="queryData.processState"
           :filterable="true"
           :clearable="true"
@@ -44,22 +30,6 @@
           <el-option label="校样版面" :value="1000" />
           <el-option label="已完成" :value="1100" />
         </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-select
-          v-model="queryData.paymentState"
-          :filterable="true"
-          :clearable="true"
-          placeholder="付款状态"
-          style="width: 150px"
-        >
-          <el-option label="已付定金" :value="100" />
-          <el-option label="已付全款" :value="200" />
-          <el-option label="已退款" :value="-100" />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 150px" />
       </el-form-item>
       <el-form-item>
         <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 150px" />
@@ -84,23 +54,11 @@
           {{ scope.row.bizTypeDesc }} {{ scope.row.ifRound }}
         </template>
       </el-table-column>
-      <el-table-column prop="contractPrice" label="合同金额" min-width="90" align="center" />
-      <el-table-column prop="payedPrice" label="已付金额" min-width="90" align="center" />
-      <el-table-column prop="paymentStateDesc" label="付款状态" min-width="90" align="center" />
-      <el-table-column prop="stateDesc" label="订单状态" min-width="80" align="center">
-        <template slot-scope="scope">
-          <el-tag
-            size="small"
-            :type="scope.row.state === 300 ? 'success' : scope.row.state > 0 ? 'primary' : 'warning'"
-          >{{ scope.row.stateDesc }}</el-tag>
-        </template>
-      </el-table-column>
       <el-table-column prop="processStateDesc" label="处理状态" min-width="80" align="center" />
       <el-table-column prop="contractStartDate" label="开始时间" min-width="95" align="center" />
       <el-table-column prop="contractEndDate" label="截止时间" min-width="95" align="center" />
       <el-table-column prop="createTime" label="创建时间" min-width="155" align="center" />
-      <el-table-column prop="createUserName" label="创建人" min-width="70" align="center" />
-      <!--      <el-table-column prop="memo" label="备注" />-->
+      <el-table-column prop="memo" label="备注" />
     </el-table>
     <div class="page-next-container">
       <el-button-group class="page-next">
@@ -197,11 +155,11 @@ export default {
       return ''
     },
     toDetail(data) {
-      if (!data.code) {
+      if (!data.id) {
         this.$message.warning('数据错误，ID不能为空，请联系开发人员。')
         return
       }
-      this.$router.push('/order/' + data.code)
+      this.$router.push('/process/' + data.id)
     },
     doQuery() {
       for (const key in this.queryData) {

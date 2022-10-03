@@ -39,13 +39,21 @@
         <el-input v-model="form.topic" />
       </el-form-item>
       <el-form-item label="项目类型" prop="bizTypeCode">
-        <el-select v-model="form.bizTypeCode" :filterable="true" :clearable="true" placeholder="请选择项目类型">
+        <el-select v-model="form.bizTypeCode" :change="bizTypeCodeChange(form.bizTypeCode)" :filterable="true" :clearable="true" placeholder="请选择项目类型">
           <el-option label="SCI" :value="1" />
           <el-option label="国内核心" :value="2" />
           <el-option label="国内普刊" :value="4" />
           <el-option label="课题标书" :value="3" />
           <el-option label="专利" :value="5" />
           <el-option label="其他" :value="99" />
+        </el-select>
+        <el-select v-show="displayIfRound" v-model="form.ifRound" :filterable="true" :clearable="true" placeholder="请选择IF分数区间">
+          <el-option label="0-2" :value="'0-2'" />
+          <el-option label="2-3" :value="'2-3'" />
+          <el-option label="3-4" :value="'3-4'" />
+          <el-option label="4-5" :value="'4-5'" />
+          <el-option label="5-6" :value="'5-6'" />
+          <el-option label="6以上" :value="'6以上'" />
         </el-select>
       </el-form-item>
       <el-form-item label="合同金额" prop="contractPrice">
@@ -179,6 +187,7 @@ export default {
       },
       contractStartDateInner: undefined,
       contractEndDateInner: undefined,
+      displayIfRound: false,
       form: {
         customerId: '',
         contractStartDate: '',
@@ -190,6 +199,7 @@ export default {
         payedPrice: '',
         contractPrice: '',
         memo: '',
+        ifRound: '',
         customerFileList: [],
         internalFileList: [],
         resultFileList: []
@@ -302,6 +312,15 @@ export default {
     },
     beforeResultFileRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
+    },
+    bizTypeCodeChange(item) {
+      if (item === 1) {
+        this.displayIfRound = true
+      } else {
+        this.displayIfRound = false
+        this.form.ifRound = null
+      }
+      console.log(item)
     }
   }
 }

@@ -44,7 +44,7 @@
       <el-form-item label="需求" prop="requirement">
         <el-input v-model="form.requirement" type="textarea" rows="5" />
       </el-form-item>
-      <el-form-item  label="文件" prop="customerFileList">
+      <el-form-item label="文件" prop="customerFileList">
         <el-upload
           class="upload-demo"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -54,13 +54,14 @@
           multiple
           :limit="3"
           :on-exceed="handleCustomerFileExceed"
-          :file-list="form.customerFileList">
+          :file-list="form.customerFileList"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">上传方案、作者信息、课题等资料</div>
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
         </el-upload>
       </el-form-item>
-      <el-form-item  label="交付" prop="resultFileList">
+      <el-form-item label="交付" prop="resultFileList">
         <el-upload
           class="upload-demo"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -70,7 +71,8 @@
           multiple
           :limit="3"
           :on-exceed="handleResultFileExceed"
-          :file-list="form.resultFileList">
+          :file-list="form.resultFileList"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">上传方案、文章、标书、原始数据等文件。</div>
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
@@ -141,8 +143,7 @@ export default {
         medicalDepartment: [
           { required: true, message: '请选择科室！', trigger: 'change' }
         ],
-        customerFileList: [
-        ],
+        customerFileList: [],
         resultFileList: []
       }
     }
@@ -166,27 +167,27 @@ export default {
     handleCustomerFilePreview(file) {
     },
     handleCustomerFileExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeCustomerFileRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`)
     },
     handleResultFileRemove(file, fileList) {
     },
     handleResultFilePreview(file) {
     },
     handleResultFileExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeResultFileRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`)
     }
   }
 }
 </script>
 
 <style scoped>
-.line{
+.line {
   text-align: center;
 }
 

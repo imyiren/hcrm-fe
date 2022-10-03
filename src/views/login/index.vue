@@ -54,8 +54,8 @@
         <span class="validation-code-img" @click="changeValidationCodeImg">
           <el-image
             style="width: 150px; height: 47px"
-            :src="validationCodeImgUrl">
-          </el-image>
+            :src="validationCodeImgUrl"
+          />
         </span>
       </el-form-item>
 

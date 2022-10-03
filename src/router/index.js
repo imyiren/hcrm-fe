@@ -101,10 +101,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/order',
     name: 'Order',
-    meta: { title: '订单管理', icon: 'el-icon-s-custom', permission: 'OrderManager' },
+    meta: { title: '订单管理', icon: 'el-icon-finished', permission: 'OrderManager' },
     children: [
       {
-        path: 'edit/:id',
+        path: 'edit/:code',
         name: 'OrderEditByID',
         component: () => import('@/views/order/edit'),
         hidden: true,
@@ -114,13 +114,26 @@ export const asyncRoutes = [
         path: '',
         name: 'OrderList',
         component: () => import('@/views/order/list'),
-        meta: { title: '订单列表', icon: 'table', permission: 'OrderManager_list' }
+        meta: { title: '订单列表', icon: 'el-icon-s-unfold', permission: 'OrderManager_list' }
       },
       {
-        path: ':id',
-        name: 'OrderInfoByID',
+        path: 'process',
+        name: 'OrderProcessList',
+        component: () => import('@/views/order/process'),
+        meta: { title: '订单处理', icon: 'el-icon-document', permission: 'OrderManager_process' }
+      },
+      {
+        path: ':code',
+        name: 'OrderInfoByCode',
         component: () => import('@/views/order/info'),
         meta: { title: '订单详情', icon: '', permission: 'OrderManager_info' },
+        hidden: true
+      },
+      {
+        path: 'process/:code',
+        name: 'OrderProcessInfoByCode',
+        component: () => import('@/views/order/processDetail'),
+        meta: { title: '处理详情', icon: '', permission: 'OrderManager_processInfo' },
         hidden: true
       }
     ]

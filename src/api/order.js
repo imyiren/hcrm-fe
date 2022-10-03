@@ -16,6 +16,14 @@ export function updateOrder(data) {
   })
 }
 
+export function saveAuthor(data) {
+  return request({
+    url: '/hcrm/order/author',
+    method: 'post',
+    data
+  })
+}
+
 export function getOrder(data) {
   return request({
     url: '/hcrm/order/' + data,

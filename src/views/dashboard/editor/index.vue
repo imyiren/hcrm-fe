@@ -38,16 +38,16 @@ export default {
       'title'
     ])
   },
-  methods: {
-    getTimeStr() {
-      return parseTime(new Date(), null)
-    }
-  },
   mounted() {
     const _this = this
     this.timer = setInterval(() => {
       _this.currentTimeStr = _this.getTimeStr() // 修改数据date
     }, 1000)
+  },
+  methods: {
+    getTimeStr() {
+      return parseTime(new Date(), null)
+    }
   }
 }
 </script>
