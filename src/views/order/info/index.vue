@@ -4,7 +4,7 @@
       <el-divider content-position="left">客户信息</el-divider>
       <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
         <el-descriptions-item>
-          <template slot="label"><i class="el-icon-user" />姓名</template>
+          <template slot="label"><i class="el-icon-user"/>姓名</template>
           {{ customerInfo.realName }}
         </el-descriptions-item>
         <el-descriptions-item label="性别">{{ customerInfo.genderDesc }}</el-descriptions-item>
@@ -29,7 +29,7 @@
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"
       >{{ orderInfo.code }}</a>
-        <el-divider direction="vertical" />
+        <el-divider direction="vertical"/>
         <el-button v-show="orderInfo.state !== 300" type="text" @click="editDialogVisible = true">编辑</el-button>
       </el-divider>
       <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
@@ -56,7 +56,7 @@
     </div>
     <div class="file-info">
       <el-divider content-position="left">文件资料
-        <el-divider direction="vertical" />
+        <el-divider direction="vertical"/>
         <el-button type="text" @click="openUploadFileDialog">上传</el-button>
       </el-divider>
       <el-descriptions v-loading="loading" :column="column" border direction="horizontal">
@@ -65,7 +65,7 @@
             <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
               class="el-icon-download"
             /></el-link>
-            <el-divider direction="vertical" />
+            <el-divider direction="vertical"/>
           </span>
         </el-descriptions-item>
         <el-descriptions-item label="内部文件" label-class-name="file-label" :span="2">
@@ -73,7 +73,7 @@
             <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
               class="el-icon-download"
             /></el-link>
-            <el-divider direction="vertical" />
+            <el-divider direction="vertical"/>
           </span>
         </el-descriptions-item>
         <el-descriptions-item label="交付文件" label-class-name="file-label" :span="2">
@@ -81,7 +81,7 @@
             <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
               class="el-icon-download"
             /></el-link>
-            <el-divider direction="vertical" />
+            <el-divider direction="vertical"/>
           </span>
         </el-descriptions-item>
       </el-descriptions>
@@ -89,7 +89,7 @@
     <div class="author-info">
       <el-divider content-position="left">
         作者信息
-        <el-divider direction="vertical" />
+        <el-divider direction="vertical"/>
         <el-button type="text" @click="openAddAuthor()">添加</el-button>
       </el-divider>
       <el-table v-loading="loading" :data="orderAuthorList" style="width: 100%">
@@ -98,23 +98,23 @@
             {{ showOrderNum(scope.row.orderNum) }}
           </template>
         </el-table-column>
-        <el-table-column prop="realName" label="姓名" min-width="120px" />
-        <el-table-column prop="realNameEn" label="姓名(英文)" min-width="120px" />
-        <el-table-column prop="educationalBackground" label="学历" />
-        <el-table-column prop="professionalTitle" label="职称" min-width="120px" />
-        <el-table-column prop="company" label="单位" min-width="160px" />
-        <el-table-column prop="companyEn" label="单位(英文)" min-width="200px" />
+        <el-table-column prop="realName" label="姓名" min-width="120px"/>
+        <el-table-column prop="realNameEn" label="姓名(英文)" min-width="120px"/>
+        <el-table-column prop="educationalBackground" label="学历"/>
+        <el-table-column prop="professionalTitle" label="职称" min-width="120px"/>
+        <el-table-column prop="company" label="单位" min-width="160px"/>
+        <el-table-column prop="companyEn" label="单位(英文)" min-width="200px"/>
         <el-table-column prop="medicalDept" label="科室" min-width="120px"/>
-        <el-table-column prop="medicalDeptEn" label="科室(英文)" min-width="140px" />
-        <el-table-column prop="postCode" label="邮编" />
+        <el-table-column prop="medicalDeptEn" label="科室(英文)" min-width="140px"/>
+        <el-table-column prop="postCode" label="邮编"/>
         <el-table-column prop="foundationName" label="基金" min-width="140px"/>
-        <el-table-column prop="foundationCode" label="基金编码" min-width="140px" />
+        <el-table-column prop="foundationCode" label="基金编码" min-width="140px"/>
         <el-table-column prop="emailAccount" label="邮箱" min-width="120px"/>
-        <el-table-column prop="emailPassword" label="邮箱密码" min-width="120px" />
+        <el-table-column prop="emailPassword" label="邮箱密码" min-width="120px"/>
         <el-table-column prop="orcid" label="ORCID号" min-width="120px"/>
         <el-table-column prop="tel" label="座机号码" min-width="120px"/>
-        <el-table-column prop="createUserName" label="创建人" min-width="120px" />
-        <el-table-column prop="createTime" label="创建时间" min-width="200px" />
+        <el-table-column prop="createUserName" label="创建人" min-width="120px"/>
+        <el-table-column prop="createTime" label="创建时间" min-width="200px"/>
         <el-table-column
           fixed="right"
           label="操作"
@@ -129,7 +129,7 @@
     <div class="magazine-info">
       <el-divider content-position="left">
         投稿杂志
-        <el-divider direction="vertical" />
+        <el-divider direction="vertical"/>
         <el-button type="text" @click="openAddMagazine()">添加</el-button>
       </el-divider>
       <el-table v-loading="loading" :data="orderMagazineList" style="width: 100%">
@@ -138,18 +138,18 @@
             {{ showMagazineNum(scope.row.magazineNum) }}
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="杂志名称" min-width="120px" />
-        <el-table-column prop="url" label="链接地址(点击跳转)" min-width="180px" >
+        <el-table-column prop="name" label="杂志名称" min-width="120px"/>
+        <el-table-column prop="url" label="链接地址(点击跳转)" min-width="180px">
           <template slot-scope="scope">
-            <el-link type="primary" target="_blank" :href="scope.row.url">{{ scope.row.url}}</el-link>
+            <el-link type="primary" target="_blank" :href="scope.row.url">{{ scope.row.url }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="accountUsername" label="后台账号"  min-width="160px" />
-        <el-table-column prop="accountPassword" label="账号密码" min-width="160px" />
-        <el-table-column prop="state" label="当前状态" min-width="120px" />
-        <el-table-column prop="memo" label="备注" min-width="100px" />
-        <el-table-column prop="createUserName" label="创建人" min-width="120px" />
-        <el-table-column prop="createTime" label="创建时间" min-width="200px" />
+        <el-table-column prop="accountUsername" label="后台账号" min-width="160px"/>
+        <el-table-column prop="accountPassword" label="账号密码" min-width="160px"/>
+        <el-table-column prop="state" label="当前状态" min-width="120px"/>
+        <el-table-column prop="memo" label="备注" min-width="100px"/>
+        <el-table-column prop="createUserName" label="创建人" min-width="120px"/>
+        <el-table-column prop="createTime" label="创建时间" min-width="200px"/>
         <el-table-column
           fixed="right"
           label="操作"
@@ -172,7 +172,7 @@
         width="50%"
         center
       >
-        <OrderEdit :order-edit-info="orderEditInfo" :order-info="orderInfo" />
+        <OrderEdit :order-edit-info="orderEditInfo" :order-info="orderInfo"/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="editDialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="confirmEditOrderInfo">确 定</el-button>
@@ -184,7 +184,9 @@
         width="40%"
         top
       >
-        <AuthorEdit :author-edit-info="authorEditInfo" :order-info="orderInfo" />
+        <el-card> 注意：非管理提交后，无法修改，请谨慎提交！</el-card>
+        <br/>
+        <AuthorEdit :author-edit-info="authorEditInfo" :order-info="orderInfo"/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="editAuthorVisible = false">取 消</el-button>
           <el-button type="primary" @click="confirmEditAuthorInfo">确 定</el-button>
@@ -196,7 +198,9 @@
         width="50%"
         center
       >
-        <MagazineEdit :magazine-edit-info="magazineEditInfo" />
+        <el-card> 注意：非管理提交后，无法修改，请谨慎提交！</el-card>
+        <br/>
+        <MagazineEdit :magazine-edit-info="magazineEditInfo"/>
         <span slot="footer" class="dialog-footer">
           <el-button @click="editMagazineVisible = false">取 消</el-button>
           <el-button type="primary" @click="confirmEditMagazineInfo">确 定</el-button>
@@ -208,12 +212,14 @@
         width="50%"
         center
       >
+        <el-card> 注意：非管理提交后，无法修改，请谨慎提交！</el-card>
+        <br/>
         <el-form ref="form" :model="uploadFileData" label-width="80px" label-position="left">
           <el-form-item label="文件类型" prop="type">
             <el-select v-model="uploadFileData.type" :filterable="true">
-              <el-option label="客户文件" :value="1" />
-              <el-option label="内部文件" :value="2" />
-              <el-option label="交付文件" :value="3" />
+              <el-option label="客户文件" :value="1"/>
+              <el-option label="内部文件" :value="2"/>
+              <el-option label="交付文件" :value="3"/>
             </el-select>
           </el-form-item>
           <el-form-item label="文件信息" prop="fileList">
@@ -242,12 +248,13 @@
 </template>
 
 <script>
-import { getOrder, saveAuthor, updateOrder, saveMagazine} from '@/api/order'
-import { uploadFile } from '@/api/uop'
+import {getOrder, saveAuthor, updateOrder, saveMagazine} from '@/api/order'
+import {uploadFile} from '@/api/uop'
 import AuthorEdit from '@/views/order/info/AuthorEdit'
 import OrderEdit from '@/views/order/info/OrderEdit'
 import MagazineEdit from '@/views/order/info/MagazineEdit'
 import OperationLog from '@/views/order/info/OperationLog'
+import {mapGetters} from 'vuex';
 
 export default {
   components: {
@@ -255,6 +262,11 @@ export default {
     OrderEdit,
     MagazineEdit,
     OperationLog
+  },
+  computed: {
+    ...mapGetters([
+      'roles'
+    ])
   },
   data() {
     return {
@@ -379,7 +391,7 @@ export default {
       this.$message.warning('编辑按钮： ' + this.orderInfo.id + ', 功能暂未开发！')
     },
     uploadFile(data) {
-      const { file } = data
+      const {file} = data
       uploadFile(file).then(res => {
         this.uploadFileData.fileList.push({
           uid: file.uid,
@@ -457,20 +469,18 @@ export default {
       this.authorEditInfo.orderId = this.orderInfo.id
       this.authorEditInfo.orderCode = this.orderInfo.code
       saveAuthor(this.authorEditInfo).then(res => {
+        this.editAuthorVisible = false
         this.$message.success('更新成功')
         this.loadByCode(this.$route.params.code)
-      }).finally(() => {
-        this.editAuthorVisible = false
       })
     },
     confirmEditMagazineInfo() {
       this.magazineEditInfo.orderId = this.orderInfo.id
       this.magazineEditInfo.orderCode = this.orderInfo.code
       saveMagazine(this.magazineEditInfo).then(res => {
+        this.editMagazineVisible = false
         this.$message.success('更新成功')
         this.loadByCode(this.$route.params.code)
-      }).finally(() => {
-        this.editMagazineVisible = false
       })
     },
     openAddAuthor() {
@@ -480,10 +490,18 @@ export default {
       this.editAuthorVisible = true
     },
     editAuthorInfo(item) {
+      if (!this.roles.includes('admin')) {
+        this.$message.warning('仅管理员可使用！')
+        return
+      }
       this.authorEditInfo = item
       this.editAuthorVisible = true
     },
     editMagazineInfo(item) {
+      if (!this.roles.includes('admin')) {
+        this.$message.warning('仅管理员可使用！')
+        return
+      }
       this.magazineEditInfo = item
       this.editMagazineVisible = true
     },
