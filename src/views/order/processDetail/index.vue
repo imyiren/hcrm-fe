@@ -200,9 +200,8 @@
 </template>
 
 <script>
-import { getOrder, saveAuthor, updateOrder, saveMagazine } from '@/api/order'
+import { getOrderProcessDetail, saveAuthor, updateOrder, saveMagazine } from '@/api/order'
 import { uploadFile } from '@/api/uop'
-import AuthorEdit from '@/views/order/processDetail/AuthorEdit'
 import OrderEdit from '@/views/order/processDetail/OrderEdit'
 import MagazineEdit from '@/views/order/processDetail/MagazineEdit'
 import OperationLog from '@/views/order/processDetail/OperationLog'
@@ -210,7 +209,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    AuthorEdit,
     OrderEdit,
     MagazineEdit,
     OperationLog
@@ -326,7 +324,7 @@ export default {
       if (code === null || code === '' || code === undefined) {
         return
       }
-      getOrder(code).then(res => {
+      getOrderProcessDetail(code).then(res => {
         this.orderInfo = res.data
         this.customerInfo = res.data.customerInfo
         this.orderAuthorList = res.data.authorList

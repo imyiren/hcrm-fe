@@ -39,6 +39,13 @@ export function getOrder(data) {
   })
 }
 
+export function getOrderProcessDetail(data) {
+  return request({
+    url: '/hcrm/order/process/' + data,
+    method: 'get'
+  })
+}
+
 export function listOrder(data) {
   return request({
     url: '/hcrm/order',
