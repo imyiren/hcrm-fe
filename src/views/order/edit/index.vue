@@ -212,11 +212,15 @@ export default {
   methods: {
     loadById(id) {
       if (id === null || id === '' || id === undefined) {
+        this.$message.error('参数出错，请确认访问地址正确！')
         return
       }
       this.loading = true
       getCustomer(id).then(res => {
-        this.customerInfo = res.data
+        if (res.data === undefined || res.data === null) {
+          this.$message.error('参数出错，请确认访问地址正确！')
+        }
+        this.customerInfo = res.data;
         this.form.customerId = this.customerInfo.id
       }).finally(() => {
         this.loading = false
