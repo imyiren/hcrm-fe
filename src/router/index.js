@@ -104,7 +104,7 @@ export const asyncRoutes = [
     meta: { title: '订单管理', icon: 'el-icon-finished', permission: 'OrderManager' },
     children: [
       {
-        path: 'edit/:code',
+        path: 'edit/:id',
         name: 'OrderEditByID',
         component: () => import('@/views/order/edit'),
         hidden: true,
