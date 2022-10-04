@@ -6,7 +6,7 @@
     <el-form-item label="项目题目" prop="topic">
       <el-input v-model="orderEditInfo.topic" :placeholder="orderInfo.topic" />
     </el-form-item>
-    <el-form-item>
+    <el-form-item label="处理状态" prop="processState">
       <el-select
         v-model="orderEditInfo.processState"
         :filterable="true"

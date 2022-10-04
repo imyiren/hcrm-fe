@@ -19,7 +19,7 @@
         <el-option label="已退单" :value="-200" />
       </el-select>
     </el-form-item>
-    <el-form-item>
+    <el-form-item label="处理状态" prop="processState">
       <el-select
         v-model="orderEditInfo.processState"
         :filterable="true"
