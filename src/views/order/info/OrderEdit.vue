@@ -24,7 +24,7 @@
         v-model="orderEditInfo.processState"
         :filterable="true"
         :clearable="true"
-        placeholder="处理状态"
+        :placeholder="orderInfo.processStateDesc"
         style="width: 150px"
       >
         <el-option label="新建" :value="0" />
