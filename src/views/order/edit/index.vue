@@ -220,7 +220,7 @@ export default {
         if (res.data === undefined || res.data === null) {
           this.$message.error('参数出错，请确认访问地址正确！')
         }
-        this.customerInfo = res.data;
+        this.customerInfo = res.data
         this.form.customerId = this.customerInfo.id
       }).finally(() => {
         this.loading = false

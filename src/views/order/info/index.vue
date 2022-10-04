@@ -510,7 +510,7 @@ export default {
       this.editMagazineVisible = true
     },
     showOrderNum(orderNum) {
-      if (orderNum === 0) {
+      if (orderNum === 99) {
         return '通讯作者'
       }
       return '第' + orderNum + '作者'

@@ -6,7 +6,7 @@
         :filterable="true"
         :clearable="true"
       >
-        <el-option label="通讯作者" :value="0" />
+        <el-option label="通讯作者" :value="99" />
         <el-option label="第1作者" :value="1" />
         <el-option label="第2作者" :value="2" />
         <el-option label="第3作者" :value="3" />
