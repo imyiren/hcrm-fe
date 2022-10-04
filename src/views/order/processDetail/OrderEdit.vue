@@ -6,53 +6,6 @@
     <el-form-item label="项目题目" prop="topic">
       <el-input v-model="orderEditInfo.topic" :placeholder="orderInfo.topic" />
     </el-form-item>
-    <el-form-item label="订单状态" prop="stateCode">
-      <el-select
-        v-model="orderEditInfo.state"
-        :filterable="true"
-        :clearable="true"
-        :placeholder="orderInfo.stateDesc"
-      >
-        <el-option label="进行中" :value="200" />
-        <el-option label="已完成" :value="300" />
-        <el-option label="已逾期" :value="-100" />
-        <el-option label="已退单" :value="-200" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="付款状态" prop="paymentStateCode">
-      <el-select
-        v-model="orderEditInfo.paymentStateCode"
-        :filterable="true"
-        :clearable="true"
-        :placeholder="orderInfo.paymentStateDesc"
-      >
-        <el-option label="已付定金" :value="100" />
-        <el-option label="已付全款" :value="200" />
-        <el-option label="已退款" :value="-100" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="已付金额" prop="payedPrice">
-      <el-input
-        v-model="orderEditInfo.payedPrice"
-        type="number"
-        :value="orderInfo.payedPrice"
-        :placeholder="orderInfo.payedPrice"
-      />
-    </el-form-item>
-    <el-form-item label="付款方式" prop="paymentMethodCode">
-      <el-select
-        v-model="orderEditInfo.paymentMethodCode"
-        :filterable="true"
-        :clearable="true"
-        :placeholder="orderInfo.paymentMethodDesc"
-      >
-        <el-option label="银行卡" :value="1" />
-        <el-option label="支付宝" :value="2" />
-        <el-option label="微信支付" :value="4" />
-        <el-option label="对公转账" :value="3" />
-        <el-option label="其他" :value="99" />
-      </el-select>
-    </el-form-item>
     <el-form-item label="订单备注" prop="memo">
       <el-input
         v-model="orderEditInfo.memo"

@@ -10,12 +10,10 @@
         <el-button v-show="orderInfo.state !== 300" type="text" @click="editDialogVisible = true">编辑</el-button>
       </el-divider>
       <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
-        <el-descriptions v-loading="loading" :column="column" border :direction="tableDirection">
-          <el-descriptions-item>
-            <template slot="label"><i class="el-icon-user" />姓名</template>
-            {{ customerInfo.realName }}
-          </el-descriptions-item>
-        </el-descriptions>
+        <el-descriptions-item>
+          <template slot="label"><i class="el-icon-user" />姓名</template>
+          {{ orderInfo.customerRealName }}
+        </el-descriptions-item>
         <el-descriptions-item label="合同开始日期：">{{ orderInfo.contractStartDate }}</el-descriptions-item>
         <el-descriptions-item label="合同截止日期：">{{ orderInfo.contractEndDate }}</el-descriptions-item>
         <el-descriptions-item label="处理状态">{{ orderInfo.processStateDesc }}</el-descriptions-item>
@@ -61,8 +59,6 @@
     <div class="author-info">
       <el-divider content-position="left">
         作者信息
-        <el-divider direction="vertical" />
-        <el-button type="text" @click="openAddAuthor()">添加</el-button>
       </el-divider>
       <el-table v-loading="loading" :data="orderAuthorList" style="width: 100%">
         <el-table-column prop="orderNum" label="位次" min-width="120px">
@@ -101,8 +97,6 @@
     <div class="magazine-info">
       <el-divider content-position="left">
         投稿杂志
-        <el-divider direction="vertical" />
-        <el-button type="text" @click="openAddMagazine()">添加</el-button>
       </el-divider>
       <el-table v-loading="loading" :data="orderMagazineList" style="width: 100%">
         <el-table-column prop="magazineNum" label="排序" min-width="120px">
@@ -208,10 +202,10 @@
 <script>
 import { getOrder, saveAuthor, updateOrder, saveMagazine } from '@/api/order'
 import { uploadFile } from '@/api/uop'
-import AuthorEdit from '@/views/order/info/AuthorEdit'
-import OrderEdit from '@/views/order/info/OrderEdit'
-import MagazineEdit from '@/views/order/info/MagazineEdit'
-import OperationLog from '@/views/order/info/OperationLog'
+import AuthorEdit from '@/views/order/processDetail/AuthorEdit'
+import OrderEdit from '@/views/order/processDetail/OrderEdit'
+import MagazineEdit from '@/views/order/processDetail/MagazineEdit'
+import OperationLog from '@/views/order/processDetail/OperationLog'
 import { mapGetters } from 'vuex'
 
 export default {
