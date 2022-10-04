@@ -6,6 +6,30 @@
     <el-form-item label="项目题目" prop="topic">
       <el-input v-model="orderEditInfo.topic" :placeholder="orderInfo.topic" />
     </el-form-item>
+    <el-form-item>
+      <el-select
+        v-model="orderEditInfo.processState"
+        :filterable="true"
+        :clearable="true"
+        placeholder="处理状态"
+        style="width: 150px"
+      >
+        <el-option label="新建" :value="0" />
+        <el-option label="项目立项" :value="100" />
+        <el-option label="实验数据" :value="200" />
+        <el-option label="技术处理" :value="300" />
+        <el-option label="编辑写作" :value="400" />
+        <el-option label="投稿环节" :value="500" />
+        <el-option label="回修环节" :value="600" />
+        <el-option label="1修完成" :value="700" />
+        <el-option label="2修完成" :value="710" />
+        <el-option label="3修完成" :value="720" />
+        <el-option label="修回" :value="800" />
+        <el-option label="录用" :value="900" />
+        <el-option label="校样版面" :value="1000" />
+        <el-option label="已完成" :value="1100" />
+      </el-select>
+    </el-form-item>
     <el-form-item label="订单备注" prop="memo">
       <el-input
         v-model="orderEditInfo.memo"
@@ -25,6 +49,7 @@ export default {
     orderEditInfo: {
       id: undefined,
       state: undefined,
+      processState: undefined,
       topic: undefined,
       paymentStateCode: undefined,
       payedPrice: undefined,
