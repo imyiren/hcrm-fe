@@ -169,7 +169,6 @@
         <el-form ref="form" :model="uploadFileData" label-width="80px" label-position="left">
           <el-form-item label="文件类型" prop="type">
             <el-select v-model="uploadFileData.type" :filterable="true">
-              <el-option label="客户文件" :value="1" />
               <el-option label="内部文件" :value="2" />
               <el-option label="交付文件" :value="3" />
             </el-select>
