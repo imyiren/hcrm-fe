@@ -139,13 +139,13 @@
           </template>
         </el-table-column>
         <el-table-column prop="name" label="杂志名称" min-width="120px" />
-        <el-table-column prop="url" label="链接地址" min-width="120px" >
+        <el-table-column prop="url" label="链接地址(点击跳转)" min-width="180px" >
           <template slot-scope="scope">
-            <el-link>{{scope.row.url}}</el-link>
+            <el-link type="primary" target="_blank" :href="scope.row.url">{{ scope.row.url}}</el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="accountUsername" label="后台账号" />
-        <el-table-column prop="accountPassword" label="账号密码" />
+        <el-table-column prop="accountUsername" label="后台账号"  min-width="160px" />
+        <el-table-column prop="accountPassword" label="账号密码" min-width="160px" />
         <el-table-column prop="state" label="当前状态" min-width="120px" />
         <el-table-column prop="memo" label="备注" min-width="100px" />
         <el-table-column prop="createUserName" label="创建人" min-width="120px" />
@@ -163,11 +163,7 @@
     </div>
     <div class="operation-log">
       <el-divider content-position="left">操作记录</el-divider>
-      <el-table v-loading="loading" :data="operationLog.data" style="width: 100%">
-        <el-table-column prop="createTime" label="操作时间" width="200px" />
-        <el-table-column prop="createUserName" label="操作人" width="120px" />
-        <el-table-column prop="content" label="操作内容" />
-      </el-table>
+      <OperationLog :mainId="orderInfo.id" ref="operationLogTable"></OperationLog>
     </div>
     <div class="dialog-container">
       <el-dialog
@@ -196,13 +192,13 @@
       </el-dialog>
       <el-dialog
         title="杂志信息编辑"
-        :visible.sync="magazineEditVisible"
+        :visible.sync="editMagazineVisible"
         width="50%"
         center
       >
         <MagazineEdit :magazine-edit-info="magazineEditInfo" />
         <span slot="footer" class="dialog-footer">
-          <el-button @click="magazineEditVisible = false">取 消</el-button>
+          <el-button @click="editMagazineVisible = false">取 消</el-button>
           <el-button type="primary" @click="confirmEditMagazineInfo">确 定</el-button>
         </span>
       </el-dialog>
@@ -246,25 +242,28 @@
 </template>
 
 <script>
-import { getOrder, saveAuthor, updateOrder } from '@/api/order'
+import { getOrder, saveAuthor, updateOrder, saveMagazine} from '@/api/order'
 import { uploadFile } from '@/api/uop'
 import AuthorEdit from '@/views/order/info/AuthorEdit'
 import OrderEdit from '@/views/order/info/OrderEdit'
 import MagazineEdit from '@/views/order/info/MagazineEdit'
+import OperationLog from '@/views/order/info/OperationLog'
 
 export default {
   components: {
     AuthorEdit,
     OrderEdit,
-    MagazineEdit
+    MagazineEdit,
+    OperationLog
   },
   data() {
     return {
       editDialogVisible: false,
       editAuthorVisible: false,
       uploadFileVisible: false,
-      magazineEditVisible: false,
+      editMagazineVisible: false,
       loading: true,
+      operationLoading: true,
       tableDirection: 'horizontal',
       visitTableLoading: false,
       column: 4,
@@ -340,9 +339,7 @@ export default {
       orderEditInfo: {},
       authorEditInfo: {},
       magazineEditInfo: {},
-      operationLog: {
-        data: []
-      },
+      operationLogList: [],
       orderAuthorList: [],
       orderMagazineList: []
     }
@@ -368,12 +365,14 @@ export default {
       getOrder(code).then(res => {
         this.orderInfo = res.data
         this.customerInfo = res.data.customerInfo
-        this.orderAuthorList = res.data.orderAuthorList
+        this.orderAuthorList = res.data.authorList
+        this.orderMagazineList = res.data.magazineList
       }).catch(() => {
         this.customerInfo = null
         this.orderInfo = null
       }).finally(() => {
         this.loading = false
+        this.$refs.operationLogTable.doQuery();
       })
     },
     edit() {
@@ -446,6 +445,7 @@ export default {
         return
       }
       this.orderEditInfo.id = this.orderInfo.id
+      this.orderEditInfo.code = this.orderInfo.code
       updateOrder(this.orderEditInfo).then(res => {
         this.$message.success('更新成功')
         this.loadByCode(this.$route.params.code)
@@ -455,6 +455,7 @@ export default {
     },
     confirmEditAuthorInfo() {
       this.authorEditInfo.orderId = this.orderInfo.id
+      this.authorEditInfo.orderCode = this.orderInfo.code
       saveAuthor(this.authorEditInfo).then(res => {
         this.$message.success('更新成功')
         this.loadByCode(this.$route.params.code)
@@ -464,12 +465,13 @@ export default {
     },
     confirmEditMagazineInfo() {
       this.magazineEditInfo.orderId = this.orderInfo.id
-      // saveAuthor(this.authorEditInfo).then(res => {
-      //   this.$message.success('更新成功')
-      //   this.loadByCode(this.$route.params.code)
-      // }).finally(() => {
-      //   this.editAuthorVisible = false
-      // })
+      this.magazineEditInfo.orderCode = this.orderInfo.code
+      saveMagazine(this.magazineEditInfo).then(res => {
+        this.$message.success('更新成功')
+        this.loadByCode(this.$route.params.code)
+      }).finally(() => {
+        this.editMagazineVisible = false
+      })
     },
     openAddAuthor() {
       this.authorEditInfo = {
@@ -483,11 +485,11 @@ export default {
     },
     editMagazineInfo(item) {
       this.magazineEditInfo = item
-      this.editAuthorVisible = true
+      this.editMagazineVisible = true
     },
     openAddMagazine() {
       this.magazineEditInfo = {}
-      this.magazineEditVisible = true
+      this.editMagazineVisible = true
     },
     showOrderNum(orderNum) {
       if (orderNum === 0) {

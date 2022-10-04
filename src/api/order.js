@@ -24,6 +24,14 @@ export function saveAuthor(data) {
   })
 }
 
+export function saveMagazine(data) {
+  return request({
+    url: '/hcrm/order/magazine',
+    method: 'post',
+    data
+  })
+}
+
 export function getOrder(data) {
   return request({
     url: '/hcrm/order/' + data,
