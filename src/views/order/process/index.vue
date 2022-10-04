@@ -155,11 +155,11 @@ export default {
       return ''
     },
     toDetail(data) {
-      if (!data.id) {
-        this.$message.warning('数据错误，ID不能为空，请联系开发人员。')
+      if (!data.code) {
+        this.$message.warning('数据错误，CODE不能为空，请联系开发人员。')
         return
       }
-      this.$router.push('/process/' + data.id)
+      this.$router.push('/order/process/' + data.code)
     },
     doQuery() {
       for (const key in this.queryData) {
@@ -167,7 +167,6 @@ export default {
           this.queryData[key] = undefined
         }
       }
-
       if (this.inCreateTimeStart !== null && this.inCreateTimeStart !== undefined) {
         this.queryData.createTimeStart = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeStart)
       } else {

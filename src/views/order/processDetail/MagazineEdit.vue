@@ -1,6 +1,6 @@
 <template>
   <el-form ref="form" :model="magazineEditInfo" label-width="85px" label-position="left">
-    <el-form-item label="姓名" prop="orderNum">
+    <el-form-item label="杂志序号" prop="orderNum">
       <el-select
         v-model="magazineEditInfo.magazineNum"
         :filterable="true"
@@ -22,7 +22,7 @@
       <el-input v-model="magazineEditInfo.name" />
     </el-form-item>
     <el-form-item label="链接地址" prop="url">
-      <el-input v-model="magazineEditInfo.url" />
+      <el-input v-model="magazineEditInfo.url" :placeholder="'请输入完整地址，如：https://www.google.com'" />
     </el-form-item>
     <el-form-item label="后台账号" prop="accountUsername">
       <el-input v-model="magazineEditInfo.accountUsername" />
@@ -34,7 +34,7 @@
       <el-input v-model="magazineEditInfo.state" />
     </el-form-item>
     <el-form-item label="备注信息" prop="memo">
-      <el-input v-model="magazineEditInfo.memo" type="textarea" rows="5" />
+      <el-input v-model="magazineEditInfo.memo" type="textarea" rows="5"/>
     </el-form-item>
   </el-form>
 </template>
