@@ -57,7 +57,7 @@ export const asyncRoutes = [
       path: '',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard', permission: 'HomePage' }
+      meta: {title: '首页', icon: 'dashboard', permission: 'HomePage'}
     }]
   },
 
@@ -66,32 +66,32 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/customer',
     name: 'Customer',
-    meta: { title: '客户管理', icon: 'el-icon-s-custom', permission: 'CustomerManager' },
+    meta: {title: '客户管理', icon: 'el-icon-s-custom', roles: ['admin', 'sale'], permission: 'CustomerManager'},
     children: [
       {
         path: 'edit',
         name: 'Create',
         component: () => import('@/views/customer/edit'),
-        meta: { title: '客户录入', icon: 'tree', permission: 'CustomerManager_create' }
+        meta: {title: '客户录入', icon: 'tree', roles: ['admin', 'sale'], permission: 'CustomerManager_create'}
       },
       {
         path: '',
         name: 'CustomerList',
         component: () => import('@/views/customer/list'),
-        meta: { title: '客户列表', icon: 'table', permission: 'CustomerManager_list' }
+        meta: {title: '客户列表', icon: 'table', roles: ['admin', 'sale'], permission: 'CustomerManager_list'}
       },
       {
         path: 'edit/:id',
         name: 'CustomerEditByID',
         component: () => import('@/views/customer/edit'),
-        meta: { title: '客户编辑', icon: '', permission: 'CustomerManager_edit' },
+        meta: {title: '客户编辑', icon: '', roles: ['admin', 'sale'], permission: 'CustomerManager_edit'},
         hidden: true
       },
       {
         path: ':id',
         name: 'CustomerInfoByID',
         component: () => import('@/views/customer/info'),
-        meta: { title: '客户详情', icon: '', permission: 'CustomerManager_edit' },
+        meta: {title: '客户详情', icon: '', roles: ['admin', 'sale'], permission: 'CustomerManager_edit'},
         hidden: true
       }
     ]
@@ -101,39 +101,39 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/order',
     name: 'Order',
-    meta: { title: '订单管理', icon: 'el-icon-finished', permission: 'OrderManager' },
+    meta: {title: '订单管理', icon: 'el-icon-finished', roles: ['admin', 'sale', 'experiment'], permission: 'OrderManager'},
     children: [
       {
         path: 'edit/:id',
         name: 'OrderEditByID',
         component: () => import('@/views/order/edit'),
         hidden: true,
-        meta: { title: '客户订单', icon: 'el-icon-edit-outline', permission: 'OrderManager_edit' }
+        meta: {title: '客户订单', icon: 'el-icon-edit-outline', roles: ['admin', 'sale'], permission: 'OrderManager_edit'}
       },
       {
         path: '',
         name: 'OrderList',
         component: () => import('@/views/order/list'),
-        meta: { title: '订单列表', icon: 'el-icon-s-unfold', permission: 'OrderManager_list' }
+        meta: {title: '订单列表', icon: 'el-icon-s-unfold', roles: ['admin', 'sale'], permission: 'OrderManager_list'}
       },
       {
         path: 'process',
         name: 'OrderProcessList',
         component: () => import('@/views/order/process'),
-        meta: { title: '订单处理', icon: 'el-icon-document', permission: 'OrderManager_process' }
+        meta: {title: '订单处理', icon: 'el-icon-document', roles: ['admin', 'experiment'], permission: 'OrderManager_process'}
       },
       {
         path: ':code',
         name: 'OrderInfoByCode',
         component: () => import('@/views/order/info'),
-        meta: { title: '订单详情', icon: '', permission: 'OrderManager_info' },
+        meta: {title: '订单详情', icon: '', roles: ['admin', 'sale'], permission: 'OrderManager_info'},
         hidden: true
       },
       {
         path: 'process/:code',
         name: 'OrderProcessInfoByCode',
         component: () => import('@/views/order/processDetail'),
-        meta: { title: '处理详情', icon: '', permission: 'OrderManager_processInfo' },
+        meta: {title: '处理详情', icon: '', roles: ['admin', 'experiment'], permission: 'OrderManager_processInfo'},
         hidden: true
       }
     ]
@@ -143,7 +143,6 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/user/info',
     name: 'User',
-    hidden: true,
     meta: {
       title: '用户管理',
       icon: 'el-icon-user',
@@ -151,17 +150,17 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'UserInfo',
+        path: 'my',
         component: () => import('@/views/user/info'),
         name: 'MyUserInfo',
-        meta: { title: '我的信息', icon: 'user', permission: 'UserManager_my' }
+        meta: {title: '我的信息', icon: 'user', permission: 'UserManager_my'}
       },
       {
         path: ':id',
         component: () => import('@/views/user/info'),
         name: 'UserInfoById',
         hidden: true,
-        meta: { title: '用户信息', icon: 'user', permission: 'UserManager_user' }
+        meta: {title: '用户信息', icon: 'user', permission: 'UserManager_user'}
       },
       {
         path: '',
@@ -178,7 +177,7 @@ export const asyncRoutes = [
         path: 'edit',
         component: () => import('@/views/user/edit'),
         name: 'UserEdit',
-        meta: { title: '用户编辑' },
+        meta: {title: '用户编辑'},
         hidden: true
       }
     ]
@@ -199,7 +198,7 @@ export const asyncRoutes = [
         path: 'info',
         component: () => import('@/views/user/info'),
         name: 'UopInfo',
-        meta: { title: 'UOP信息', icon: 'user', permission: 'Uop_info' }
+        meta: {title: 'UOP信息', icon: 'user', permission: 'Uop_info'}
       }]
   },
   //
@@ -215,12 +214,12 @@ export const asyncRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 const createRouter = () => new Router({
   mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })
 

@@ -6,10 +6,12 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
+    username: '',
     avatar: '',
     roles: [],
     title: '',
-    workNo: ''
+    workNo: '',
+    userInfo: {}
   }
 }
 
@@ -25,6 +27,9 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
+  SET_USERNAME: (state, username) => {
+    state.username = username
+  },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
@@ -36,6 +41,9 @@ const mutations = {
   },
   SET_WORK_NO: (state, workNo) => {
     state.workNo = workNo
+  },
+  SET_USERINFO: (state, userInfo) => {
+    state.userInfo = userInfo
   }
 }
 
@@ -65,7 +73,7 @@ const actions = {
           reject('用户信息为空！请重试！')
         }
 
-        const { roleList, realName, avatarUrl, title, workNo } = data
+        const { roleList, realName, avatarUrl, title, workNo, username } = data
 
         // roles must be a non-empty array
         if (!roleList || roleList.length <= 0) {
@@ -77,6 +85,8 @@ const actions = {
         commit('SET_AVATAR', avatarUrl)
         commit('SET_TITLE', title || '员工')
         commit('SET_WORK_NO', workNo || '000000')
+        commit('SET_USERNAME', username || '用户名')
+        commit('SET_USERINFO', data || {})
         resolve(data)
       }).catch(error => {
         reject(error)
