@@ -42,3 +42,11 @@ export function getValidationPic() {
   })
 }
 
+export function listUser(data) {
+  return request({
+    url: '/uop/user',
+    method: 'get',
+    params: data
+  })
+}
+

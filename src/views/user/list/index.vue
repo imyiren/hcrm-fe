@@ -1,84 +1,104 @@
 <template>
   <div class="customer-list-container">
-    <el-form :inline="true" :model="customerQuery" class="customer-form">
-      <el-form-item><el-input v-model="customerQuery.name" placeholder="姓名" /></el-form-item>
-      <el-form-item><el-input v-model="customerQuery.contractMatch" placeholder="手机号/微信" /></el-form-item>
-      <el-form-item><el-select v-model="customerQuery.department" placeholder="请选择部门">
-        <el-option label="科一" value="1" />
-      </el-select></el-form-item>
-      <el-form-item><el-date-picker v-model="customerQuery.createTimeStart" type="date" placeholder="创建时间开始" /></el-form-item>
-      <el-form-item><el-date-picker v-model="customerQuery.createTimeEnd" type="date" placeholder="创建时间结束" /></el-form-item>
-      <el-form-item><el-button type="primary" @click="doQuery">查询</el-button></el-form-item>
+    <el-form :inline="true" :model="queryData" class="customer-form">
+      <el-form-item>
+        <el-input v-model="queryData.workNo" placeholder="工号" maxlength="32" style="width: 150px" />
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="queryData.realName" placeholder="姓名" maxlength="16" style="width: 150px" />
+      </el-form-item>
+      <el-form-item>
+        <el-select
+          v-model="queryData.state"
+          :filterable="true"
+          :clearable="true"
+          placeholder="订单状态"
+          style="width: 150px"
+        >
+          <el-option label="进行中" :value="200" />
+          <el-option label="已完成" :value="300" />
+          <el-option label="已逾期" :value="-100" />
+          <el-option label="已退单" :value="-200" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 150px" />
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
+        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 150px" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="text" @click="doClearQueryData">清空</el-button>
+        <el-button type="primary" @click="doQuery">查询</el-button>
+      </el-form-item>
     </el-form>
-    <el-button type="primary" size="mini" plain>添加账号</el-button>
-    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.total }}条数据，共计{{ pageData.pages }}页，当前第{{ pageData.pageNum }}页。</span>
-    <el-table :data="pageData.data" style="width: 100%" :row-class-name="tableRowClassName">
-      <el-table-column prop="workNo" label="工号" width="70" />
-      <el-table-column prop="realName" label="姓名" width="70" />
-      <el-table-column prop="genderDesc" label="性别" width="50" />
-      <el-table-column prop="department" label="部门" width="100" />
-      <el-table-column prop="title" label="职务" width="140" />
-      <el-table-column prop="phone" label="手机号" width="110" />
-      <el-table-column prop="wechat" label="微信" width="150" />
-      <el-table-column prop="memo" label="备注" />
-      <el-table-column prop="stateDesc" label="状态" />
-      <el-table-column prop="startDate" label="入职时间" />
-      <el-table-column prop="createTime" label="创建时间" />
-      <el-table-column fixed="right" label="操作" width="100">
+    <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
+    <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
+      <el-table-column prop="workNo" label="工号" min-width="130" align="center" />
+      <el-table-column prop="realName" label="姓名" min-width="70" align="center" />
+      <el-table-column prop="username" label="账号" min-width="150" align="center" />
+      <el-table-column prop="title" label="权限&职位" min-width="90" align="center" />
+      <el-table-column prop="stateDesc" label="账号状态" min-width="80" align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="edit(scope.row)">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-tag
+            size="small"
+            :type="scope.row.state === 100 ? 'success' : 'warning'"
+          >{{ scope.row.stateDesc }}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" min-width="155" align="center" />
+<!--      <el-table-column prop="createUserName" label="创建人" min-width="70" align="center" />-->
     </el-table>
-    <el-row :gutter="20"><el-col :span="12" :offset="10">
+    <div class="page-next-container">
       <el-button-group class="page-next">
-        <el-button type="primary" icon="el-icon-arrow-left" plain>上一页</el-button>
-        <el-button type="primary" plain>下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
+        <el-button type="primary" icon="el-icon-arrow-left" plain :disabled="!pageData.hasPrePage" @click="prevPage">上一页</el-button>
+        <el-button type="primary" plain :disabled="!pageData.hasNextPage" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right" /></el-button>
       </el-button-group>
-    </el-col></el-row>
+    </div>
   </div>
 </template>
 
 <style>
-.customer-list-container {
-  margin: 10px;
-}
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-
 .customer-form{
   margin: 5px 10px;
 }
-
 .page-next {
-  margin: 5px auto;
+  margin: 0 auto;
+}
+.page-next-container {
+  text-align: center;
 }
 </style>
 
 <script>
+
+import { listUser } from '@/api/uop'
+import { dateFtt } from '@/utils'
+
 export default {
   data() {
     return {
-      customerQuery: {
-        name: '',
-        contractMatch: '',
-        department: '',
-        createPerson: '',
-        createTimeStart: '',
-        createTimeEnd: ''
+      tableLoading: true,
+      inCreateTimeStart: undefined,
+      inCreateTimeEnd: undefined,
+      queryData: {
+        pageSize: 10,
+        pageNum: 1,
+        realName: undefined,
+        workNo: undefined,
+        state: undefined,
+        createUserName: undefined,
+        createTimeStart: undefined,
+        createTimeEnd: undefined,
       },
       pageData: {
-        pageSize: 20,
+        pageSize: 10,
         pageNum: 1,
-        total: 30,
-        pages: 3,
-        hasNextPage: true,
+        totalSize: 0,
+        totalPage: 0,
+        hasNextPage: false,
+        hasPrePage: false,
         data: [{
           id: '1',
           workNo: '10001',
@@ -99,6 +119,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.doQuery(this.queryData)
+  },
   methods: {
     tableRowClassName({ row, rowIndex }) {
       if (row.state === '1') {
@@ -108,9 +131,47 @@ export default {
       }
       return ''
     },
-    edit(data) {
+    doQuery() {
+      for (const key in this.queryData) {
+        if (this.queryData[key] === '') {
+          this.queryData[key] = undefined
+        }
+      }
+
+      if (this.inCreateTimeStart !== null && this.inCreateTimeStart !== undefined) {
+        this.queryData.createTimeStart = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeStart)
+      } else {
+        this.queryData.createTimeStart = undefined
+      }
+      if (this.inCreateTimeEnd !== null && this.inCreateTimeEnd !== undefined) {
+        this.queryData.createTimeEnd = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeEnd)
+      } else {
+        this.queryData.createTimeEnd = undefined
+      }
+      this.tableLoading = true
+      listUser(this.queryData).then(res => {
+        this.pageData = res
+      }).finally(() => {
+        this.tableLoading = false
+      })
     },
-    doQuery(queryData) {
+    prevPage() {
+      this.queryData.pageNum--
+      this.doQuery(this.queryData)
+    },
+    nextPage() {
+      this.queryData.pageNum++
+      this.doQuery(this.queryData)
+    },
+    doClearQueryData() {
+      this.queryData = {
+        pageSize: 10,
+        pageNum: 1
+      }
+      this.inCreateTimeStart = undefined
+      this.inCreateTimeEnd = undefined
+      this.inContractEndDate = undefined
+      this.inContractStartDate = undefined
     }
   }
 }
