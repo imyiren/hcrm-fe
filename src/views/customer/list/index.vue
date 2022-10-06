@@ -32,6 +32,7 @@
         <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建截止时间" style="width: 150px" />
       </el-form-item>
       <el-form-item>
+        <el-button type="text" @click="clearQuery">清空</el-button>
         <el-button type="primary" @click="doQuery">查询</el-button>
       </el-form-item>
     </el-form>
@@ -181,6 +182,17 @@ export default {
         }).finally(() => {
           this.deptLoading = false
         })
+      }
+    },
+    clearQuery() {
+      this.queryData = {
+        pageSize: 10,
+        pageNum: 1,
+        realName: null,
+        keyContent: null,
+        medicalDeptPropCode: null,
+        createUserName: null,
+        createUserId: null
       }
     }
   }

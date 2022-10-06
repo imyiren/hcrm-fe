@@ -264,7 +264,17 @@ export default {
     doClearQueryData() {
       this.queryData = {
         pageSize: 10,
-        pageNum: 1
+        pageNum: 1,
+        code: null,
+        customerRealName: null,
+        state: null,
+        paymentState: null,
+        createUserId: null,
+        createTimeStart: null,
+        createTimeEnd: null,
+        contractStartDate: null,
+        contractEndDate: null,
+        processState: null
       }
       this.inCreateTimeStart = undefined
       this.inCreateTimeEnd = undefined
