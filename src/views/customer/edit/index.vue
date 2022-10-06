@@ -32,7 +32,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="来源" prop="sourceType">
-        <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源">
+        <el-select v-model="form.sourceType" :filterable="true" :clearable="true" placeholder="请选择来源" :disabled="disableEdit.flag">
           <el-option label="朋友介绍" :value="1" />
           <el-option label="QQ" :value="2" />
           <el-option label="QQ群" :value="4" />
@@ -48,10 +48,10 @@
         <el-input v-model="form.wechat" />
       </el-form-item>
       <el-form-item label="QQ号" prop="qq">
-        <el-input v-model="form.qq" />
+        <el-input v-model="form.qq" :disabled="disableEdit.flag" />
       </el-form-item>
       <el-form-item label="QQ群" prop="qqGroup">
-        <el-input v-model="form.qqGroup" />
+        <el-input v-model="form.qqGroup" :disabled="disableEdit.flag" />
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email" />
@@ -102,11 +102,20 @@
 import { listPropByKey } from '@/api/prop'
 import { saveCustomer, getCustomer } from '@/api/customer'
 import { uploadFile } from '@/api/uop'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters([
+      'roles'
+    ])
+  },
   data() {
     return {
       medicalDepartmentList: [],
+      disableEdit: {
+        flag: false
+      },
       deptLoading: false,
       form: {
         id: '',
@@ -170,6 +179,10 @@ export default {
     }
   },
   mounted() {
+    const id = this.$route.params.id
+    if (id !== null && id !== '' && id !== undefined && !this.roles.includes('admin')) {
+      this.$set(this.disableEdit, 'flag', true)
+    }
     this.loadById(this.$route.params.id)
   },
   methods: {

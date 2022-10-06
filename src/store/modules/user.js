@@ -6,6 +6,7 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
+    userId: '',
     username: '',
     avatar: '',
     roles: [],
@@ -44,6 +45,9 @@ const mutations = {
   },
   SET_USERINFO: (state, userInfo) => {
     state.userInfo = userInfo
+  },
+  SET_USERID: (state, userId) => {
+    state.userId = userId
   }
 }
 
@@ -87,6 +91,7 @@ const actions = {
         commit('SET_WORK_NO', workNo || '000000')
         commit('SET_USERNAME', username || '用户名')
         commit('SET_USERINFO', data || {})
+        commit('SET_USERID', data.id || 0)
         resolve(data)
       }).catch(error => {
         reject(error)

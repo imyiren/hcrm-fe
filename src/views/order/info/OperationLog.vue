@@ -110,6 +110,10 @@ export default {
         return
       }
       this.tableLoading = true
+      if (!this.roles.includes('admin')) {
+        this.queryData.pageNum = 1
+        this.queryData.pageSize = 2
+      }
       listOperation(this.queryData).then(res => {
         this.pageData = res
       }).finally(() => {
@@ -121,6 +125,9 @@ export default {
       this.doQuery(this.queryData)
     },
     nextPage() {
+      if (!this.roles.includes('admin')) {
+        this.$message.warning('仅管理员可操作！')
+      }
       this.queryData.pageNum++
       this.doQuery(this.queryData)
     },

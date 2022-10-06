@@ -34,7 +34,18 @@
           </el-tag>
         </template>
       </el-table-column>
+      <el-table-column prop="stateDesc" label="账号状态" min-width="80" align="center">
+        <template slot-scope="scope">
+          <el-tag
+            size="small"
+            :type="scope.row.state === 100 ? 'success' : 'warning'"
+          >{{ scope.row.stateDesc }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="创建时间" min-width="155" align="center" />
+      <el-table-column prop="loginIp" label="登录IP" min-width="120" align="center"/>
+      <el-table-column prop="loginTime" label="登录时间" min-width="155" align="center"/>
       <el-table-column
         fixed="right"
         label="操作"
@@ -70,9 +81,8 @@
             multiple
           >
             <el-option label="管理员" :value="'admin'" />
-            <el-option label="销售人员" :value="'sale'" />
-            <el-option label="实验相关人员" :value="'experiment'" />
-            <el-option label="普通用户" :value="'user'" />
+            <el-option label="前端" :value="'sale'" />
+            <el-option label="后端" :value="'experiment'" />
           </el-select>
         </el-form-item>
         <el-form-item label="用户名" prop="username">

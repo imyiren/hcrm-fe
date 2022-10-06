@@ -2,10 +2,10 @@
   <div class="customer-list-container">
     <el-form :inline="true" :model="queryData" class="customer-form">
       <el-form-item>
-        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" style="width: 150px" />
+        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" style="width: 100px" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" style="width: 150px" />
+        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" style="width: 100px" />
       </el-form-item>
       <el-form-item>
         <el-select
@@ -13,7 +13,7 @@
           :filterable="true"
           :clearable="true"
           placeholder="订单状态"
-          style="width: 150px"
+          style="width: 100px"
         >
           <el-option label="进行中" :value="200" />
           <el-option label="已完成" :value="300" />
@@ -27,7 +27,7 @@
           :filterable="true"
           :clearable="true"
           placeholder="处理状态"
-          style="width: 150px"
+          style="width: 120px"
         >
           <el-option label="新建" :value="0" />
           <el-option label="项目立项" :value="100" />
@@ -51,7 +51,7 @@
           :filterable="true"
           :clearable="true"
           placeholder="付款状态"
-          style="width: 150px"
+          style="width: 120px"
         >
           <el-option label="已付定金" :value="100" />
           <el-option label="已付全款" :value="200" />
@@ -59,15 +59,15 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 150px" />
+        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 100px" />
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 150px" />
-        <el-date-picker v-model="inContractEndDate" type="date" placeholder="合同截止时间" style="width: 150px" />
+        <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 130px" />
+        <el-date-picker v-model="inContractEndDate" type="date" placeholder="合同截止时间" style="width: 130px" />
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
-        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 150px" />
+        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 130px" />
+        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 130px" />
       </el-form-item>
       <el-form-item>
         <el-button type="text" @click="doClearQueryData">清空</el-button>
@@ -76,7 +76,7 @@
     </el-form>
     <span style="margin-left: 10px; color: #909399; font-size: 12px;">共{{ pageData.totalSize }}条数据，共计{{ pageData.totalPage }}页，当前第{{ pageData.pageNum }}页。</span>
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%" :highlight-current-row="true" @row-dblclick="toDetail">
-      <el-table-column prop="code" label="订单编号" min-width="130" align="center" />
+      <el-table-column prop="code" label="订单编号" min-width="140" align="center" />
       <el-table-column prop="customerRealName" label="客户姓名" min-width="70" align="center" />
       <el-table-column prop="topic" label="项目题目" min-width="150" align="center" />
       <el-table-column prop="bizTypeDesc" label="项目类型" min-width="90" align="center">
@@ -127,8 +127,15 @@
 
 import { listOrder } from '@/api/order'
 import { dateFtt } from '@/utils'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters([
+      'userId',
+      'roles'
+    ])
+  },
   data() {
     return {
       tableLoading: true,
@@ -139,11 +146,11 @@ export default {
       queryData: {
         pageSize: 10,
         pageNum: 1,
-        code: undefined,
-        customerRealName: undefined,
+        code: '',
+        customerRealName: '',
         state: undefined,
         paymentState: undefined,
-        createUserName: undefined,
+        createUserId: undefined,
         createTimeStart: undefined,
         createTimeEnd: undefined,
         contractStartDate: undefined,
@@ -206,7 +213,7 @@ export default {
     doQuery() {
       for (const key in this.queryData) {
         if (this.queryData[key] === '') {
-          this.queryData[key] = undefined
+          this.queryData[key] = null
         }
       }
 
@@ -231,6 +238,15 @@ export default {
         this.queryData.contractStartDate = undefined
       }
       this.tableLoading = true
+      this.queryData.createUserId = null
+      if ((this.queryData.code === null || this.queryData.code === '') && (this.queryData.customerRealName === null || this.queryData.customerRealName === '')) {
+        console.log('employer query')
+        this.queryData.createUserId = this.userId
+      }
+      if (this.roles.includes('admin')) {
+        console.log('admin query')
+        this.queryData.createUserId = null
+      }
       listOrder(this.queryData).then(res => {
         this.pageData = res
       }).finally(() => {

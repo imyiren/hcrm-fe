@@ -1,6 +1,6 @@
 <template>
   <el-form ref="form" :model="authorEditInfo" label-width="85px" label-position="left">
-    <el-form-item label="姓名" prop="orderNum">
+    <el-form-item label="位次" prop="orderNum">
       <el-select
         v-model="authorEditInfo.orderNum"
         :filterable="true"
@@ -46,7 +46,7 @@
     <el-form-item label="邮编" prop="postCode">
       <el-input v-model="authorEditInfo.postCode" />
     </el-form-item>
-    <el-form-item label="基金" prop="foundationName">
+    <el-form-item label="基金信息" prop="foundationName">
       <el-input v-model="authorEditInfo.foundationName" />
     </el-form-item>
     <el-form-item label="基金编码" prop="foundationCode">

@@ -98,6 +98,9 @@
       <el-divider content-position="left">
         投稿杂志
       </el-divider>
+      投稿杂志
+      <el-divider direction="vertical" />
+      <el-button type="text" @click="openAddMagazine()">添加</el-button>
       <el-table v-loading="loading" :data="orderMagazineList" style="width: 100%">
         <el-table-column prop="magazineNum" label="排序" min-width="120px">
           <template slot-scope="scope">
@@ -352,7 +355,7 @@ export default {
     },
     openUploadFileDialog() {
       this.uploadFileData.fileList = []
-      this.uploadFileData.type = 1
+      this.uploadFileData.type = 2
       this.uploadFileVisible = true
     },
     onCopy(e) {

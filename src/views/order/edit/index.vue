@@ -48,7 +48,7 @@
           <el-option label="其他" :value="99" />
         </el-select>
         <el-select v-show="displayIfRound" v-model="form.ifRound" :filterable="true" :clearable="true" placeholder="请选择IF分数区间">
-          <el-option label="0-2" :value="'0-2'" />
+          <el-option label="1-2" :value="'1-2'" />
           <el-option label="2-3" :value="'2-3'" />
           <el-option label="3-4" :value="'3-4'" />
           <el-option label="4-5" :value="'4-5'" />
@@ -97,38 +97,38 @@
           <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
         </el-upload>
       </el-form-item>
-      <el-form-item label="内部文件" prop="internalFileList">
-        <el-upload
-          action="/api/uop/storage/upload"
-          :http-request="uploadInternalFile"
-          :on-remove="handleInternalFileRemove"
-          :before-remove="beforeInternalFileRemove"
-          multiple
-          :limit="10"
-          :on-exceed="handleInternalFileExceed"
-          :file-list="form.internalFileList"
-        >
-          <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">上传仅在内部流通的资料</div>
-          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
-        </el-upload>
-      </el-form-item>
-      <el-form-item label="交付文件" prop="resultFileList">
-        <el-upload
-          action="/api/uop/storage/upload"
-          :http-request="uploadResultFile"
-          :on-remove="handleResultFileRemove"
-          :before-remove="beforeResultFileRemove"
-          multiple
-          :limit="10"
-          :on-exceed="handleResultFileExceed"
-          :file-list="form.resultFileList"
-        >
-          <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">上传方案、文章、标书、原始数据等文件。</div>
-          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
-        </el-upload>
-      </el-form-item>
+<!--      <el-form-item label="内部文件" prop="internalFileList">-->
+<!--        <el-upload-->
+<!--          action="/api/uop/storage/upload"-->
+<!--          :http-request="uploadInternalFile"-->
+<!--          :on-remove="handleInternalFileRemove"-->
+<!--          :before-remove="beforeInternalFileRemove"-->
+<!--          multiple-->
+<!--          :limit="10"-->
+<!--          :on-exceed="handleInternalFileExceed"-->
+<!--          :file-list="form.internalFileList"-->
+<!--        >-->
+<!--          <el-button size="small" type="primary">点击上传</el-button>-->
+<!--          <div slot="tip" class="el-upload__tip">上传仅在内部流通的资料</div>-->
+<!--          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>-->
+<!--        </el-upload>-->
+<!--      </el-form-item>-->
+<!--      <el-form-item label="交付文件" prop="resultFileList">-->
+<!--        <el-upload-->
+<!--          action="/api/uop/storage/upload"-->
+<!--          :http-request="uploadResultFile"-->
+<!--          :on-remove="handleResultFileRemove"-->
+<!--          :before-remove="beforeResultFileRemove"-->
+<!--          multiple-->
+<!--          :limit="10"-->
+<!--          :on-exceed="handleResultFileExceed"-->
+<!--          :file-list="form.resultFileList"-->
+<!--        >-->
+<!--          <el-button size="small" type="primary">点击上传</el-button>-->
+<!--          <div slot="tip" class="el-upload__tip">上传方案、文章、标书、原始数据等文件。</div>-->
+<!--          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>-->
+<!--        </el-upload>-->
+<!--      </el-form-item>-->
       <el-form-item>
         <el-button type="primary" @click="submitForm('form')">保存</el-button>
       </el-form-item>

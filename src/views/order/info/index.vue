@@ -129,8 +129,8 @@
     <div class="magazine-info">
       <el-divider content-position="left">
         投稿杂志
-        <el-divider direction="vertical" />
-        <el-button type="text" @click="openAddMagazine()">添加</el-button>
+<!--        <el-divider direction="vertical" />-->
+<!--        <el-button type="text" @click="openAddMagazine()">添加</el-button>-->
       </el-divider>
       <el-table v-loading="loading" :data="orderMagazineList" style="width: 100%">
         <el-table-column prop="magazineNum" label="排序" min-width="120px">
@@ -218,8 +218,8 @@
           <el-form-item label="文件类型" prop="type">
             <el-select v-model="uploadFileData.type" :filterable="true">
               <el-option label="客户文件" :value="1" />
-              <el-option label="内部文件" :value="2" />
-              <el-option label="交付文件" :value="3" />
+<!--              <el-option label="内部文件" :value="2" />-->
+<!--              <el-option label="交付文件" :value="3" />-->
             </el-select>
           </el-form-item>
           <el-form-item label="文件信息" prop="fileList">

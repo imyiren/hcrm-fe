@@ -2,10 +2,10 @@
   <div class="customer-list-container">
     <el-form :inline="true" :model="queryData" class="customer-form">
       <el-form-item>
-        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" style="width: 150px" />
+        <el-input v-model="queryData.code" placeholder="订单编号" maxlength="32" style="width: 100px" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" style="width: 150px" />
+        <el-input v-model="queryData.customerRealName" placeholder="客户姓名" maxlength="16" style="width: 100px" />
       </el-form-item>
       <el-form-item>
         <el-select
@@ -13,7 +13,7 @@
           :filterable="true"
           :clearable="true"
           placeholder="处理状态"
-          style="width: 150px"
+          style="width: 120px"
         >
           <el-option label="新建" :value="0" />
           <el-option label="项目立项" :value="100" />
@@ -32,12 +32,12 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 150px" />
-        <el-date-picker v-model="inContractEndDate" type="date" placeholder="合同截止时间" style="width: 150px" />
+        <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 130px" />
+        <el-date-picker v-model="inContractEndDate" type="date" placeholder="合同截止时间" style="width: 130px" />
       </el-form-item>
       <el-form-item>
-        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
-        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 150px" />
+        <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 130px" />
+        <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 130px" />
       </el-form-item>
       <el-form-item>
         <el-button type="text" @click="doClearQueryData">清空</el-button>
@@ -101,7 +101,7 @@ export default {
         customerRealName: undefined,
         state: undefined,
         paymentState: undefined,
-        createUserName: undefined,
+        createUserId: undefined,
         createTimeStart: undefined,
         createTimeEnd: undefined,
         contractStartDate: undefined,

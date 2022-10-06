@@ -1,15 +1,15 @@
 <template>
   <div class="customer-list-container">
-    <el-form :inline="true" :model="customerQuery" class="customer-form">
+    <el-form :inline="true" :model="queryData" class="customer-form">
       <el-form-item>
-        <el-input v-model="customerQuery.realName" placeholder="姓名" />
+        <el-input v-model="queryData.realName" placeholder="姓名" style="width: 120px" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="customerQuery.keyContent" placeholder="手机号/微信/QQ" />
+        <el-input v-model="queryData.keyContent" placeholder="手机号/微信/QQ/群" style="width: 160px" />
       </el-form-item>
       <el-form-item>
         <el-select
-          v-model="customerQuery.medicalDeptPropCode"
+          v-model="queryData.medicalDeptPropCode"
           :filterable="true"
           :clearable="true"
           :default-first-option="true"
@@ -25,7 +25,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="customerQuery.createUserName" placeholder="创建人" />
+        <el-input v-model="queryData.createUserName" placeholder="创建人" style="width: 100px" />
       </el-form-item>
       <el-form-item>
         <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
@@ -85,21 +85,29 @@
 import { listCustomer } from '@/api/customer'
 import { listPropByKey } from '@/api/prop'
 import { dateFtt } from '@/utils'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters([
+      'userId',
+      'roles'
+    ])
+  },
   data() {
     return {
       inCreateTimeStart: undefined,
       inCreateTimeEnd: undefined,
       deptLoading: false,
       tableLoading: true,
-      customerQuery: {
+      queryData: {
         pageSize: 10,
         pageNum: 1,
-        realName: undefined,
-        keyContent: undefined,
+        realName: '',
+        keyContent: '',
         medicalDeptPropCode: undefined,
-        createUserName: undefined
+        createUserName: null,
+        createUserId: null
       },
       pageData: {
         pageSize: 10,
@@ -114,7 +122,7 @@ export default {
     }
   },
   mounted() {
-    this.doQuery(this.customerQuery)
+    this.doQuery(this.queryData)
   },
   methods: {
     toDetail(data) {
@@ -124,35 +132,45 @@ export default {
       this.$router.push('/customer/edit')
     },
     doQuery() {
-      for (const key in this.customerQuery) {
-        if (this.customerQuery[key] === '') {
-          this.customerQuery[key] = undefined
+      for (const key in this.queryData) {
+        if (this.queryData[key] === '') {
+          this.queryData[key] = null
         }
       }
       if (this.inCreateTimeStart !== null && this.inCreateTimeStart !== undefined) {
-        this.customerQuery.createTimeStart = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeStart)
+        this.queryData.createTimeStart = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeStart)
       } else {
-        this.customerQuery.createTimeStart = undefined
+        this.queryData.createTimeStart = undefined
       }
       if (this.inCreateTimeEnd !== null && this.inCreateTimeEnd !== undefined) {
-        this.customerQuery.createTimeEnd = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeEnd)
+        this.queryData.createTimeEnd = dateFtt('yyyy-MM-dd hh:mm:ss', this.inCreateTimeEnd)
       } else {
-        this.customerQuery.createTimeEnd = undefined
+        this.queryData.createTimeEnd = undefined
       }
       this.tableLoading = true
-      listCustomer(this.customerQuery).then(res => {
+      this.queryData.createUserId = null
+      if ((this.queryData.realName === null || this.queryData.realName === '') && (this.queryData.keyContent === null || this.queryData.keyContent === '')) {
+        console.log(this.userId)
+        this.queryData.createUserId = this.userId
+      }
+      console.log('list query')
+      if (this.roles.includes('admin')) {
+        console.log('admin query')
+        this.queryData.createUserId = null
+      }
+      listCustomer(this.queryData).then(res => {
         this.pageData = res
       }).finally(() => {
         this.tableLoading = false
       })
     },
     prevPage() {
-      this.customerQuery.pageNum--
-      this.doQuery(this.customerQuery)
+      this.queryData.pageNum--
+      this.doQuery(this.queryData)
     },
     nextPage() {
-      this.customerQuery.pageNum++
-      this.doQuery(this.customerQuery)
+      this.queryData.pageNum++
+      this.doQuery(this.queryData)
     },
     loadBySelect() {
       if (this.medicalDepartmentList.length < 1) {
