@@ -113,6 +113,8 @@ export default {
       savePassword(savePasswordData).then(res => {
         this.$message.success('密码修改成功')
         this.editUserPasswordVisible = false
+      }).finally(() => {
+        this.editUserPassword = {}
       })
     }
   }

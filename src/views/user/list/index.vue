@@ -8,23 +8,6 @@
         <el-input v-model="queryData.realName" placeholder="姓名" maxlength="16" style="width: 150px" />
       </el-form-item>
       <el-form-item>
-        <el-select
-          v-model="queryData.state"
-          :filterable="true"
-          :clearable="true"
-          placeholder="订单状态"
-          style="width: 150px"
-        >
-          <el-option label="进行中" :value="200" />
-          <el-option label="已完成" :value="300" />
-          <el-option label="已逾期" :value="-100" />
-          <el-option label="已退单" :value="-200" />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 150px" />
-      </el-form-item>
-      <el-form-item>
         <el-date-picker v-model="inCreateTimeStart" type="date" placeholder="创建开始日期" style="width: 150px" />
         <el-date-picker v-model="inCreateTimeEnd" type="date" placeholder="创建结束时间" style="width: 150px" />
       </el-form-item>
