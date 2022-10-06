@@ -75,11 +75,28 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log(error.response.status)
+    if (error.response.status === 404) {
+      Message({
+        message: '请求失败，请求的接口不存在！',
+        type: 'error',
+        duration: 3 * 1000
+      })
+      return Promise.reject(error)
+    }
+    if (error.response.status === 502) {
+      Message({
+        message: '请求服务异常，请联系研发人员！',
+        type: 'error',
+        duration: 3 * 1000
+      })
+      return Promise.reject(error)
+    }
+    console.log('err' + error); // for debug
     Message({
       message: error.message,
       type: 'error',
-      duration: 5 * 1000
+      duration: 3 * 1000
     })
     return Promise.reject(error)
   }

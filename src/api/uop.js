@@ -50,3 +50,19 @@ export function listUser(data) {
   })
 }
 
+export function savePassword(data) {
+  return request({
+    url: '/uop/user/password',
+    method: 'post',
+    data
+  })
+}
+
+export function saveUser(data) {
+  return request({
+    url: '/uop/user',
+    method: 'post',
+    data
+  })
+}
+

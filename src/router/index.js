@@ -172,13 +172,6 @@ export const asyncRoutes = [
           icon: 'table',
           permission: 'UserManager_list'
         }
-      },
-      {
-        path: 'edit',
-        component: () => import('@/views/user/edit'),
-        name: 'UserEdit',
-        meta: {title: '用户编辑'},
-        hidden: true
       }
     ]
   },

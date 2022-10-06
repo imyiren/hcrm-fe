@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-table v-loading="tableLoading" :data="pageData.data" style="width: 100%">
-      <el-table-column prop="createTime" label="操作时间" width="200px"/>
-      <el-table-column prop="createUserName" label="操作人" width="120px"/>
-      <el-table-column prop="operationKeyDesc" label="操作内容"/>
+      <el-table-column prop="createTime" label="操作时间" width="200px" />
+      <el-table-column prop="createUserName" label="操作人" width="120px" />
+      <el-table-column prop="operationKeyDesc" label="操作内容" />
       <el-table-column
         fixed="right"
         label="操作"
@@ -20,7 +20,8 @@
           上一页
         </el-button>
         <el-button type="primary" plain :disabled="!pageData.hasNextPage" @click="nextPage">下一页<i
-          class="el-icon-arrow-right el-icon--right"/></el-button>
+          class="el-icon-arrow-right el-icon--right"
+        /></el-button>
       </el-button-group>
     </div>
     <el-dialog
@@ -29,21 +30,24 @@
       width="50%"
       center
     >
-      <json-viewer :value="jsonData" :expand-depth="5" copyable boxed sort theme="my-awesome-json-theme" style="width: 100%; min-width: 3.125rem"></json-viewer>
+      <json-viewer :value="jsonData" :expand-depth="5" copyable boxed sort theme="my-awesome-json-theme" style="width: 100%; min-width: 3.125rem" />
       <span slot="footer" class="dialog-footer">
-          <el-button @click="jsonDialogVisible = false">关闭</el-button>
-        </span>
+        <el-button @click="jsonDialogVisible = false">关闭</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import {listOperation} from '@/api/operation';
+import { listOperation } from '@/api/operation'
 import JsonViewer from 'vue-json-viewer'
-import {mapGetters} from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'OperationLog',
+  components: {
+    JsonViewer
+  },
   props: {
     mainId: undefined
   },
