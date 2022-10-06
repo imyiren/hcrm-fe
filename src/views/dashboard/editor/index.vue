@@ -9,7 +9,7 @@
         <span class="display_name"> {{ name }}</span>
         <span style="font-size:20px;padding-top:20px;display:inline-block;">你好，当前时间是: {{ currentTimeStr }}</span>
       </div>
-      <h2>又是愉快上班的的一天！加油哦～</h2>
+      <h2>又是愉快上班的一天！加油哦～</h2>
     </div>
   </div>
 </template>
