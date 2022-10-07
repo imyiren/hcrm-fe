@@ -34,15 +34,6 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="stateDesc" label="账号状态" min-width="80" align="center">
-        <template slot-scope="scope">
-          <el-tag
-            size="small"
-            :type="scope.row.state === 100 ? 'success' : 'warning'"
-          >{{ scope.row.stateDesc }}
-          </el-tag>
-        </template>
-      </el-table-column>
       <el-table-column prop="createTime" label="创建时间" min-width="155" align="center" />
       <el-table-column prop="loginIp" label="登录IP" min-width="120" align="center"/>
       <el-table-column prop="loginTime" label="登录时间" min-width="155" align="center"/>

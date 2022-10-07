@@ -70,37 +70,35 @@
         <el-table-column prop="realNameEn" label="姓名(英文)" min-width="120px" />
         <el-table-column prop="educationalBackground" label="学历" />
         <el-table-column prop="professionalTitle" label="职称" min-width="120px" />
-        <el-table-column prop="company" label="单位" min-width="160px" />
-        <el-table-column prop="companyEn" label="单位(英文)" min-width="200px" />
-        <el-table-column prop="medicalDept" label="科室" min-width="120px" />
-        <el-table-column prop="medicalDeptEn" label="科室(英文)" min-width="140px" />
+        <el-table-column prop="company" label="单位科室" min-width="160px" />
+        <el-table-column prop="companyEn" label="单位科室(英文)" min-width="200px" />
+<!--        <el-table-column prop="medicalDept" label="科室" min-width="120px" />-->
+<!--        <el-table-column prop="medicalDeptEn" label="科室(英文)" min-width="140px" />-->
         <el-table-column prop="postCode" label="邮编" />
-        <el-table-column prop="foundationName" label="基金" min-width="140px" />
-        <el-table-column prop="foundationCode" label="基金编码" min-width="140px" />
+        <el-table-column prop="foundationName" label="基金信息" min-width="140px" />
+<!--        <el-table-column prop="foundationCode" label="基金编码" min-width="140px" />-->
         <el-table-column prop="emailAccount" label="邮箱" min-width="120px" />
         <el-table-column prop="emailPassword" label="邮箱密码" min-width="120px" />
         <el-table-column prop="orcid" label="ORCID号" min-width="120px" />
         <el-table-column prop="tel" label="座机号码" min-width="120px" />
         <el-table-column prop="createUserName" label="创建人" min-width="120px" />
         <el-table-column prop="createTime" label="创建时间" min-width="200px" />
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width="100"
-        >
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="editAuthorInfo(scope.row)">编辑</el-button>
-          </template>
-        </el-table-column>
+<!--        <el-table-column-->
+<!--          fixed="right"-->
+<!--          label="操作"-->
+<!--          width="100"-->
+<!--        >-->
+<!--          <template slot-scope="scope">-->
+<!--            <el-button type="text" size="small" @click="editAuthorInfo(scope.row)">编辑</el-button>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
       </el-table>
     </div>
     <div class="magazine-info">
       <el-divider content-position="left">
-        投稿杂志
+        投稿杂志<el-divider direction="vertical" />
+        <el-button type="text" @click="openAddMagazine()">添加</el-button>
       </el-divider>
-      投稿杂志
-      <el-divider direction="vertical" />
-      <el-button type="text" @click="openAddMagazine()">添加</el-button>
       <el-table v-loading="loading" :data="orderMagazineList" style="width: 100%">
         <el-table-column prop="magazineNum" label="排序" min-width="120px">
           <template slot-scope="scope">
@@ -153,7 +151,6 @@
         width="50%"
         center
       >
-        <el-card> 注意：非管理提交后，无法修改，请谨慎提交！</el-card>
         <br>
         <MagazineEdit :magazine-edit-info="magazineEditInfo" />
         <span slot="footer" class="dialog-footer">
@@ -167,7 +164,7 @@
         width="50%"
         center
       >
-        <el-card> 注意：非管理提交后，无法修改，请谨慎提交！</el-card>
+        <el-card> 注意：提交后，无法修改，请谨慎提交！</el-card>
         <br>
         <el-form ref="form" :model="uploadFileData" label-width="80px" label-position="left">
           <el-form-item label="文件类型" prop="type">
@@ -450,10 +447,6 @@ export default {
       this.editAuthorVisible = true
     },
     editMagazineInfo(item) {
-      if (!this.roles.includes('admin')) {
-        this.$message.warning('仅管理员可使用！')
-        return
-      }
       this.magazineEditInfo = item
       this.editMagazineVisible = true
     },

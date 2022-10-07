@@ -25,10 +25,10 @@
     <el-form-item label="姓名(英文)" prop="realNameEn">
       <el-input v-model="authorEditInfo.realNameEn" />
     </el-form-item>
-    <el-form-item label="单位" prop="company">
+    <el-form-item label="单位科室" prop="company">
       <el-input v-model="authorEditInfo.company" />
     </el-form-item>
-    <el-form-item label="单位(英文)" prop="companyEn">
+    <el-form-item label="单位科室(英文)" prop="companyEn">
       <el-input v-model="authorEditInfo.companyEn" />
     </el-form-item>
     <el-form-item label="学历" prop="educationalBackground">
@@ -37,21 +37,21 @@
     <el-form-item label="职称" prop="professionalTitle">
       <el-input v-model="authorEditInfo.professionalTitle" />
     </el-form-item>
-    <el-form-item label="科室" prop="medicalDept">
-      <el-input v-model="authorEditInfo.medicalDept" />
-    </el-form-item>
-    <el-form-item label="科室(英文)" prop="medicalDeptEn">
-      <el-input v-model="authorEditInfo.medicalDeptEn" />
-    </el-form-item>
+<!--    <el-form-item label="科室" prop="medicalDept">-->
+<!--      <el-input v-model="authorEditInfo.medicalDept" />-->
+<!--    </el-form-item>-->
+<!--    <el-form-item label="科室(英文)" prop="medicalDeptEn">-->
+<!--      <el-input v-model="authorEditInfo.medicalDeptEn" />-->
+<!--    </el-form-item>-->
     <el-form-item label="邮编" prop="postCode">
       <el-input v-model="authorEditInfo.postCode" />
     </el-form-item>
-    <el-form-item label="基金" prop="foundationName">
+    <el-form-item label="基金信息" prop="foundationName">
       <el-input v-model="authorEditInfo.foundationName" />
     </el-form-item>
-    <el-form-item label="基金编码" prop="foundationCode">
-      <el-input v-model="authorEditInfo.foundationCode" />
-    </el-form-item>
+<!--    <el-form-item label="基金编码" prop="foundationCode">-->
+<!--      <el-input v-model="authorEditInfo.foundationCode" />-->
+<!--    </el-form-item>-->
     <el-form-item label="邮箱" prop="emailAccount">
       <el-input v-model="authorEditInfo.emailAccount" />
     </el-form-item>
