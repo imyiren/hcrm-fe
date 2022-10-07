@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="authorEditInfo" label-width="100px" label-position="left">
+  <el-form ref="form" :model="authorEditInfo" label-width="120px" label-position="left">
     <el-form-item label="位次" prop="orderNum">
       <el-select
         v-model="authorEditInfo.orderNum"

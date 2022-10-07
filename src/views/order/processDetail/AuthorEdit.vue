@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="authorEditInfo" label-width="100px" label-position="left">
+  <el-form ref="form" :model="authorEditInfo" label-width="120px" label-position="left">
     <el-form-item label="位次" prop="orderNum">
       <el-select
         v-model="authorEditInfo.orderNum"
@@ -58,7 +58,7 @@
     <el-form-item label="基金信息" prop="foundationName">
       <el-input v-model="authorEditInfo.foundationName" />
     </el-form-item>
-    <el-form-item label="基金信息（英文）" prop="foundationNameEn">
+    <el-form-item label="基金信息(英文)" prop="foundationNameEn">
       <el-input v-model="authorEditInfo.foundationNameEn" />
     </el-form-item>
     <!--    <el-form-item label="基金编码" prop="foundationCode">-->
