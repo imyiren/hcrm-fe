@@ -8,7 +8,7 @@
       </div>
       <app-main />
     </div>
-    <water :input-text="workNo + ' - ' + name" />
+<!--    <water :input-text="workNo + ' - ' + name" />-->
   </div>
 
 </template>
