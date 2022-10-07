@@ -58,7 +58,7 @@
     <el-form-item label="基金信息" prop="foundationName">
       <el-input v-model="authorEditInfo.foundationName" />
     </el-form-item>
-    <el-form-item label="基金信息（英文）" prop="foundationNameEn">
+    <el-form-item label="基金信息(英文)" prop="foundationNameEn">
       <el-input v-model="authorEditInfo.foundationNameEn" />
     </el-form-item>
     <!--    <el-form-item label="基金编码" prop="foundationCode">-->
