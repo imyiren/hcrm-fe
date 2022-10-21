@@ -48,6 +48,7 @@
       <el-table-column prop="qq" label="QQ号" min-width="100" align="center" />
       <el-table-column prop="qqGroup" label="QQ群" min-width="90" align="center" />
       <el-table-column prop="requirement" label="需求" />
+      <el-table-column prop="belong" min-width="100" label="归属" align="center" />
       <el-table-column prop="createUserName" width="70" label="创建人" align="center" />
       <el-table-column prop="createTime" label="创建时间" min-width="150" align="center" />
     </el-table>

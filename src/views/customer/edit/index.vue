@@ -56,6 +56,9 @@
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email" />
       </el-form-item>
+      <el-form-item label="归属" prop="qqGroup">
+        <el-input v-model="form.belong" />
+      </el-form-item>
       <el-form-item label="需求" prop="requirement">
         <el-input v-model="form.requirement" type="textarea" rows="5" />
       </el-form-item>
@@ -129,6 +132,7 @@ export default {
         wechat: '',
         qq: '',
         qqGroup: '',
+        belong: '',
         email: '',
         requirement: '',
         medicalDeptPropCode: '',

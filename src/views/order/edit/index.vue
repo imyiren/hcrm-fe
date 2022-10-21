@@ -45,6 +45,8 @@
           <el-option label="国内普刊" :value="4" />
           <el-option label="课题标书" :value="3" />
           <el-option label="专利" :value="5" />
+          <el-option label="硕论/套" :value="6" />
+          <el-option label="博论/套" :value="7" />
           <el-option label="其他" :value="99" />
         </el-select>
         <el-select v-show="displayIfRound" v-model="form.ifRound" :filterable="true" :clearable="true" placeholder="请选择IF分数区间">

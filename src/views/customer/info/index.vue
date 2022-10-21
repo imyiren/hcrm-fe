@@ -18,6 +18,7 @@
       <el-descriptions-item label="QQ群">{{ customerInfo.qqGroup }}</el-descriptions-item>
       <el-descriptions-item label="邮箱">{{ customerInfo.email }}</el-descriptions-item>
       <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
+      <el-descriptions-item label="归属">{{ customerInfo.belong }}</el-descriptions-item>
       <el-descriptions-item label="创建时间">{{ customerInfo.createTime }}</el-descriptions-item>
       <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
     </el-descriptions>
@@ -73,6 +74,7 @@ export default {
         wechat: undefined,
         qq: undefined,
         qqGroup: undefined,
+        belong: undefined,
         email: undefined,
         requirement: undefined,
         medicalDeptPropCode: undefined,
