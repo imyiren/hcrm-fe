@@ -1,6 +1,6 @@
 <template>
   <el-form ref="form" :model="orderEditInfo" label-width="85px" label-position="left" :rules="orderEditInfoRules">
-    <el-form-item label="客户姓名" prop="topic">
+    <el-form-item label="客户姓名" prop="customerRealName">
       <el-input disabled :value="orderInfo.customerRealName" />
     </el-form-item>
     <el-form-item label="项目题目" prop="topic">

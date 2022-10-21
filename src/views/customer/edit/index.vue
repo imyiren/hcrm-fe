@@ -142,14 +142,14 @@ export default {
       rules: {
         realName: [
           { required: true, message: '请输入客户名字！', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符！', trigger: 'blur' }
+          { min: 2, max: 20, message: '长度在 2 到 20 个字符！', trigger: 'blur' }
         ],
         gender: [
           { required: true, message: '请选择性别！', trigger: 'blur' }
         ],
         company: [
           { required: true, message: '请输入单位名称！', trigger: 'blur' },
-          { min: 4, max: 30, message: '长度在 4 到 30 个字符！', trigger: 'blur' }
+          { min: 4, max: 60, message: '长度在 4 到 60 个字符！', trigger: 'blur' }
         ],
         sourceType: [
           { required: true, message: '请选择来源！', trigger: 'blur' }
@@ -171,7 +171,7 @@ export default {
         // ],
         requirement: [
           // { required: true, message: '请输入需求', trigger: 'blur' },
-          { max: 128, message: '最大长度120个字！', trigger: 'blur' }
+          { max: 200, message: '最大长度200个字！', trigger: 'blur' }
         ],
         medicalDeptPropCode: [
           { required: true, message: '请选择科室！', trigger: 'change' }
