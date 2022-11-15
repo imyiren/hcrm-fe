@@ -38,6 +38,7 @@
           <el-option label="QQ群" :value="4" />
           <el-option label="电话" :value="3" />
           <el-option label="微信" :value="5" />
+          <el-option label="客户推荐" :value="6" />
           <el-option label="其他" :value="99" />
         </el-select>
       </el-form-item>

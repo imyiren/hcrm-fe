@@ -34,6 +34,7 @@
           <el-option label="实验数据" :value="200" />
           <el-option label="技术处理" :value="300" />
           <el-option label="编辑写作" :value="400" />
+          <el-option label="写作完成" :value="450" />
           <el-option label="投稿环节" :value="500" />
           <el-option label="回修环节" :value="600" />
           <el-option label="1修完成" :value="700" />

@@ -47,6 +47,7 @@
           <el-option label="专利" :value="5" />
           <el-option label="硕论/套" :value="6" />
           <el-option label="博论/套" :value="7" />
+          <el-option label="实验支持" :value="8" />
           <el-option label="其他" :value="99" />
         </el-select>
         <el-select v-show="displayIfRound" v-model="form.ifRound" :filterable="true" :clearable="true" placeholder="请选择IF分数区间">
@@ -320,7 +321,7 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`)
     },
     bizTypeCodeChange(item) {
-      if (item === 1) {
+      if (item === 1 || item === 6 || item === 7) {
         this.displayIfRound = true
       } else {
         this.displayIfRound = false
