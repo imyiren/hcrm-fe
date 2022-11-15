@@ -186,7 +186,7 @@
               :file-list="uploadFileData.fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">单个文件类型不超过10MB, 最多10个文件。</div>
+              <div slot="tip" class="el-upload__tip">单个文件类型不超过500MB, 最多10个文件。</div>
             </el-upload>
           </el-form-item>
         </el-form>

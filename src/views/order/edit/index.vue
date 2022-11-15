@@ -96,7 +96,7 @@
         >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">上传方案、作者信息、课题等资料</div>
-          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>
+          <div slot="tip" class="el-upload__tip">单个文件类型不超过500MB, 最多10个文件。</div>
         </el-upload>
       </el-form-item>
 <!--      <el-form-item label="内部文件" prop="internalFileList">-->
@@ -112,7 +112,7 @@
 <!--        >-->
 <!--          <el-button size="small" type="primary">点击上传</el-button>-->
 <!--          <div slot="tip" class="el-upload__tip">上传仅在内部流通的资料</div>-->
-<!--          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>-->
+<!--          <div slot="tip" class="el-upload__tip">单个文件类型不超过500MB, 最多10个文件。</div>-->
 <!--        </el-upload>-->
 <!--      </el-form-item>-->
 <!--      <el-form-item label="交付文件" prop="resultFileList">-->
@@ -128,7 +128,7 @@
 <!--        >-->
 <!--          <el-button size="small" type="primary">点击上传</el-button>-->
 <!--          <div slot="tip" class="el-upload__tip">上传方案、文章、标书、原始数据等文件。</div>-->
-<!--          <div slot="tip" class="el-upload__tip">单个文件类型不超过100MB, 最多10个文件。</div>-->
+<!--          <div slot="tip" class="el-upload__tip">单个文件类型不超过500MB, 最多10个文件。</div>-->
 <!--        </el-upload>-->
 <!--      </el-form-item>-->
       <el-form-item>

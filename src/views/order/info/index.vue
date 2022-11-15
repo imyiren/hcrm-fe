@@ -19,6 +19,7 @@
         <el-descriptions-item label="QQ群">{{ customerInfo.qqGroup }}</el-descriptions-item>
         <el-descriptions-item label="邮箱">{{ customerInfo.email }}</el-descriptions-item>
         <el-descriptions-item label="录入人">{{ customerInfo.createUserName }}</el-descriptions-item>
+        <el-descriptions-item label="归属">{{ customerInfo.belong }}</el-descriptions-item>
         <el-descriptions-item label="创建时间">{{ customerInfo.createTime }}</el-descriptions-item>
         <el-descriptions-item label="需求描述" :span="2">{{ customerInfo.requirement }}</el-descriptions-item>
       </el-descriptions>
@@ -65,6 +66,9 @@
             <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
               class="el-icon-download"
             /></el-link>
+            <el-link @click="deleteCustomerFile(item.code)">
+              <i class="el-icon-close"/>
+            </el-link>
             <el-divider direction="vertical" />
           </span>
         </el-descriptions-item>
@@ -73,6 +77,9 @@
             <el-link type="primary" :href="item.url" target="_blank" disabled :underline="false">{{ item.name }}<i
               class="el-icon-download"
             /></el-link>
+            <el-link @click="deleteInternalFile(item.code)">
+              <i class="el-icon-close"/>
+            </el-link>
             <el-divider direction="vertical" />
           </span>
         </el-descriptions-item>
@@ -81,6 +88,9 @@
             <el-link type="primary" :href="item.url" target="_blank" :underline="false">{{ item.name }}<i
               class="el-icon-download"
             /></el-link>
+            <el-link  @click="deleteResultFile(item.code)">
+              <i class="el-icon-close"/>
+            </el-link>
             <el-divider direction="vertical" />
           </span>
         </el-descriptions-item>
@@ -235,7 +245,7 @@
               :file-list="uploadFileData.fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">单个文件类型不超过10MB, 最多10个文件。</div>
+              <div slot="tip" class="el-upload__tip">单个文件类型不超过500MB, 最多10个文件。</div>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -256,6 +266,7 @@ import OrderEdit from '@/views/order/info/OrderEdit'
 import MagazineEdit from '@/views/order/info/MagazineEdit'
 import OperationLog from '@/views/order/info/OperationLog'
 import { mapGetters } from 'vuex'
+import removeArrItemByCode from '@/utils/array';
 
 export default {
   components: {
@@ -266,7 +277,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'roles'
+      'roles',
+      'userId'
     ])
   },
   data() {
@@ -521,6 +533,57 @@ export default {
         return '杂志'
       }
       return '杂志' + magazineNum
+    },
+    deleteCustomerFile(code) {
+      if (!this.roles.includes('admin') && this.userId !== this.orderInfo.createUserId) {
+        this.$message.warning('仅【管理员】或【订单创建人】可删除客户文件！')
+        return
+      }
+      this.orderInfo.customerFileList = removeArrItemByCode(this.orderInfo.customerFileList, code)
+      const data = {
+        id: this.orderInfo.id,
+        code: this.orderInfo.code,
+        customerFileList: this.orderInfo.customerFileList,
+        removeFile: true
+      }
+      updateOrder(data).then(res => {
+        this.loadByCode(this.orderInfo.code)
+      })
+    },
+    deleteInternalFile(code) {
+      if (!this.roles.includes('admin') && this.userId !== this.orderInfo.createUserId) {
+        this.$message.warning('仅【管理员】可删除内部文件！')
+        return
+      }
+      this.orderInfo.internalFileList = removeArrItemByCode(this.orderInfo.internalFileList, code)
+
+      const data = {
+        id: this.orderInfo.id,
+        code: this.orderInfo.code,
+        internalFileList: this.orderInfo.internalFileList,
+        removeFile: true
+      }
+      updateOrder(data).then(res => {
+        this.loadByCode(this.orderInfo.code)
+      })
+    },
+    deleteResultFile(code) {
+      if (!this.roles.includes('admin')) {
+        this.$message.warning('仅【管理员】可删除交付文件！')
+        return
+      }
+      this.orderInfo.resultFileList = removeArrItemByCode(this.orderInfo.resultFileList, code)
+
+      const data = {
+        id: this.orderInfo.id,
+        code: this.orderInfo.code,
+        resultFileList: this.orderInfo.resultFileList,
+        removeFile: true
+      }
+      updateOrder(data).then(res => {
+        this.loadByCode(this.orderInfo.code)
+        this.$message.success('修改成功')
+      })
     }
   }
 }
