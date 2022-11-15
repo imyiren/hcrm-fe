@@ -59,7 +59,7 @@
       <el-table-column prop="contractStartDate" label="开始时间" min-width="95" align="center" />
       <el-table-column prop="contractEndDate" label="截止时间" min-width="95" align="center" />
       <el-table-column prop="createTime" label="创建时间" min-width="155" align="center" />
-      <el-table-column prop="memo" label="备注" />
+      <el-table-column prop="memo" label="备注" min-width="150" />
     </el-table>
     <div class="page-next-container">
       <el-button-group class="page-next">
