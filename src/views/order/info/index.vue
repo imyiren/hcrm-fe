@@ -539,13 +539,17 @@ export default {
         this.$message.warning('仅【管理员】或【订单创建人】可删除客户文件！')
         return
       }
+      if (this.orderInfo.customerFileList === null || this.orderInfo.customerFileList.length === 1) {
+        this.$message.warning('至少保留一个文件！')
+        return
+      }
       this.orderInfo.customerFileList = removeArrItemByCode(this.orderInfo.customerFileList, code)
       const data = {
         id: this.orderInfo.id,
         code: this.orderInfo.code,
         customerFileList: this.orderInfo.customerFileList,
         removeFile: true
-      }
+      };
       updateOrder(data).then(res => {
         this.loadByCode(this.orderInfo.code)
       })
@@ -553,6 +557,10 @@ export default {
     deleteInternalFile(code) {
       if (!this.roles.includes('admin') && this.userId !== this.orderInfo.createUserId) {
         this.$message.warning('仅【管理员】可删除内部文件！')
+        return
+      }
+      if (this.orderInfo.internalFileList === null || this.orderInfo.internalFileList.length === 1) {
+        this.$message.warning('至少保留一个文件！')
         return
       }
       this.orderInfo.internalFileList = removeArrItemByCode(this.orderInfo.internalFileList, code)
@@ -570,6 +578,10 @@ export default {
     deleteResultFile(code) {
       if (!this.roles.includes('admin')) {
         this.$message.warning('仅【管理员】可删除交付文件！')
+        return
+      }
+      if (this.orderInfo.resultFileList === null || this.orderInfo.resultFileList.length === 1) {
+        this.$message.warning('至少保留一个文件！')
         return
       }
       this.orderInfo.resultFileList = removeArrItemByCode(this.orderInfo.resultFileList, code)
