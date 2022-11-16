@@ -60,7 +60,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="queryData.createPerson" placeholder="创建人" maxlength="16" style="width: 100px" />
+        <el-input v-model="queryData.createUserName" placeholder="创建人" maxlength="16" style="width: 100px" />
       </el-form-item>
       <el-form-item>
         <el-date-picker v-model="inContractStartDate" type="date" placeholder="合同开始时间" style="width: 130px" />
